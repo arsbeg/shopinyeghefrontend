@@ -6,6 +6,7 @@ import { API_BASE_URL } from "../config";
 function ProductCard({ product }) {
   const [quantity, setQuantity] = useState(1);
   const token = localStorage.getItem("token");
+  console.log({token});
 
   const addToBasket = async () => {
     if (!token) {
@@ -14,20 +15,21 @@ function ProductCard({ product }) {
     }
     try {
       await api.post(
-        `/orders/add_to_basket/${product.id}/${quantity}`,
+        `/Orders/add_to_basket/${product.id}/${quantity}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert("Adding to card");
     } catch (err) {
-      alert("Error adding to cart");
+      alert("Error adding to cart or session time out");
       console.error(err);
+      window.location.href = "/login";
     }
   };
 
   return (
     <div className="bg-white rounded-xl shadow p-3 flex flex-col items-center">
-      <img
+      <img       
         src={`${API_BASE_URL}${product.image}`}
         alt={product.pr_name}
         className="w-full h-40 object-cover rounded-lg mb-3"
@@ -159,21 +161,7 @@ export default function StorePage() {
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {products.map((p) => (
-            /*<div
-              key={p.id}
-              className="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden"
-            >
-              <img
-                src={`${API_BASE_URL}${p.image}`}
-                alt={p.pr_name}
-                className="w-full h-40 object-cover"
-              />
-              <div className="p-3">
-                <h3 className="font-semibold text-gray-800">{p.pr_name}</h3>
-                <p className="text-gray-600 text-sm">{p.price} ֏</p>
-              </div>
-            </div> */
-            <ProductCard product={p} />
+            <ProductCard key={p.id} product={p} />
           ))}
         </div>
       )}

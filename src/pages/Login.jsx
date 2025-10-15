@@ -1,19 +1,30 @@
 import { useState } from "react";
 import api from "../api/axios"; 
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
+  const {login} = useAuth();  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post("/User/login", { "username": username, "password": password });
-      localStorage.setItem("token", res.data.access_token);
-      navigate("/");
+      const responce = await api.post("/Users/login", { username, password });
+      if (responce.data.access_token) {
+        console.log("Login success:", responce.data);
+        /*localStorage.setItem("token", responce.data.access_token);
+        localStorage.setItem("user", JSON.stringify(responce.data.user));*/
+        login(responce.data.user, responce.data.access_token);
+        navigate("/");
+      } else {
+        console.log("wrong username and passwod");
+        alert("Wrong username and password")
+      }
     } catch (err) {
       setError("Wrong username or password");
     }

@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/ProtectedRoute"
 import StorePage from "./pages/StorePage";
 import Register from "./pages/Register";
+import BasketPage from "./pages/BasketPage";
 
 function App() {
   return (
@@ -20,11 +21,12 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/manager" element={<Manager />} />
-            <Route path="/courier" element={<Courier />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/admin" element={<ProtectedRoute role="admin"><Admin /></ProtectedRoute>} />
+            <Route path="/manager" element={<ProtectedRoute role="manager"><Manager /></ProtectedRoute>} />
+            <Route path="/courier" element={<ProtectedRoute role="courier"><Courier /></ProtectedRoute>} />
+            <Route path="/profile" element={<ProtectedRoute role="user"><Profile /></ProtectedRoute>} />
             <Route path="/store/:id" element={<StorePage />} />
+            <Route path="/basket" element={<BasketPage />} />
           </Routes>
         </main>
       </div>

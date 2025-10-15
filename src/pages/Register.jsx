@@ -3,16 +3,19 @@ import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+  const [first_name, setFirst_name] = useState("");
+  const [last_name, setLast_name] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [birthday, setBirthday] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await api.post("/auth/register", { username, password, email });
+      await api.post("/Users/register", { first_name, last_name, username, password, email, birthday });
       navigate("/login");
     } catch (err) {
       setError("Ошибка при регистрации");
@@ -31,7 +34,28 @@ export default function Register() {
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         <input
           type="text"
-          placeholder="Имя пользователя"
+          placeholder="First Name"
+          value={first_name}
+          onChange={(e) => setFirst_name(e.target.value)}
+          className="w-full border rounded-lg p-2 mb-4"
+        />
+        <input
+          type="text"
+          placeholder="Last Name"
+          value={last_name}
+          onChange={(e) => setLast_name(e.target.value)}
+          className="w-full border rounded-lg p-2 mb-4"
+        />
+        <input
+          type="text"
+          placeholder="yyyy-mm-dd"
+          value={birthday}
+          onChange={(e) => setBirthday(e.target.value)}
+          className="w-full border rounded-lg p-2 mb-4"
+        />
+        <input
+          type="text"
+          placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           className="w-full border rounded-lg p-2 mb-4"
