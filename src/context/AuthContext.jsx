@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import api from "../api/axios";
 
 
 const AuthContext = createContext(null);
@@ -17,11 +18,28 @@ export const AuthProvider = ({ children }) => {
     setUser(userData || null);
   };
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+        const token = localStorage.getItem("token");
+        if (token) {
+            await api.post(
+                "/Users/logout",
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+        }
+    } catch (err) {
+        console.warn("Logout request failed(maybe token already expired)", err);
+    } finally {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     setUser(null);
     window.location.href = "/";
+    }
   };
 
   return (
