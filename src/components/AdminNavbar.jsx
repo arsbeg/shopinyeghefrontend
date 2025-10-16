@@ -12,7 +12,7 @@ export default function AdminNavbar({ activeTab, onTabChange }) {
           <button
             onClick={() => onTabChange("users")}
             className={`px-3 py-1 rounded ${
-              activeTab === "users" ? "bg-blue-600" : "hover:bg-gray-700"
+              activeTab === "users" ? "bg-blue-600" : "hover:bg-gray-600"
             }`}
           >
             Users
@@ -20,7 +20,7 @@ export default function AdminNavbar({ activeTab, onTabChange }) {
           <button
             onClick={() => onTabChange("stores")}
             className={`px-3 py-1 rounded ${
-              activeTab === "stores" ? "bg-blue-600" : "hover:bg-gray-700"
+              activeTab === "stores" ? "bg-blue-600" : "hover:bg-gray-600"
             }`}
           >
             Stores
@@ -28,7 +28,7 @@ export default function AdminNavbar({ activeTab, onTabChange }) {
           <button
             onClick={() => onTabChange("couriers")}
             className={`px-3 py-1 rounded ${
-              activeTab === "couriers" ? "bg-blue-600" : "hover:bg-gray-700"
+              activeTab === "couriers" ? "bg-blue-600" : "hover:bg-gray-600"
             }`}
           >
             Couriers

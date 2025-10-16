@@ -26,6 +26,9 @@ export default function StoresTab() {
   return (
     <div>
       <h2 className="text-xl font-semibold mb-4">Stores</h2>
+      <button className="px-3 py-1 rounded text-white bg-green-800  hover:bg-green-600 mb-4">
+        Add new store
+      </button>
       <input
         type="text"
         placeholder="Search store..."
@@ -40,6 +43,7 @@ export default function StoresTab() {
             <th className="border p-2">Name</th>
             <th className="border p-2">Manager</th>
             <th className="border p-2">Photo</th>
+            <th className="border p-2">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -54,6 +58,14 @@ export default function StoresTab() {
                       alt={s.st_name}
                       className="w-15 h-15 object-cover rounded-lg"
                         />
+              </td>
+              <td className="border p-2">
+                <button className="px-3 py-1 rounded text-white bg-yellow-600  hover:bg-yellow-400">
+                    Edit
+                </button>
+                <button className="px-3 py-1 rounded text-white bg-red-600  hover:bg-red-400 ml-2">
+                    Delete
+                </button>
               </td>
             </tr>
           ))}
