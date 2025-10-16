@@ -1,14 +1,25 @@
 import React, { useEffect, useState } from "react";
 import api from "../../api/axios";
+import { useAuth } from "../../context/AuthContext";
 
 export default function UsersTab() {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
   const [roles, setRoles] = useState({}); // временные роли перед сохранением
+  const { user } = useAuth();
+  const token = localStorage.getItem("token");
+
+  console.log({token})
 
   const fetchUsers = async () => {
+    if (!token) return;
+
     try {
-      const res = await api.get("/Users/all");
+      const res = await api.get("/Users/all", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setUsers(res.data);
     } catch (err) {
       console.error("Error fetching users:", err);
@@ -24,7 +35,11 @@ export default function UsersTab() {
     if (!role) return;
 
     try {
-      await api.post(`/Users/ch_role/${userId}/${role}`);
+      await api.put(`/Users/ch_role/${userId}/${role}`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       alert("Role updated successfully");
       fetchUsers();
     } catch (err) {
@@ -35,11 +50,20 @@ export default function UsersTab() {
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [token]);
 
   const filtered = users.filter((u) =>
     u.username.toLowerCase().includes(search.toLowerCase())
   );
+
+  // 🔒 если не админ — не показываем таблицу
+  if (!user || user.role !== "admin") {
+    return (
+      <div className="text-center text-red-600 mt-10 text-lg">
+        ⛔ Access denied — Admin only
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -57,7 +81,8 @@ export default function UsersTab() {
             <th className="border p-2">ID</th>
             <th className="border p-2">Username</th>
             <th className="border p-2">Email</th>
-            <th className="border p-2">Role</th>
+            <th className="border p-2">Current Role</th>
+            <th className="border p-2">Role Change</th>
             <th className="border p-2">Action</th>
           </tr>
         </thead>
@@ -66,7 +91,8 @@ export default function UsersTab() {
             <tr key={u.id} className="text-center">
               <td className="border p-2">{u.id}</td>
               <td className="border p-2">{u.username}</td>
-              <td className="border p-2">{u.email}</td>
+              <td className="border p-2">{u.email_address}</td>
+              <td className="border p-2">{u.us_role}</td>
               <td className="border p-2">
                 <select
                   className="border p-1 rounded"
@@ -74,8 +100,8 @@ export default function UsersTab() {
                   onChange={(e) => handleRoleChange(u.id, e.target.value)}
                 >
                   <option value="1">Admin</option>
-                  <option value="2">Manager</option>
-                  <option value="3">Courier</option>
+                  <option value="2">Courier</option>
+                  <option value="3">Manager</option>
                   <option value="4">User</option>
                 </select>
               </td>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../../api/axios";
+import { API_BASE_URL } from "../../config";
 
 export default function StoresTab() {
   const [stores, setStores] = useState([]);
@@ -7,7 +8,7 @@ export default function StoresTab() {
 
   const fetchStores = async () => {
     try {
-      const res = await api.get("/store/all");
+      const res = await api.get("/Store/all");
       setStores(res.data);
     } catch (err) {
       console.error("Error fetching stores:", err);
@@ -19,7 +20,7 @@ export default function StoresTab() {
   }, []);
 
   const filtered = stores.filter((s) =>
-    s.name.toLowerCase().includes(search.toLowerCase())
+    s.st_name.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -38,14 +39,22 @@ export default function StoresTab() {
             <th className="border p-2">ID</th>
             <th className="border p-2">Name</th>
             <th className="border p-2">Manager</th>
+            <th className="border p-2">Photo</th>
           </tr>
         </thead>
         <tbody>
           {filtered.map((s) => (
             <tr key={s.id} className="text-center">
               <td className="border p-2">{s.id}</td>
-              <td className="border p-2">{s.name}</td>
-              <td className="border p-2">{s.manager_name || "-"}</td>
+              <td className="border p-2">{s.st_name}</td>
+              <td className="border p-2">{s.username || "-"}</td>
+              <td className="border p-2">
+                <img
+                      src={`${API_BASE_URL}${s.st_image}`}
+                      alt={s.st_name}
+                      className="w-15 h-15 object-cover rounded-lg"
+                        />
+              </td>
             </tr>
           ))}
         </tbody>
