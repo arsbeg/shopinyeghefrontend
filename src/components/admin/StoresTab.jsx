@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
 import api from "../../api/axios";
 import { API_BASE_URL } from "../../config";
+import AddStoreModal from "../../components/admin/AddStoreModal"
 
 export default function StoresTab() {
   const [stores, setStores] = useState([]);
   const [search, setSearch] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleAdded = () => {
+    // обновляем список магазинов
+    fetchStores();
+  };
 
   const fetchStores = async () => {
     try {
@@ -26,7 +33,9 @@ export default function StoresTab() {
   return (
     <div>
       <h2 className="text-xl font-semibold mb-4">Stores</h2>
-      <button className="px-3 py-1 rounded text-white bg-green-800  hover:bg-green-600 mb-4">
+      <button
+        onClick={() => setIsModalOpen(true)} 
+        className="px-3 py-1 rounded text-white bg-green-800  hover:bg-green-600 mb-4">
         Add new store
       </button>
       <input
@@ -71,6 +80,11 @@ export default function StoresTab() {
           ))}
         </tbody>
       </table>
+      <AddStoreModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onAdded={handleAdded}
+      />
     </div>
   );
 }
