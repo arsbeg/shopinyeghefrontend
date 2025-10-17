@@ -14,7 +14,7 @@ export default function BasketPage() {
     const fetchBasket = async () => {
       try {
         const token = localStorage.getItem("token");
-        console.log({token})
+        console.log({ token });
         if (!token) {
           navigate("/login");
           return;
@@ -65,7 +65,8 @@ export default function BasketPage() {
     navigate("/");
   };
 
-  if (loading) return <p className="text-center text-gray-600">Loading cart...</p>;
+  if (loading)
+    return <p className="text-center text-gray-600">Loading cart...</p>;
 
   if (basketItems.length === 0)
     return (

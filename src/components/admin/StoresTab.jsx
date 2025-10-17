@@ -1,18 +1,33 @@
 import React, { useEffect, useState } from "react";
 import api from "../../api/axios";
 import { API_BASE_URL } from "../../config";
-import AddStoreModal from "../../components/admin/AddStoreModal"
+import AddStoreModal from "../../components/admin/AddStoreModal";
+import EditStoreModal from "./EditStoreModal";
 import { useAuth } from "../../context/AuthContext";
 
 export default function StoresTab() {
   const [stores, setStores] = useState([]);
   const [search, setSearch] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedStore, setSelectedStore] = useState(null);
+  const [editStore, setEditStore] = useState(null); // 🔹 новый стейт для редактирования
   const { token } = useAuth();
 
   const handleAdded = () => {
     // обновляем список магазинов
     fetchStores();
+  };
+  const handleUpdated = () => fetchStores();
+
+  const handleEdit = (store) => {
+    setSelectedStore(store);
+    setIsEditModalOpen(true);
+  };
+
+  const handleEditSaved = () => {
+    fetchStores();
+    setEditStore(null);
   };
 
   const fetchStores = async () => {
@@ -52,8 +67,9 @@ export default function StoresTab() {
     <div>
       <h2 className="text-xl font-semibold mb-4">Stores</h2>
       <button
-        onClick={() => setIsModalOpen(true)} 
-        className="px-3 py-1 rounded text-white bg-green-800  hover:bg-green-600 mb-4">
+        onClick={() => setIsModalOpen(true)}
+        className="px-3 py-1 rounded text-white bg-green-800  hover:bg-green-600 mb-4"
+      >
         Add new store
       </button>
       <input
@@ -81,20 +97,22 @@ export default function StoresTab() {
               <td className="border p-2">{s.username || "-"}</td>
               <td className="border p-2">
                 <img
-                      src={`${API_BASE_URL}${s.st_image}`}
-                      alt={s.st_name}
-                      className="w-15 h-15 object-cover rounded-lg"
-                        />
+                  src={`${API_BASE_URL}${s.st_image}`}
+                  alt={s.st_name}
+                  className="w-15 h-15 object-cover rounded-lg"
+                />
               </td>
               <td className="border p-2">
-                <button className="px-3 py-1 rounded text-white bg-yellow-600  hover:bg-yellow-400">
-                    Edit
-                </button>
                 <button 
-                    onClick={() => handleDelete(s.id)}
-                    className="px-3 py-1 rounded text-white bg-red-600  hover:bg-red-400 ml-2"
+                    onClick={() => handleEdit(s)}
+                    className="px-3 py-1 rounded text-white bg-yellow-600  hover:bg-yellow-400">
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(s.id)}
+                  className="px-3 py-1 rounded text-white bg-red-600  hover:bg-red-400 ml-2"
                 >
-                    Delete
+                  Delete
                 </button>
               </td>
             </tr>
@@ -106,6 +124,15 @@ export default function StoresTab() {
         onClose={() => setIsModalOpen(false)}
         onAdded={handleAdded}
       />
+
+      {selectedStore && (
+        <EditStoreModal
+          isOpen={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+          onUpdated={handleUpdated}
+          store={selectedStore}
+        />
+      )}
     </div>
   );
 }

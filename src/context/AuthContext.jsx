@@ -1,7 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import api from "../api/axios";
 
-
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
@@ -20,25 +19,25 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-        const token = localStorage.getItem("token");
-        if (token) {
-            await api.post(
-                "/Users/logout",
-                {},
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-        }
+      const token = localStorage.getItem("token");
+      if (token) {
+        await api.post(
+          "/Users/logout",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      }
     } catch (err) {
-        console.warn("Logout request failed(maybe token already expired)", err);
+      console.warn("Logout request failed(maybe token already expired)", err);
     } finally {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    setUser(null);
-    window.location.href = "/";
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      setUser(null);
+      window.location.href = "/";
     }
   };
 
@@ -52,5 +51,5 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuth = () => {
-    return useContext(AuthContext);
-}
+  return useContext(AuthContext);
+};
