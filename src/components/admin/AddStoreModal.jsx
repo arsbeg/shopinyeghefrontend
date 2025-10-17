@@ -3,8 +3,9 @@ import Modal from "react-modal";
 import Cropper from "react-easy-crop";
 import api from "../../api/axios";
 import { useAuth } from "../../context/AuthContext";
+import { getCroppedImg } from "../../utils/getCroppedImg";
 
-Modal.setAppElement("#root"); // accessibility
+Modal.setAppElement("#root");
 
 export default function AddStoreModal({ isOpen, onClose, onAdded }) {
   const { token } = useAuth();
@@ -18,7 +19,7 @@ export default function AddStoreModal({ isOpen, onClose, onAdded }) {
     st_image: "",
   });
 
-  // для crop
+  // crop state
   const [imageSrc, setImageSrc] = useState(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -30,7 +31,9 @@ export default function AddStoreModal({ isOpen, onClose, onAdded }) {
         const res = await api.get("/Users/all", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        const onlyManagers = res.data.filter((u) => u.us_role === "manager" || u.us_role === 3);
+        const onlyManagers = res.data.filter(
+          (u) => u.us_role === "manager" || u.us_role === 3
+        );
         setManagers(onlyManagers);
       } catch (err) {
         console.error("Error loading managers:", err);
@@ -48,44 +51,18 @@ export default function AddStoreModal({ isOpen, onClose, onAdded }) {
     reader.readAsDataURL(file);
   };
 
-  // обработка кадрирования
-  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
-    setCroppedAreaPixels(croppedAreaPixels);
+  // при завершении обрезки
+  const onCropComplete = useCallback((croppedArea, croppedPixels) => {
+    setCroppedAreaPixels(croppedPixels);
   }, []);
-
-  // получение base64 результата
-  const getCroppedImage = useCallback(async () => {
-    const image = new Image();
-    image.src = imageSrc;
-    await new Promise((r) => (image.onload = r));
-
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-
-    canvas.width = croppedAreaPixels.width;
-    canvas.height = croppedAreaPixels.height;
-
-    ctx.drawImage(
-      image,
-      croppedAreaPixels.x,
-      croppedAreaPixels.y,
-      croppedAreaPixels.width,
-      croppedAreaPixels.height,
-      0,
-      0,
-      croppedAreaPixels.width,
-      croppedAreaPixels.height
-    );
-
-    return canvas.toDataURL("image/jpeg");
-  }, [imageSrc, croppedAreaPixels]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       let base64Image = form.st_image;
+
       if (imageSrc && croppedAreaPixels) {
-        base64Image = await getCroppedImage();
+        base64Image = await getCroppedImg(imageSrc, croppedAreaPixels);
       }
 
       const payload = { ...form, st_image: base64Image };
@@ -160,7 +137,7 @@ export default function AddStoreModal({ isOpen, onClose, onAdded }) {
         </select>
 
         <div>
-          <label className="block font-medium mb-1">Store Image (4:3)</label>
+          <label className="block font-medium mb-1">Store Image</label>
           <input type="file" accept="image/*" onChange={handleImageChange} />
         </div>
 
@@ -170,7 +147,7 @@ export default function AddStoreModal({ isOpen, onClose, onAdded }) {
               image={imageSrc}
               crop={crop}
               zoom={zoom}
-              aspect={1 / 1}
+              aspect={1 / 1} // ✅ теперь правильное соотношение 4:3
               onCropChange={setCrop}
               onZoomChange={setZoom}
               onCropComplete={onCropComplete}

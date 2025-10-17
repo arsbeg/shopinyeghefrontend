@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import api from "../../api/axios";
 import { API_BASE_URL } from "../../config";
 import AddStoreModal from "../../components/admin/AddStoreModal"
+import { useAuth } from "../../context/AuthContext";
 
 export default function StoresTab() {
   const [stores, setStores] = useState([]);
   const [search, setSearch] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { token } = useAuth();
 
   const handleAdded = () => {
     // обновляем список магазинов
@@ -29,6 +31,22 @@ export default function StoresTab() {
   const filtered = stores.filter((s) =>
     s.st_name.toLowerCase().includes(search.toLowerCase())
   );
+
+  // 🔹 функция удаления
+  const handleDelete = async (storeId) => {
+    if (!window.confirm("Are you sure you want to delete this store?")) return;
+
+    try {
+      await api.delete(`/Store/${storeId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      alert("Store deleted successfully");
+      fetchStores(); // обновляем список
+    } catch (err) {
+      console.error("Error deleting store:", err);
+      alert("Failed to delete store");
+    }
+  };
 
   return (
     <div>
@@ -72,7 +90,10 @@ export default function StoresTab() {
                 <button className="px-3 py-1 rounded text-white bg-yellow-600  hover:bg-yellow-400">
                     Edit
                 </button>
-                <button className="px-3 py-1 rounded text-white bg-red-600  hover:bg-red-400 ml-2">
+                <button 
+                    onClick={() => handleDelete(s.id)}
+                    className="px-3 py-1 rounded text-white bg-red-600  hover:bg-red-400 ml-2"
+                >
                     Delete
                 </button>
               </td>
