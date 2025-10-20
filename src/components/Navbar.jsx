@@ -16,7 +16,7 @@ export default function Navbar() {
   return (
     <nav className="bg-blue-300 text-white p-4 flex justify-between items-center">
       <div className="flex gap-4">
-        <Link to="/" className="font-bold text-lg">🏪 MyShop</Link>
+        <Link to="/" className="font-bold text-lg">🏪 SHOPINYEGHEGNADZOR</Link>
       </div>
 
       <div className="flex gap-4 items-center">
@@ -24,7 +24,7 @@ export default function Navbar() {
         {user && (
           <button
             onClick={() => navigate("/basket")}
-            className="bg-green-500 hover:bg-green-600 px-4 py-2 rounded"
+            className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-full cursor-pointer"
           >
             🛒 Cart
           </button>
@@ -34,7 +34,7 @@ export default function Navbar() {
         {!user && (
           <button
             onClick={() => navigate("/login")}
-            className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded"
+            className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-full cursor-pointer"
           >
             Login
           </button>
@@ -45,13 +45,13 @@ export default function Navbar() {
           <>
             <button
               onClick={handleProfileClick}
-              className="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded"
+              className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-full cursor-pointer"
             >
-              {user.username}
+              👤{user.username}
             </button>
             <button
               onClick={logout}
-              className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded"
+              className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-full cursor-pointer"
             >
               Logout
             </button>

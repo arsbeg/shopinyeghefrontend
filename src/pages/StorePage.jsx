@@ -34,20 +34,20 @@ function ProductCard({ product }) {
         alt={product.pr_name}
         className="w-full h-40 object-cover rounded-lg mb-3"
       />
-      <h3 className="font-semibold">{product.pr_name}</h3>
+      <h3 className="font-bold">{product.pr_name}</h3>
       <p className="text-gray-600">{product.price} ֏</p>
 
       <div className="flex items-center gap-3 mt-2">
         <button
           onClick={() => setQuantity(Math.max(1, quantity - 1))}
-          className="px-2 py-1 bg-gray-200 rounded"
+          className="px-2 py-1 bg-gray-200 rounded cursor-pointer"
         >
           −
         </button>
         <span>{quantity}</span>
         <button
           onClick={() => setQuantity(quantity + 1)}
-          className="px-2 py-1 bg-gray-200 rounded"
+          className="px-2 py-1 bg-gray-200 rounded cursor-pointer"
         >
           +
         </button>
@@ -55,7 +55,7 @@ function ProductCard({ product }) {
 
       <button
         onClick={addToBasket}
-        className="mt-3 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+        className="mt-3 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 cursor-pointer"
       >
         Add to cart
       </button>
@@ -114,7 +114,7 @@ export default function StorePage() {
     loadProducts(cat_id);
   };
 
-  if (!store) return <div className="p-8 text-center text-gray-500">Загрузка...</div>;
+  if (!store) return <div className="p-8 text-center text-gray-500">Loading...</div>;
 
   return (
     <div className="p-6 min-h-screen bg-gray-50">

@@ -8,10 +8,6 @@ export default function Header() {
 
   return (
     <header className="bg-white shadow p-4cflex justify-between items-center">
-      <Link to="/" className="text-2xl font-bold text-blue-600">
-        SHOPINYEGHEGNADZOR
-      </Link>
-
       <Navbar /> 
     </header>
   );
