@@ -5,17 +5,19 @@ import { useAuth } from "../../context/AuthContext";
 
 Modal.setAppElement("#root");
 
-export default function AddCategoryModal({ isOpen, onClose, onAdded }) {
+export default function AddCategoryModal({ isOpen, onClose, onAdded, store }) {
   const { token, user } = useAuth();
   const [stores, setStores] = useState([]);
   const [categories, setCategories] = useState([])
   const [form, setForm] = useState({
     cat_name: "",
-    store_id: "",
+    store_id: store.id,
   });
 
+  // console.log(store.id)
 
-  useEffect(() => {
+
+  {/*useEffect(() => {
     const fetchStores = async () => {
       try {
         const res = await api.get("/Store/all");
@@ -28,7 +30,7 @@ export default function AddCategoryModal({ isOpen, onClose, onAdded }) {
       }
     };
     if (isOpen) fetchStores();
-  }, [isOpen]);
+  }, [isOpen]);*/}
 
 
 
@@ -69,7 +71,12 @@ export default function AddCategoryModal({ isOpen, onClose, onAdded }) {
           required
         />
 
-        <select
+        <p>
+            <span className="font-bold">Shop:  </span>
+            <span>{store.st_name}</span>
+        </p>
+
+        {/*<select
           className="border p-2 rounded w-full"
           value={form.store_id}
           onChange={(e) => setForm({ ...form, store_id: e.target.value })}
@@ -81,7 +88,7 @@ export default function AddCategoryModal({ isOpen, onClose, onAdded }) {
               {s.st_name}
             </option>
           ))}
-        </select>
+        </select>*/}
 
 
         <div className="flex justify-end gap-3 mt-6">

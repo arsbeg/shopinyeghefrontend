@@ -7,7 +7,7 @@ import { getCroppedImg } from "../../utils/getCroppedImg";
 
 Modal.setAppElement("#root");
 
-export default function EditProductModal({ isOpen, onClose, store, onUpdated }) {
+export default function EditProductModal({ isOpen, onClose, product, onUpdated }) {
   const { token } = useAuth();
   const [managers, setManagers] = useState([]);
   const [form, setForm] = useState({
@@ -30,10 +30,10 @@ export default function EditProductModal({ isOpen, onClose, store, onUpdated }) 
     if (product) {
       setForm({
         pr_name: product.pr_name || "",
-        price: store.st_name || "",
-        quantity: store.itn || "",
-        description: store.address || "",
-        st_image: "", // пусто, чтобы не отправлять старый URL
+        price: product.price || "",
+        quantity: product.quantity || "",
+        description: product.description || "",
+        image: "", // пусто, чтобы не отправлять старый URL
       });
     }
   }, [product]);
@@ -55,7 +55,7 @@ export default function EditProductModal({ isOpen, onClose, store, onUpdated }) 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let base64Image = form.st_image;
+      let base64Image = form.image;
 
       // если выбрано новое фото → обрезаем и кодируем
       if (imageSrc && croppedAreaPixels) {
@@ -63,7 +63,7 @@ export default function EditProductModal({ isOpen, onClose, store, onUpdated }) 
       }
 
       // если base64 пустой — бекенд оставит старый URL
-      const payload = { ...form, st_image: base64Image };
+      const payload = { ...form, image: base64Image };
 
       await api.put(`/Products/${product.id}`, payload, {
         headers: { Authorization: `Bearer ${token}` },

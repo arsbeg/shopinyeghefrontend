@@ -21,8 +21,6 @@ export default function AddProductModal({ isOpen, onClose, onAdded, category, st
     image: "",
   });
 
-  console.log(category.id)
-  console.log(store.id)
 
   // crop state
   const [imageSrc, setImageSrc] = useState(null);
@@ -30,32 +28,6 @@ export default function AddProductModal({ isOpen, onClose, onAdded, category, st
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
-  /*useEffect(() => {
-    const fetchStores = async () => {
-      try {
-        const res = await api.get("/Store/all");
-        const onlyStores = res.data.filter(
-          (s) => s.owner_id == user.id
-        );
-        setStores(onlyStores);
-      } catch (err) {
-        console.error("Error loading stores:", err);
-      }
-    };
-    if (isOpen) fetchStores();
-  }, [isOpen]);
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const res = await api.get(`/Category/cat-by-storeid/${store.id}`);
-        setCategories(res);
-      } catch (err) {
-        console.error("Error loading categories:", err);
-      }
-    };
-    if (isOpen) fetchCategories();
-  }, [isOpen]);*/
 
   // загрузка фото
   const handleImageChange = async (e) => {

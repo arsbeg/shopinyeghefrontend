@@ -28,38 +28,58 @@ function ProductCard({ product }) {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow p-3 flex flex-col items-center">
-      <img       
-        src={`${API_BASE_URL}${product.image}`}
-        alt={product.pr_name}
-        className="w-full h-40 object-cover rounded-lg mb-3"
-      />
-      <h3 className="font-bold">{product.pr_name}</h3>
-      <p className="text-gray-600">{product.price} ֏</p>
+    <div className="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 p-4 flex flex-col items-center text-center relative group max-w-80">
 
-      <div className="flex items-center gap-3 mt-2">
-        <button
-          onClick={() => setQuantity(Math.max(1, quantity - 1))}
-          className="px-2 py-1 bg-gray-200 rounded cursor-pointer"
-        >
-          −
-        </button>
-        <span>{quantity}</span>
-        <button
-          onClick={() => setQuantity(quantity + 1)}
-          className="px-2 py-1 bg-gray-200 rounded cursor-pointer"
-        >
-          +
-        </button>
-      </div>
+  {/* Фото */}
+  <div className="relative w-40 h-40 mb-3">
+    <img
+      src={`${API_BASE_URL}${product.image}`}
+      alt={product.pr_name}
+      className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-300"
+    />
+    {/* Лейбл скидки / новинки (пример) */}
+    {product.isNew && (
+      <span className="absolute top-2 left-2 bg-green-600 text-white text-xs font-semibold px-2 py-1 rounded-lg shadow">
+        NEW
+      </span>
+    )}
+  </div>
 
-      <button
-        onClick={addToBasket}
-        className="mt-3 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 cursor-pointer"
-      >
-        Add to cart
-      </button>
-    </div>
+  {/* Название и цена */}
+  <h3 className="font-semibold text-lg text-gray-800 truncate max-w-[160px]">
+    {product.pr_name}
+  </h3>
+  <p className="text-green-700 font-bold mt-1 text-lg">
+    {product.price.toLocaleString()} ֏
+  </p>
+
+  {/* Количество */}
+  <div className="flex items-center justify-center gap-3 mt-3">
+    <button
+      onClick={() => setQuantity(Math.max(1, quantity - 1))}
+      className="w-8 h-8 flex items-center justify-center bg-red-500 hover:bg-red-300 rounded-full text-lg font-bold transition"
+    >
+      −
+    </button>
+    <span className="text-lg font-medium w-6 text-center">{quantity}</span>
+    <button
+      onClick={() => setQuantity(quantity + 1)}
+      className="w-8 h-8 flex items-center justify-center bg-green-500 hover:bg-green-300 rounded-full text-lg font-bold transition"
+    >
+      +
+    </button>
+  </div>
+
+  {/* Кнопка */}
+  <button
+    onClick={addToBasket}
+    className="mt-4 w-35 bg-blue-600 text-white py-2.5 rounded-full font-semibold hover:bg-blue-700 active:scale-95 transition-transform duration-150"
+  >
+    🛒 Add to Cart
+  </button>
+
+</div>
+
   );
 }
 

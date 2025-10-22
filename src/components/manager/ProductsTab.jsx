@@ -5,7 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 import AddProductModal from "./AddProductModal";
 import EditProductModal from "./EditProductModal";
 import AddCategoryModal from "./AddCategoryModal";
-// import EditCategoryModal from "./EditCategoryModal";
+import EditCategoryModal from "./EditCategoryModal";
 
 export default function ProductsTab() {
   const { token, user } = useAuth();
@@ -90,6 +90,11 @@ export default function ProductsTab() {
     setSelectedStore(store);
     setIsAddCategoryOpen(true);
   };
+
+  const handleEditCategory = (category) => {
+    setSelectedCategory(category);
+    setIsEditCategoryOpen(true);
+  };
   
   const handleAddProduct = (category, store) => {
     setSelectedCategory(category);
@@ -134,13 +139,19 @@ export default function ProductsTab() {
                     <div className="flex gap-2">
                       <button
                         onClick={() => handleAddProduct(cat, store)}
-                        className="bg-green-600 text-white px-2 py-1 rounded"
+                        className="bg-green-600 text-white px-2 py-1 rounded-full cursor-pointer"
                       >
                         + Add Product
                       </button>
                       <button
+                        onClick={() => handleEditCategory(cat)}
+                        className="bg-yellow-600 text-white px-2 py-1 rounded-full cursor-pointer"
+                      >
+                        Edit Category
+                      </button>
+                      <button
                         onClick={() => handleDeleteCategory(cat.id)}
-                        className="bg-red-600 text-white px-2 py-1 rounded"
+                        className="bg-red-600 text-white px-2 py-1 rounded-full cursor-pointer"
                       >
                         Delete Category
                       </button>
@@ -148,33 +159,33 @@ export default function ProductsTab() {
                   </div>
 
                   {/* Продукты */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-200">
                     {products[cat.id] ? (
                       products[cat.id].map((p) => (
                         <div
                           key={p.id}
-                          className="border rounded-lg p-2 shadow hover:shadow-md transition"
+                          className="border rounded-lg p-2 shadow hover:shadow-xl transition"
                         >
                           <img
                             src={`${API_BASE_URL}${p.image}`}
                             alt={p.pr_name}
-                            className="w-full h-32 object-cover rounded"
+                            className="w-32 h-32 object-cover rounded"
                           />
                           <div className="mt-2 text-sm">
                             <div className="font-semibold">{p.pr_name}</div>
-                            <div>Stock: {p.pr_quantity}</div>
-                            <div>Price: {p.pr_price} ֏</div>
+                            <div>Stock: {p.quantity}</div>
+                            <div>Price: {p.price} ֏</div>
                           </div>
                           <div className="flex justify-between mt-2">
                             <button
                               onClick={() => handleEditProduct(p)}
-                              className="bg-yellow-500 text-white px-2 py-1 rounded"
+                              className="bg-yellow-500 text-white px-2 py-1 rounded-full cursor-pointer"
                             >
                               Edit
                             </button>
                             <button
                               onClick={() => handleDeleteProduct(p.id, cat.id)}
-                              className="bg-red-500 text-white px-2 py-1 rounded"
+                              className="bg-red-500 text-white px-2 py-1 rounded-full cursor-pointer"
                             >
                               Delete
                             </button>
@@ -195,8 +206,8 @@ export default function ProductsTab() {
 
               {/* Добавление категории */}
               <button
-                className="mt-3 bg-blue-600 text-white px-3 py-1 rounded"
-                onClick={() => handleAddCategory(store.id)}
+                className="mt-3 bg-blue-600 text-white px-3 py-1 rounded-full cursor-pointer"
+                onClick={() => handleAddCategory(store)}
               >
                 + Add Category
               </button>
@@ -216,11 +227,20 @@ export default function ProductsTab() {
         />
       )}
 
+      {selectedCategory && (
+        <EditCategoryModal
+          isOpen={isEditCategoryOpen}
+          onClose={() => setIsEditCategoryOpen(false)}
+          onUpdated={() => fetchCategories(expandedStore)}
+          category={selectedCategory}
+        />
+      )}
+
       {selectedProduct && (
         <EditProductModal
           isOpen={isEditProductOpen}
           onClose={() => setIsEditProductOpen(false)}
-          onUpdated={() => fetchProducts(selectedProduct.cat_id)}
+          onUpdated={() => fetchProducts(selectedProduct.category_id)}
           product={selectedProduct}
         />
       )}
