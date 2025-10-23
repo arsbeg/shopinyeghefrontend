@@ -108,14 +108,14 @@ export default function BasketPage() {
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => updateQuantity(item.id, -1)}
-                className="px-2 py-1 bg-gray-200 rounded"
+                className="px-2 py-1 bg-red-500 hover:bg-red-200 rounded-xl cursor-pointer"
               >
                 -
               </button>
               <span>{item.quantity}</span>
               <button
                 onClick={() => updateQuantity(item.id, 1)}
-                className="px-2 py-1 bg-gray-200 rounded"
+                className="px-2 py-1 bg-green-500 hover:bg-green-200 rounded-xl cursor-pointer"
               >
                 +
               </button>
@@ -123,7 +123,7 @@ export default function BasketPage() {
 
             <button
               onClick={() => removeItem(item.id)}
-              className="bg-red-500 text-white px-3 py-1 rounded"
+              className="bg-red-500 hover:bg-red-200 text-white px-3 py-1 rounded-full cursor-pointer"
             >
               Delete
             </button>
@@ -137,7 +137,7 @@ export default function BasketPage() {
         </p>
         <button
           onClick={handleCheckout}
-          className="bg-green-500 text-white px-5 py-2 rounded-lg hover:bg-green-600"
+          className="bg-green-500 text-white px-5 py-2 rounded-full hover:bg-green-600 cursor-pointer"
         >
           Checkuot
         </button>

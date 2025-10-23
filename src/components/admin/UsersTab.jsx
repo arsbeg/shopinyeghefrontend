@@ -75,27 +75,27 @@ export default function UsersTab() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <table className="w-full border-collapse">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="border p-2">ID</th>
-            <th className="border p-2">Username</th>
-            <th className="border p-2">Email</th>
-            <th className="border p-2">Current Role</th>
-            <th className="border p-2">Role Change</th>
-            <th className="border p-2">Action</th>
+      <table className="w-full text-sm text-center rtl:text-right text-gray-500">
+        <thead className="text-xs text-gray-900 uppercase bg-gray-50">
+          <tr className="bg-blue-300">
+            <th className="px-6 py-3">ID</th>
+            <th className="px-6 py-3">Username</th>
+            <th className="px-6 py-3">Email</th>
+            <th className="px-6 py-3">Current Role</th>
+            <th className="px-6 py-3">Role Change</th>
+            <th className="px-6 py-3">Action</th>
           </tr>
         </thead>
         <tbody>
           {filtered.map((u) => (
-            <tr key={u.id} className="text-center">
-              <td className="border p-2">{u.id}</td>
-              <td className="border p-2">{u.username}</td>
-              <td className="border p-2">{u.email_address}</td>
-              <td className="border p-2">{u.us_role}</td>
-              <td className="border p-2">
+            <tr key={u.id} className="text-center odd:bg-white even:bg-blue-50 border-b border-gray-200">
+              <td className="px-6 py-3">{u.id}</td>
+              <td className="px-6 py-3">{u.username}</td>
+              <td className="px-6 py-3">{u.email_address}</td>
+              <td className="px-6 py-3">{u.us_role}</td>
+              <td className="px-6 py-3">
                 <select
-                  className="border p-1 rounded"
+                  className="border p-1 rounded-xl"
                   value={roles[u.id] || u.role}
                   onChange={(e) => handleRoleChange(u.id, e.target.value)}
                 >
@@ -105,10 +105,10 @@ export default function UsersTab() {
                   <option value="4">User</option>
                 </select>
               </td>
-              <td className="border p-2">
+              <td className="px-6 py-3">
                 <button
                   onClick={() => saveRole(u.id)}
-                  className="bg-blue-600 text-white px-3 py-1 rounded"
+                  className="bg-blue-600 text-white px-3 py-1 rounded-full cursor-pointer hover:bg-blue-400"
                 >
                   Save
                 </button>

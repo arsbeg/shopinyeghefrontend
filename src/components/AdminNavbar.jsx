@@ -5,30 +5,30 @@ export default function AdminNavbar({ activeTab, onTabChange }) {
   const { user, logout } = useAuth();
 
   return (
-    <header className="bg-gray-800 text-white px-6 py-3 flex justify-between items-center shadow">
+    <header className="bg-blue-800 text-white px-6 py-3 flex justify-between items-center shadow rounded-xl">
       <div className="flex items-center gap-6">
         <h1 className="text-lg font-bold">Admin Dashboard</h1>
         <nav className="flex gap-4">
           <button
             onClick={() => onTabChange("users")}
-            className={`px-3 py-1 rounded ${
-              activeTab === "users" ? "bg-blue-600" : "hover:bg-gray-600"
+            className={`px-3 py-1 rounded-full ${
+              activeTab === "users" ? "bg-blue-600" : "hover:bg-blue-600 cursor-pointer"
             }`}
           >
             Users
           </button>
           <button
             onClick={() => onTabChange("stores")}
-            className={`px-3 py-1 rounded ${
-              activeTab === "stores" ? "bg-blue-600" : "hover:bg-gray-600"
+            className={`px-3 py-1 rounded-full ${
+              activeTab === "stores" ? "bg-blue-600" : "hover:bg-blue-600 cursor-pointer"
             }`}
           >
             Stores
           </button>
           <button
             onClick={() => onTabChange("couriers")}
-            className={`px-3 py-1 rounded ${
-              activeTab === "couriers" ? "bg-blue-600" : "hover:bg-gray-600"
+            className={`px-3 py-1 rounded-full ${
+              activeTab === "couriers" ? "bg-blue-600" : "hover:bg-blue-600 cursor-pointer"
             }`}
           >
             Couriers
@@ -42,12 +42,12 @@ export default function AdminNavbar({ activeTab, onTabChange }) {
             👤 {user.username} ({user.role || "admin"})
           </span>
         )}
-        <button
+        {/*<button
           onClick={logout}
-          className="bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-sm"
+          className="bg-red-500 hover:bg-red-600 px-3 py-1 rounded-full text-sm cursor-pointer"
         >
           Logout
-        </button>
+        </button>*/}
       </div>
     </header>
   );
