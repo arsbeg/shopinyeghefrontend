@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../api/axios";
 import { API_BASE_URL } from "../config";
+import HeroCarousel from "../components/HeroCarousel";
 
 function ProductCard({ product }) {
   const [quantity, setQuantity] = useState(1);
@@ -137,16 +138,19 @@ export default function StorePage() {
   if (!store) return <div className="p-8 text-center text-gray-500">Loading...</div>;
 
   return (
-    <div className="p-6 min-h-screen bg-gray-50">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">{store.st_name}</h1>
-        {store.st_image && (
+    <div className="p-2 min-h-screen bg-gray-50">
+      <div className="grid grid-flow-col grid-rows-1 gap-4">
+        <div className="col-span-1 row-span-2">
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">{store.st_name}</h1>
+          {store.st_image && (
           <img
             src={`${API_BASE_URL}${store.st_image}`}
             alt={store.st_name}
             className="max-h-32 object-cover rounded-xl mb-4 shadow"
           />
-        )}
+          )}
+        </div>
+        <div className="row-span-1 col-span-22"><HeroCarousel /></div>
       </div>
 
       {/* Категории */}

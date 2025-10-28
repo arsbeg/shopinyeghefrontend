@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
 import {API_BASE_URL} from "../config"
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
+import HeroCarousel from "../components/HeroCarousel"; 
 
 export default function Home() {
   const [stores, setStores] = useState([]);
@@ -17,6 +18,7 @@ export default function Home() {
 
   return (
     <div>
+      <HeroCarousel />
       <h2 className="text-3xl font-bold mb-4 text-gray-800">Shops in Yeghegnadzor</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {stores.map((store) => (
