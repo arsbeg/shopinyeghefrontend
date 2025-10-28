@@ -7,16 +7,13 @@ import { getCroppedImg } from "../../utils/getCroppedImg";
 
 Modal.setAppElement("#root");
 
-export default function AddStoreModal({ isOpen, onClose, onAdded }) {
+export default function AddItemModal({ isOpen, onClose, onAdded }) {
   const { token } = useAuth();
-  const [managers, setManagers] = useState([]);
   const [form, setForm] = useState({
-    owner_id: "",
-    st_name: "",
-    itn: "",
-    address: "",
-    phone: "",
-    st_image: "",
+    img_name: "",
+    header_text: "",
+    footer_text: "",
+    carousel_image: "",
   });
 
   // crop state
@@ -24,23 +21,6 @@ export default function AddStoreModal({ isOpen, onClose, onAdded }) {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-
-  useEffect(() => {
-    const fetchManagers = async () => {
-      try {
-        const res = await api.get("/Users/all", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const onlyManagers = res.data.filter(
-          (u) => u.us_role === "manager" || u.us_role === 3
-        );
-        setManagers(onlyManagers);
-      } catch (err) {
-        console.error("Error loading managers:", err);
-      }
-    };
-    if (isOpen) fetchManagers();
-  }, [isOpen, token]);
 
   // загрузка фото
   const handleImageChange = async (e) => {
@@ -65,17 +45,17 @@ export default function AddStoreModal({ isOpen, onClose, onAdded }) {
         base64Image = await getCroppedImg(imageSrc, croppedAreaPixels);
       }
 
-      const payload = { ...form, st_image: base64Image };
-      await api.post("/Store/add", payload, {
+      const payload = { ...form, carousel_image: base64Image };
+      await api.post("/Carousel/add", payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      alert("Store added successfully");
+      alert("Image added successfully");
       onAdded();
       onClose();
     } catch (err) {
-      console.error("Error adding store:", err);
-      alert("Failed to add store");
+      console.error("Error adding image:", err);
+      alert("Failed to add image");
     }
   };
 
@@ -86,58 +66,36 @@ export default function AddStoreModal({ isOpen, onClose, onAdded }) {
       className="bg-white rounded-2xl shadow-xl p-6 max-w-2xl mx-auto mt-20 relative"
       overlayClassName="fixed inset-0 bg-black/50 flex justify-center items-start"
     >
-      <h2 className="text-2xl font-bold mb-4">Add New Store</h2>
+      <h2 className="text-2xl font-bold mb-4">Add New Image</h2>
 
       <form onSubmit={handleSubmit} className="space-y-3">
         <input
           type="text"
-          placeholder="Store Name"
+          placeholder="Image Name"
           className="border p-2 rounded w-full"
-          value={form.st_name}
-          onChange={(e) => setForm({ ...form, st_name: e.target.value })}
+          value={form.img_name}
+          onChange={(e) => setForm({ ...form, img_name: e.target.value })}
           required
         />
         <input
           type="text"
-          placeholder="ITN"
+          placeholder="Header Text"
           className="border p-2 rounded w-full"
-          value={form.itn}
-          onChange={(e) => setForm({ ...form, itn: e.target.value })}
+          value={form.header_text}
+          onChange={(e) => setForm({ ...form, header_text: e.target.value })}
           required
         />
         <input
           type="text"
-          placeholder="Address"
+          placeholder="Footer Text"
           className="border p-2 rounded w-full"
-          value={form.address}
-          onChange={(e) => setForm({ ...form, address: e.target.value })}
+          value={form.footer_text}
+          onChange={(e) => setForm({ ...form, footer_text: e.target.value })}
           required
         />
-        <input
-          type="text"
-          placeholder="Phone"
-          className="border p-2 rounded w-full"
-          value={form.phone}
-          onChange={(e) => setForm({ ...form, phone: e.target.value })}
-          required
-        />
-
-        <select
-          className="border p-2 rounded w-full"
-          value={form.owner_id}
-          onChange={(e) => setForm({ ...form, owner_id: e.target.value })}
-          required
-        >
-          <option value="">Select Manager</option>
-          {managers.map((m) => (
-            <option key={m.id} value={m.id}>
-              {m.username}
-            </option>
-          ))}
-        </select>
 
         <div>
-          <label className="block font-medium mb-1">Store Image</label>
+          <label className="block font-medium mb-1">Carousel Image</label>
           <input type="file" accept="image/*" onChange={handleImageChange} />
         </div>
 
@@ -147,7 +105,7 @@ export default function AddStoreModal({ isOpen, onClose, onAdded }) {
               image={imageSrc}
               crop={crop}
               zoom={zoom}
-              aspect={1 / 1} // ✅ теперь правильное соотношение 4:3
+              aspect={16 / 6} // ✅соотношение 16:9
               onCropChange={setCrop}
               onZoomChange={setZoom}
               onCropComplete={onCropComplete}

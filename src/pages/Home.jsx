@@ -25,7 +25,7 @@ export default function Home() {
             className="bg-white rounded-2xl shadow hover:shadow-lg transition overflow-hidden"
             onClick={() => navigate(`/store/${store.id}`)}
           >
-            <div className="aspect-[4/3] overflow-hidden">
+            <div className="aspect-[1/1] overflow-hidden">
                 <img 
                     src = {new URL(store.st_image,API_BASE_URL).href}
                     alt={store.st_name}
@@ -34,7 +34,7 @@ export default function Home() {
             </div>
             <div className="p-4 flex flex-col justify-between">
                 <h3 className="text-xl font-semibold text-gray-800 mb-2">{store.st_name}</h3>
-                <button className="mt-3 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                <button className="mt-3 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600"
                     onClick={(e) => {e.stopPropagation();
                     setSelectedStore(store);
                     }}>

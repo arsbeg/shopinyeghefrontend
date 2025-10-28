@@ -26,6 +26,14 @@ export default function AdminNavbar({ activeTab, onTabChange }) {
             Stores
           </button>
           <button
+            onClick={() => onTabChange("carousel")}
+            className={`px-3 py-1 rounded-full ${
+              activeTab === "carousel" ? "bg-blue-600" : "hover:bg-blue-600 cursor-pointer"
+            }`}
+          >
+            Carousel
+          </button>
+          <button
             onClick={() => onTabChange("couriers")}
             className={`px-3 py-1 rounded-full ${
               activeTab === "couriers" ? "bg-blue-600" : "hover:bg-blue-600 cursor-pointer"

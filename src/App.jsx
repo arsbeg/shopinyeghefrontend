@@ -10,12 +10,14 @@ import ProtectedRoute from "./components/ProtectedRoute"
 import StorePage from "./pages/StorePage";
 import Register from "./pages/Register";
 import BasketPage from "./pages/BasketPage";
+import HeroCarousel from "./components/HeroCarousel";
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-gray-50">
         <Header />
+        <HeroCarousel />
         <main className="p-4">
           <Routes>
             <Route path="/" element={<Home />} />
