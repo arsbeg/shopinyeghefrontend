@@ -88,7 +88,7 @@ export default function CarouselTab() {
                 <img
                   src={`${API_BASE_URL}${it.carousel_image}`}
                   alt={it.img_name}
-                  className="w-15 h-15 object-cover rounded-lg"
+                  className="w-full h-15 object-cover rounded-lg"
                 />
               </td>
               <td className="px-6 py-3">

@@ -11,9 +11,11 @@ import StorePage from "./pages/StorePage";
 import Register from "./pages/Register";
 import BasketPage from "./pages/BasketPage";
 import HeroCarousel from "./components/HeroCarousel";
+import AppLayout from "./layouts/AppLayout";
 
 function App() {
   return (
+    <AppLayout>
     <Router>
       <div className="min-h-screen bg-gray-50">
         <Header />
@@ -33,6 +35,7 @@ function App() {
         </main>
       </div>
     </Router>
+    </AppLayout>
   );
 }
 

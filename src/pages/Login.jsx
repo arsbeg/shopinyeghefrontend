@@ -31,12 +31,12 @@ export default function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50">
+    <div className="flex justify-center items-top bg-gray-50">
       <form
         onSubmit={handleLogin}
         className="bg-white shadow-lg rounded-xl p-8 w-full max-w-md"
       >
-        <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">Вход</h1>
+        <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">Login</h1>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         <input
           type="text"
