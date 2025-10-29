@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import api from "../api/axios";
 import { API_BASE_URL } from "../config";
 import HeroCarousel from "../components/HeroCarousel";
+import WeatherWidget from "../components/WhetherWidget";
 
 function ProductCard({ product }) {
   const [quantity, setQuantity] = useState(1);
@@ -139,18 +140,19 @@ export default function StorePage() {
 
   return (
     <div className="p-2 min-h-screen bg-gray-50">
-      <div className="grid grid-flow-col grid-rows-1 gap-4">
-        <div className="col-span-1 row-span-2">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">{store.st_name}</h1>
+      <div className="grid grid-flow-col grid-rows-1 pb-5">
+        <div className="col-span-1 row-span-1">
+          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-800 mb-2">{store.st_name}</h1>
           {store.st_image && (
           <img
             src={`${API_BASE_URL}${store.st_image}`}
             alt={store.st_name}
-            className="max-h-32 object-cover rounded-xl mb-4 shadow"
+            className="relative h-[60px] md:h-[80px] lg:h-[150px] object-cover rounded-xl mb-4 shadow-xl"
           />
           )}
+          <WeatherWidget />
         </div>
-        <div className="row-span-1 col-span-22"><HeroCarousel /></div>
+        <div className="row-span-1 col-span-40"><HeroCarousel /></div>
       </div>
 
       {/* Категории */}

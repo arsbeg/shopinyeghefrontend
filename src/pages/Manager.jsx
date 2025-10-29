@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ManagerNavbar from "../components/ManagerNavbar";
 import ProductsTab from "../components/manager/ProductsTab";
 import StatisticsTab from "../components/manager/StatisticsTab";
-import PhotosTab from "../components/manager/PhotosTab";
+import ProfileTab from "../components/manager/ProfileTab";
 
 export default function ManagerPage() {
   const [activeTab, setActiveTab] = useState("products");
@@ -14,7 +14,7 @@ export default function ManagerPage() {
       <main className="p-6">
         {activeTab === "products" && <ProductsTab />}
         {activeTab === "statistics" && <StatisticsTab />}
-        {activeTab === "photos" && <PhotosTab />}
+        {activeTab === "profile" && <ProfileTab />}
       </main>
     </div>
   );

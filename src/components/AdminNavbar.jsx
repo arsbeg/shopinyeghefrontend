@@ -41,6 +41,14 @@ export default function AdminNavbar({ activeTab, onTabChange }) {
           >
             Couriers
           </button>
+          <button
+            onClick={() => onTabChange("profile")}
+            className={`px-3 py-1 rounded-full ${
+              activeTab === "profile" ? "bg-blue-600" : "hover:bg-blue-600 cursor-pointer"
+            }`}
+          >
+            Profile
+          </button>
         </nav>
       </div>
 

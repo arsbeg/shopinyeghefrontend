@@ -26,12 +26,12 @@ export default function ManagerNavbar({ activeTab, onTabChange }) {
             Statistics
           </button>
           <button
-            onClick={() => onTabChange("photos")}
+            onClick={() => onTabChange("profile")}
             className={`px-3 py-1 rounded-full cursor-pointer ${
-              activeTab === "photos" ? "bg-blue-300" : "hover:bg-blue-600"
+              activeTab === "profile" ? "bg-blue-300" : "hover:bg-blue-600"
             }`}
           >
-            Photos
+            Profile
           </button>
         </nav>
       </div>

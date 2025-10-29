@@ -31,7 +31,7 @@ export default function HeroCarousel() {
   if (!slides.length) return null;
 
   return (
-    <div className="relative w-full h-[200px] md:h-[300px] lg:h-[450px] overflow-hidden rounded-2xl shadow-lg">
+    <div className="relative w-full h-[210px] md:h-[300px] lg:h-[450px] overflow-hidden rounded-2xl shadow-lg">
       <AnimatePresence>
         <motion.div
           key={slides[current].id}

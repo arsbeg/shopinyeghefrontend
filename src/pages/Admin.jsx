@@ -4,6 +4,7 @@ import UsersTab from "../components/admin/UsersTab";
 import StoresTab from "../components/admin/StoresTab";
 import CarouselTab from "../components/admin/CarouselTab";
 import CouriersTab from "../components/admin/CouriersTab";
+import ProfileTab from "../components/manager/ProfileTab";
 
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState("users");
@@ -17,6 +18,7 @@ export default function AdminPage() {
         {activeTab === "stores" && <StoresTab />}
         {activeTab === "carousel" && <CarouselTab />}
         {activeTab === "couriers" && <CouriersTab />}
+        {activeTab === "profile" && <ProfileTab />}
       </main>
     </div>
   );
