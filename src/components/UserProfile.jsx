@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { motion } from "framer-motion";
+// src/components/UserProfile.jsx
+import React, { useEffect, useState } from "react";
+import api from "../api/axios";
+import { useAuth } from "../context/AuthContext";
 import { API_BASE_URL } from "../config";
+import { motion } from "framer-motion";
 
 export default function UserProfile() {
+  const { token } = useAuth();
   const [user, setUser] = useState(null);
   const [formData, setFormData] = useState({
     first_name: "",
@@ -12,14 +15,12 @@ export default function UserProfile() {
     birthday: "",
   });
   const [isChanged, setIsChanged] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const res = await axios.get(`${API_BASE_URL}/Users/info`, {
+        const res = await api.get("/Users/info", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(res.data);
@@ -31,56 +32,73 @@ export default function UserProfile() {
         });
       } catch (err) {
         console.error("Error fetching user info:", err);
-      } finally {
-        setLoading(false);
       }
     };
-
     fetchUser();
-  }, []);
+  }, [token]);
 
   const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
     setIsChanged(true);
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSave = async () => {
     try {
-      setSaving(true);
-      const token = localStorage.getItem("token");
-      await axios.put(`${API_BASE_URL}/Users/info`, formData, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      setIsSaving(true);
+      await api.put(
+        "/Users/info",
+        {
+          first_name: formData.first_name,
+          last_name: formData.last_name,
+          email: formData.email,
+          birthday: formData.birthday,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
       setIsChanged(false);
     } catch (err) {
-      console.error("Error updating user info:", err);
+      console.error("Error saving user info:", err);
     } finally {
-      setSaving(false);
+      setIsSaving(false);
     }
   };
 
-  if (loading)
-    return (
-      <div className="flex justify-center items-center h-screen">
+  if (!user) return (
+    <div className="flex justify-center items-center h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
-    );
+  );
 
   return (
-    <motion.div
-      className="max-w-2xl mx-auto mt-10 bg-white shadow-xl/30 shadow-blue-900/100 rounded-2xl p-8"
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-    >
-      <h1 className="text-3xl font-bold text-center text-blue-700 mb-6">
-        👤 My Profile
-      </h1>
+    <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg/50 rounded-2xl">
+      <h2 className="text-2xl font-semibold mb-6 text-center">Profile</h2>
 
-      <div className="space-y-5">
+      {/* === Avatar Section === */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex flex-col items-center mb-8"
+      >
+        <div className="relative">
+          <img
+            src={`${API_BASE_URL}/static/images/avatar/default_avatar.png`}
+            alt="User avatar"
+            className="w-40 h-40 rounded-full object-cover border-4 border-green-500"
+          />
+          <button
+            disabled
+            className="absolute bottom-0 right-0 bg-green-600 text-white text-sm px-3 py-1 rounded-full opacity-60 cursor-not-allowed"
+          >
+            Change
+          </button>
+        </div>
+        <p className="mt-3 text-gray-500 text-sm italic">
+          (Avatar editing coming soon)
+        </p>
+      </motion.div>
+
+      {/* === Info Form === */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-gray-600 mb-1">First Name</label>
           <input
@@ -88,7 +106,7 @@ export default function UserProfile() {
             name="first_name"
             value={formData.first_name}
             onChange={handleChange}
-            className="w-full border rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none"
+            className="w-full border rounded-lg px-3 py-2"
           />
         </div>
 
@@ -99,7 +117,7 @@ export default function UserProfile() {
             name="last_name"
             value={formData.last_name}
             onChange={handleChange}
-            className="w-full border rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none"
+            className="w-full border rounded-lg px-3 py-2"
           />
         </div>
 
@@ -110,7 +128,7 @@ export default function UserProfile() {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full border rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none"
+            className="w-full border rounded-lg px-3 py-2"
           />
         </div>
 
@@ -121,35 +139,64 @@ export default function UserProfile() {
             name="birthday"
             value={formData.birthday}
             onChange={handleChange}
-            className="w-full border rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none"
+            className="w-full border rounded-lg px-3 py-2"
           />
         </div>
+      </div>
 
-        <div className="text-sm text-gray-500 mt-2">
-          <p>
-            <strong>Username:</strong> {user.username}
-          </p>
-          <p>
-            <strong>Role:</strong> {user.us_role}
-          </p>
-          <p>
-            <strong>Created:</strong> {user.created_at}
-          </p>
-        </div>
-
-        <motion.button
+      <div className="mt-6 flex justify-end">
+        <button
           onClick={handleSave}
-          disabled={!isChanged || saving}
-          whileHover={{ scale: isChanged ? 1.05 : 1 }}
-          className={`w-full py-3 rounded-xl mt-4 font-semibold text-white transition-colors ${
+          disabled={!isChanged || isSaving}
+          className={`px-6 py-2 rounded-lg text-white transition ${
             isChanged
-              ? "bg-blue-600 hover:bg-blue-700 cursor-pointer"
+              ? "bg-green-600 hover:bg-green-500"
               : "bg-gray-400 cursor-not-allowed"
           }`}
         >
-          {saving ? "Saving..." : "Save"}
-        </motion.button>
+          {isSaving ? "Saving..." : "Save"}
+        </button>
       </div>
-    </motion.div>
+
+      {/* === Change Password Section === */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mt-10 border-t pt-6"
+      >
+        <h3 className="text-lg font-semibold mb-3">Change Password</h3>
+        <p className="text-gray-500 italic mb-4">
+          (Password change feature coming soon)
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <input
+            disabled
+            type="password"
+            placeholder="Current password"
+            className="border rounded-lg px-3 py-2 bg-gray-100 cursor-not-allowed"
+          />
+          <input
+            disabled
+            type="password"
+            placeholder="New password"
+            className="border rounded-lg px-3 py-2 bg-gray-100 cursor-not-allowed"
+          />
+          <input
+            disabled
+            type="password"
+            placeholder="Confirm new password"
+            className="border rounded-lg px-3 py-2 bg-gray-100 cursor-not-allowed"
+          />
+        </div>
+
+        <button
+          disabled
+          className="mt-4 px-6 py-2 bg-gray-400 text-white rounded-lg cursor-not-allowed"
+        >
+          Change Password
+        </button>
+      </motion.div>
+    </div>
   );
 }

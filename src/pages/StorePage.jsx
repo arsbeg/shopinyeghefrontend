@@ -30,14 +30,14 @@ function ProductCard({ product }) {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 p-4 flex flex-col items-center text-center relative group max-w-80">
+    <div className="bg-gradient-to-b from-sky-50 to-sky-200 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 p-4 flex flex-col items-center text-center relative group max-w-80">
 
   {/* Фото */}
-  <div className="relative w-40 h-40 mb-3">
+  <div className="relative max-w-40 max-h-40 mb-5">
     <img
       src={`${API_BASE_URL}${product.image}`}
       alt={product.pr_name}
-      className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-300"
+      className="w-full h-full object-cover rotate-25 hover:rotate-0 rounded-xl shadow-lg/50 group-hover:scale-105 transition-transform duration-300"
     />
     {/* Лейбл скидки / новинки (пример) */}
     {product.isNew && (
@@ -185,7 +185,7 @@ export default function StorePage() {
       ) : products.length === 0 ? (
         <div className="text-center text-gray-500">No products</div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-10">
           {products.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}

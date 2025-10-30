@@ -14,9 +14,9 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-blue-300 text-white p-4 flex justify-between items-center">
+    <nav className="bg-gradient-to-b from-sky-50 to-sky-200 text-white p-4 flex justify-between items-center">
       <div className="flex gap-4">
-        <Link to="/" className="font-bold text-lg">🏪 SHOPINYEGHEGNADZOR</Link>
+        <Link to="/" className="font-bold text-gray-900 text-xl text-shadow-lg/20">🏪 SHOPINYEGHEGNADZOR</Link>
       </div>
 
       <div className="flex gap-4 items-center">
