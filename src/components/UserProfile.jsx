@@ -87,9 +87,9 @@ export default function UserProfile() {
           />
           <button
             disabled
-            className="absolute bottom-0 right-0 bg-green-600 text-white text-sm px-3 py-1 rounded-full opacity-60 cursor-not-allowed"
+            className="absolute bottom-0 right-0 bg-green-600 text-white text-sm px-3 py-1 rounded-full opacity-80 cursor-not-allowed"
           >
-            Change
+            ✏️Change
           </button>
         </div>
         <p className="mt-3 text-gray-500 text-sm italic">
@@ -148,13 +148,13 @@ export default function UserProfile() {
         <button
           onClick={handleSave}
           disabled={!isChanged || isSaving}
-          className={`px-6 py-2 rounded-lg text-white transition ${
+          className={`px-6 py-2 rounded-full text-white transition ${
             isChanged
               ? "bg-green-600 hover:bg-green-500"
               : "bg-gray-400 cursor-not-allowed"
           }`}
         >
-          {isSaving ? "Saving..." : "Save"}
+          {isSaving ? "💾Saving..." : "💾Save"}
         </button>
       </div>
 
@@ -192,9 +192,9 @@ export default function UserProfile() {
 
         <button
           disabled
-          className="mt-4 px-6 py-2 bg-gray-400 text-white rounded-lg cursor-not-allowed"
+          className="mt-4 px-6 py-2 bg-gray-400 text-white rounded-full cursor-not-allowed"
         >
-          Change Password
+          ✏️Change Password
         </button>
       </motion.div>
     </div>

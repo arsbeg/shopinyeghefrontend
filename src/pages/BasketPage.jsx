@@ -38,7 +38,7 @@ export default function BasketPage() {
     try {
       const token = localStorage.getItem("token");
       await api.put(
-        `/orders/basket_change_quantity/${orderId}/${optionId}`,
+        `/Orders/basket_change_quantity/${orderId}/${optionId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -84,15 +84,19 @@ export default function BasketPage() {
   };
 
   if (loading)
-    return <p className="text-center text-gray-600 mt-10">Loading cart...</p>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
 
   if (basketItems.length === 0)
     return (
       <div className="text-center mt-10">
         <h2 className="text-xl font-semibold">Your basket is empty</h2>
         <button
-          onClick={() => navigate("/store")}
-          className="mt-4 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-500"
+          onClick={() => navigate("/")}
+          className="mt-4 bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-500"
         >
           Go to shop
         </button>
@@ -126,14 +130,14 @@ export default function BasketPage() {
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => updateQuantity(item.id, 0)}
-                className="px-3 py-1 bg-red-500 text-white rounded-xl hover:bg-red-400"
+                className="px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-400 cursor-pointer"
               >
                 −
               </button>
               <span className="min-w-[24px] text-center">{item.quantity}</span>
               <button
                 onClick={() => updateQuantity(item.id, 1)}
-                className="px-3 py-1 bg-green-500 text-white rounded-xl hover:bg-green-400"
+                className="px-3 py-1 bg-green-500 text-white rounded-full hover:bg-green-400 cursor-pointer"
               >
                 +
               </button>
@@ -141,9 +145,9 @@ export default function BasketPage() {
 
             <button
               onClick={() => removeItem(item.id)}
-              className="bg-gray-200 hover:bg-red-500 hover:text-white text-gray-600 px-3 py-1 rounded-full transition"
+              className="bg-white hover:rotate-45 px-3 py-1 rounded-full transition cursor-pointer"
             >
-              ✕
+              🗑️
             </button>
           </div>
         ))}
