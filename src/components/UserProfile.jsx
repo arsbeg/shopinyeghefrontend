@@ -4,6 +4,7 @@ import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
 import { API_BASE_URL } from "../config";
 import { motion } from "framer-motion";
+import ChangeAvatar from "./ChangeAvatar";
 
 export default function UserProfile() {
   const { token } = useAuth();
@@ -14,8 +15,16 @@ export default function UserProfile() {
     email: "",
     birthday: "",
   });
+  const [passwordData, setPasswordData] = useState({
+    old_password: "",
+    new_password: "",
+    repeat_password: "",
+  });
   const [isChanged, setIsChanged] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isPasswordChanged, setIsPasswordChanged] = useState(false);
+  const [isPasswordSaving, setIsPasswordSaving] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -42,6 +51,11 @@ export default function UserProfile() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleChangePassword = (e) => {
+    setIsPasswordChanged(true);
+    setPasswordData({ ...passwordData, [e.target.name]: e.target.value });
+  };
+
   const handleSave = async () => {
     try {
       setIsSaving(true);
@@ -63,11 +77,32 @@ export default function UserProfile() {
     }
   };
 
-  if (!user) return (
-    <div className="flex justify-center items-center h-screen">
+  const handleSavePassword = async () => {
+    try {
+      setIsPasswordSaving(true);
+      await api.put(
+        "/Users/pwd_change",
+        {
+          old_password: passwordData.old_password,
+          new_password: passwordData.new_password,
+          repeat_password: passwordData.repeat_password,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setIsPasswordChanged(false);
+    } catch (err) {
+      console.error("Error saving user info:", err);
+    } finally {
+      setIsPasswordSaving(false);
+    }
+  };
+
+  if (!user)
+    return (
+      <div className="flex justify-center items-center h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
-  );
+    );
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg/50 rounded-2xl">
@@ -81,20 +116,27 @@ export default function UserProfile() {
       >
         <div className="relative">
           <img
-            src={`${API_BASE_URL}/static/images/avatar/default_avatar.png`}
+            src={
+              user.user_image ? `${API_BASE_URL}${user.user_image}` :
+              `${API_BASE_URL}/static/images/avatar/default_avatar.png`
+            }
             alt="User avatar"
             className="w-40 h-40 rounded-full object-cover border-4 border-green-500"
           />
           <button
-            disabled
-            className="absolute bottom-0 right-0 bg-green-600 text-white text-sm px-3 py-1 rounded-full opacity-80 cursor-not-allowed"
+            onClick={() => setIsModalOpen(true)}
+            className="absolute bottom-0 right-0 bg-green-600 text-white text-sm px-3 py-1 rounded-full opacity-80"
           >
             ✏️Change
           </button>
+
+          <ChangeAvatar
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            onUpdated={() => window.location.reload()}
+          />
         </div>
-        <p className="mt-3 text-gray-500 text-sm italic">
-          (Avatar editing coming soon)
-        </p>
+
       </motion.div>
 
       {/* === Info Form === */}
@@ -165,36 +207,44 @@ export default function UserProfile() {
         className="mt-10 border-t pt-6"
       >
         <h3 className="text-lg font-semibold mb-3">Change Password</h3>
-        <p className="text-gray-500 italic mb-4">
-          (Password change feature coming soon)
-        </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <input
-            disabled
             type="password"
             placeholder="Current password"
-            className="border rounded-lg px-3 py-2 bg-gray-100 cursor-not-allowed"
+            name="old_password"
+            value={passwordData.old_password}
+            onChange={handleChangePassword}
+            className="border rounded-lg px-3 py-2 bg-gray-100"
           />
           <input
-            disabled
             type="password"
             placeholder="New password"
-            className="border rounded-lg px-3 py-2 bg-gray-100 cursor-not-allowed"
+            name="new_password"
+            value={passwordData.new_password}
+            onChange={handleChangePassword}
+            className="border rounded-lg px-3 py-2 bg-gray-100"
           />
           <input
-            disabled
             type="password"
             placeholder="Confirm new password"
-            className="border rounded-lg px-3 py-2 bg-gray-100 cursor-not-allowed"
+            name="repeat_password"
+            value={passwordData.repeat_password}
+            onChange={handleChangePassword}
+            className="border rounded-lg px-3 py-2 bg-gray-100"
           />
         </div>
 
         <button
-          disabled
-          className="mt-4 px-6 py-2 bg-gray-400 text-white rounded-full cursor-not-allowed"
+          onClick={handleSavePassword}
+          disabled={!isPasswordChanged || isPasswordSaving}
+          className={`px-6 py-2 rounded-full mt-2 text-white transition ${
+            isPasswordChanged
+              ? "bg-green-600 hover:bg-green-500"
+              : "bg-gray-400 cursor-not-allowed"
+          }`}
         >
-          ✏️Change Password
+          {isPasswordSaving ? "✏️Changing Password..." : "✏️Change Password"}
         </button>
       </motion.div>
     </div>
