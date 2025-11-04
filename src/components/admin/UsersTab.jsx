@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../../api/axios";
 import { useAuth } from "../../context/AuthContext";
+import { API_BASE_URL } from "../../config";
 
 export default function UsersTab() {
   const [users, setUsers] = useState([]);
@@ -9,7 +10,7 @@ export default function UsersTab() {
   const { user } = useAuth();
   const token = localStorage.getItem("token");
 
-  console.log({token})
+  console.log({ token });
 
   const fetchUsers = async () => {
     if (!token) return;
@@ -35,11 +36,15 @@ export default function UsersTab() {
     if (!role) return;
 
     try {
-      await api.put(`/Users/ch_role/${userId}/${role}`, {}, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await api.put(
+        `/Users/ch_role/${userId}/${role}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       alert("Role updated successfully");
       fetchUsers();
     } catch (err) {
@@ -71,7 +76,7 @@ export default function UsersTab() {
       <input
         type="text"
         placeholder="Search user..."
-        className="border p-2 rounded w-full mb-4"
+        className="border p-2 rounded-full w-1/4 mb-4"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
@@ -79,6 +84,7 @@ export default function UsersTab() {
         <thead className="text-xs text-gray-900 uppercase bg-gray-50">
           <tr className="bg-blue-300">
             <th className="px-6 py-3">ID</th>
+            <th className="px-6 py-3">Avatar</th>
             <th className="px-6 py-3">Username</th>
             <th className="px-6 py-3">Email</th>
             <th className="px-6 py-3">Current Role</th>
@@ -88,14 +94,28 @@ export default function UsersTab() {
         </thead>
         <tbody>
           {filtered.map((u) => (
-            <tr key={u.id} className="text-center odd:bg-white even:bg-blue-50 border-b border-gray-200">
+            <tr
+              key={u.id}
+              className="text-center odd:bg-white even:bg-blue-50 border-b border-gray-200"
+            >
               <td className="px-6 py-3">{u.id}</td>
+              <td className="px-6 py-3">
+                <img
+                  src={
+                    u.user_image
+                      ? `${API_BASE_URL}${u.user_image}`
+                      : `${API_BASE_URL}/static/images/avatar/default_avatar.png`
+                  }
+                  alt="User avatar"
+                  className="w-20 h-20 rounded-full object-cover border-4 border-green-500"
+                />
+              </td>
               <td className="px-6 py-3">{u.username}</td>
               <td className="px-6 py-3">{u.email_address}</td>
               <td className="px-6 py-3">{u.us_role}</td>
               <td className="px-6 py-3">
                 <select
-                  className="border p-1 rounded-xl"
+                  className="border p-1 rounded-full"
                   value={roles[u.id] || u.role}
                   onChange={(e) => handleRoleChange(u.id, e.target.value)}
                 >
