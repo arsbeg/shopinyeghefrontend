@@ -113,13 +113,13 @@ export default function StorePage() {
     try {
       let response;
       if (category === "all") {
-        response = await api.get(`/Products/all`);
+        response = await api.get(`/Products/by_store/${id}`);
       } else {
         response = await api.get(`/Products/by_category/${category}`);
       }
       // Можно отфильтровать по store_id если backend отдаёт все товары
-      const filtered = response.data.filter((p) => p.store_id == id);
-      setProducts(filtered);
+      //const filtered = response.data.filter((p) => p.store_id == id);
+      setProducts(response.data);
     } catch (err) {
       console.error("Ошибка при загрузке продуктов:", err);
     } finally {
