@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -15,7 +15,6 @@ import AppLayout from "./layouts/AppLayout";
 function App() {
   return (
     <AppLayout>
-    <Router>
       <div className="min-h-screen bg-gray-50">
         <Header />
         <main className="p-4">
@@ -32,7 +31,6 @@ function App() {
           </Routes>
         </main>
       </div>
-    </Router>
     </AppLayout>
   );
 }
