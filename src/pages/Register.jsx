@@ -29,7 +29,7 @@ export default function Register() {
         className="bg-white shadow-lg rounded-xl p-8 w-full max-w-md"
       >
         <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">
-          Регистрация
+          Register
         </h1>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         <input
@@ -76,9 +76,9 @@ export default function Register() {
         />
         <button
           type="submit"
-          className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700"
+          className="w-full bg-green-600 text-white py-2 rounded-full hover:bg-green-700 cursor-pointer"
         >
-          Зарегистрироваться
+          Register
         </button>
       </form>
     </div>
