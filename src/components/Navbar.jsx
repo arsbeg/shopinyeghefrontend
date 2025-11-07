@@ -16,10 +16,10 @@ export default function Navbar() {
   return (
     <nav className="bg-gradient-to-b from-sky-50 to-sky-200 text-white p-4 flex justify-between items-center">
       <div className="flex gap-4">
-        <Link to="/" className="font-bold text-gray-900 text-xl text-shadow-lg/20">🏪 SHOPINYEGHEGNADZOR</Link>
+        <Link to="/" className="font-bold text-gray-900 text-[8px] md:text-sm lg:text-lg text-shadow-lg/20">🏪 SHOPINYEGHEGNADZOR</Link>
       </div>
 
-      <div className="flex gap-4 items-center">
+      <div className="flex gap-4 items-center text-[8px] md:text-sm lg:text-lg">
         {/* Кнопка корзины */}
         {user && (
           <button
