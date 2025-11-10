@@ -210,58 +210,38 @@ export default function UserProfile() {
       >
         <h3 className="text-lg font-semibold mb-3">Change Password</h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div className="relative">
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Current password"
-              name="old_password"
-              value={passwordData.old_password}
-              onChange={handleChangePassword}
-              className="border rounded-lg px-3 py-2 bg-gray-100"
-            />
-            <button
+        <div className="relative grid grid-cols-1 md:grid-cols-3 gap-3">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Current password"
+            name="old_password"
+            value={passwordData.old_password}
+            onChange={handleChangePassword}
+            className="border rounded-lg px-3 py-2 bg-gray-100"
+          />
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="New password"
+            name="new_password"
+            value={passwordData.new_password}
+            onChange={handleChangePassword}
+            className="border rounded-lg px-3 py-2 bg-gray-100"
+          />
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Confirm new password"
+            name="repeat_password"
+            value={passwordData.repeat_password}
+            onChange={handleChangePassword}
+            className="border rounded-lg px-3 py-2 bg-gray-100"
+          />
+          <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/3 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
           >
             {showPassword ? <EyeOff size={20}/> : <Eye size={20} />}
           </button>
-          </div>
-          <div className="relative">
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="New password"
-              name="new_password"
-              value={passwordData.new_password}
-              onChange={handleChangePassword}
-              className="border rounded-lg px-3 py-2 bg-gray-100"
-            />
-            <button
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/3 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-          >
-            {showPassword ? <EyeOff size={20}/> : <Eye size={20} />}
-          </button>
-          </div>
-          <div className="relative">
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Confirm new password"
-              name="repeat_password"
-              value={passwordData.repeat_password}
-              onChange={handleChangePassword}
-              className="border rounded-lg px-3 py-2 bg-gray-100"
-            />
-            <button
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/3 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-          >
-            {showPassword ? <EyeOff size={20}/> : <Eye size={20} />}
-          </button>
-          </div>
         </div>
 
         <button
