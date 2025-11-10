@@ -1,5 +1,5 @@
 {
-  "name": "SHOPINYEGHEGNADZOR",
+  "name": "shop-in-yeghefrontend",
   "private": true,
   "version": "0.1.0",
   "homepage": "https://arsbeg.github.io/shopinyeghefrontend/",
@@ -16,6 +16,7 @@
   "dependencies": {
     "axios": "^1.12.2",
     "framer-motion": "^12.23.24",
+    "lucide-react": "^0.553.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-easy-crop": "^5.5.3",

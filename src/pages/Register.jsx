@@ -1,6 +1,7 @@
 import { useState } from "react";
 import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react"
 
 export default function Register() {
   const [first_name, setFirst_name] = useState("");
@@ -11,6 +12,7 @@ export default function Register() {
   const [birthday, setBirthday] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -47,7 +49,7 @@ export default function Register() {
           className="w-full border rounded-lg p-2 mb-4"
         />
         <input
-          type="text"
+          type="date"
           placeholder="yyyy-mm-dd"
           value={birthday}
           onChange={(e) => setBirthday(e.target.value)}
@@ -67,13 +69,22 @@ export default function Register() {
           onChange={(e) => setEmail(e.target.value)}
           className="w-full border rounded-lg p-2 mb-4"
         />
-        <input
-          type="password"
-          placeholder="Пароль"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full border rounded-lg p-2 mb-4"
-        />
+        <div className="relative">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full border rounded-lg p-2 mb-4"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/3 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+          >
+            {showPassword ? <EyeOff size={20}/> : <Eye size={20} />}
+          </button>
+        </div>
         <button
           type="submit"
           className="w-full bg-green-600 text-white py-2 rounded-full hover:bg-green-700 cursor-pointer"
