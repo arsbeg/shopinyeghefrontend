@@ -29,6 +29,14 @@ function ProductCard({ product }) {
     }
   };
 
+  const calculateDaysSince = (createdAt) => {
+    const createdDate = new Date(createdAt);
+    const today = new Date();
+    const diffTime = Math.abs(today - createdDate);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+
   return (
     <div className="bg-gradient-to-b from-sky-50 to-sky-200 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 p-4 flex flex-col items-center text-center relative group max-w-80">
       {/* Фото */}
@@ -39,7 +47,7 @@ function ProductCard({ product }) {
           className="w-full h-full object-cover rotate-25 hover:rotate-0 rounded-xl shadow-lg/50 group-hover:scale-105 transition-transform duration-300"
         />
         {/* Лейбл скидки / новинки (пример) */}
-        {product.isNew && (
+        {calculateDaysSince(product.input_time) < 10 && (
           <span className="absolute top-2 left-2 bg-green-600 text-white text-xs font-semibold px-2 py-1 rounded-lg shadow">
             NEW
           </span>
