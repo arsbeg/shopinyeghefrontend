@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import { API_BASE_URL } from "../config";
 import HeroCarousel from "../components/HeroCarousel";
@@ -8,11 +8,12 @@ import WeatherWidget from "../components/WhetherWidget";
 function ProductCard({ product }) {
   const [quantity, setQuantity] = useState(1);
   const token = localStorage.getItem("token");
+  const navigate = useNavigate()
   console.log({ token });
 
   const addToBasket = async () => {
     if (!token) {
-      window.location.href = "/login";
+      navigate("/login");
       return;
     }
     try {
@@ -25,7 +26,7 @@ function ProductCard({ product }) {
     } catch (err) {
       alert("Error adding to cart or session time out");
       console.error(err);
-      window.location.href = "/login";
+      navigate("/login");
     }
   };
 
