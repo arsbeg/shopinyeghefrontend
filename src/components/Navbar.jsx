@@ -16,15 +16,15 @@ export default function Navbar() {
   return (
     <nav className="bg-gradient-to-b from-sky-50 to-sky-200 text-white p-4 flex justify-between items-center">
       <div className="flex gap-4">
-        <Link to="/" className="font-bold text-gray-900 text-[8px] md:text-sm lg:text-lg text-shadow-lg/20">🏪 SHOPINYEGHEGNADZOR</Link>
+        <Link to="/" className="font-bold text-gray-900 text-[9px] md:text-sm lg:text-lg text-shadow-lg/20">🏪 SHOPINYEGHEGNADZOR</Link>
       </div>
 
-      <div className="flex gap-4 items-center text-[8px] md:text-sm lg:text-lg">
+      <div className="flex gap-1 md:gap-2 lg:gap-3 items-center text-[8px] md:text-sm lg:text-lg">
         {/* Кнопка корзины */}
         {user && (
           <button
             onClick={() => navigate("/basket")}
-            className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-full cursor-pointer"
+            className="bg-blue-500 hover:bg-blue-600 px-3 py-1 md:py-2 lg:py-2 rounded-full cursor-pointer"
           >
             🛒 Cart
           </button>
@@ -34,7 +34,7 @@ export default function Navbar() {
         {!user && (
           <button
             onClick={() => navigate("/login")}
-            className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-full cursor-pointer"
+            className="bg-blue-500 hover:bg-blue-600 px-3 py-1 md:py-2 lg:py-2 rounded-full cursor-pointer"
           >
             Login
           </button>
@@ -45,13 +45,13 @@ export default function Navbar() {
           <>
             <button
               onClick={handleProfileClick}
-              className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-full cursor-pointer"
+              className="bg-blue-500 hover:bg-blue-600 px-3 py-1 md:py-2 lg:py-2 rounded-full cursor-pointer"
             >
               👤{user.username}
             </button>
             <button
               onClick={logout}
-              className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-full cursor-pointer"
+              className="bg-red-500 hover:bg-red-600 px-3 py-1 md:py-2 lg:py-2 rounded-full cursor-pointer"
             >
               Logout
             </button>

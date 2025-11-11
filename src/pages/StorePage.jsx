@@ -58,14 +58,14 @@ function ProductCard({ product }) {
       <div className="flex items-center justify-center gap-3 mt-3">
         <button
           onClick={() => setQuantity(Math.max(1, quantity - 1))}
-          className="w-8 h-8 flex items-center justify-center bg-red-500 hover:bg-red-300 rounded-full text-lg font-bold transition"
+          className="w-6 md:w-7 lg:w-8 h-6 md:h-7 lg:h-8 flex items-center justify-center bg-red-500 hover:bg-red-300 rounded-full text-lg font-bold transition"
         >
           −
         </button>
         <span className="text-lg font-medium w-6 text-center">{quantity}</span>
         <button
           onClick={() => setQuantity(quantity + 1)}
-          className="w-8 h-8 flex items-center justify-center bg-green-500 hover:bg-green-300 rounded-full text-lg font-bold transition"
+          className="w-6 md:w-7 lg:w-8 h-6 md:h-7 lg:h-8 flex items-center justify-center bg-green-500 hover:bg-green-300 rounded-full text-lg font-bold transition"
         >
           +
         </button>
@@ -74,7 +74,7 @@ function ProductCard({ product }) {
       {/* Кнопка */}
       <button
         onClick={addToBasket}
-        className="mt-4 w-35 bg-blue-600 text-white py-2.5 rounded-full font-semibold hover:bg-blue-700 active:scale-95 transition-transform duration-150"
+        className="mt-4 bg-blue-600 text-white py-2 px-3 rounded-full font-semibold hover:bg-blue-700 text-[10px] md:text-sm lg:text-base active:scale-95 transition-transform duration-150"
       >
         🛒 Add to Cart
       </button>
@@ -162,9 +162,9 @@ export default function StorePage() {
       </div>
 
       {/* Categories */}
-      <div className="flex flex-wrap gap-2 mb-6">
+      <div className="flex flex-wrap text-[9px] md:text-sm lg:text-lg gap-2 mb-6">
         <button
-          className={`px-4 py-2 rounded-full border ${
+          className={`px-3 py-1 rounded-full border border-blue-600 ${
             selectedCategory === "all"
               ? "bg-blue-600 text-white"
               : "bg-white text-gray-700"
@@ -177,7 +177,7 @@ export default function StorePage() {
         {categories.map((cat) => (
           <button
             key={cat.id}
-            className={`px-4 py-2 rounded-full border ${
+            className={`px-3 py-1 rounded-full border border-blue-600 ${
               selectedCategory === cat.id
                 ? "bg-blue-600 text-white"
                 : "bg-white text-gray-700"
@@ -190,7 +190,7 @@ export default function StorePage() {
         <input
           type="text"
           placeholder="🔎︎ Search product..."
-          className="border p-2 rounded-full w-1/4"
+          className="border border-blue-600 p-2 px-3 py-1 rounded-full w-1/2 md:w-1/3 lg:w-1/4"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
