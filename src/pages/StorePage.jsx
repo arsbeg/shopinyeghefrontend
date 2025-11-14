@@ -40,14 +40,14 @@ function ProductCard({ product }) {
 
   return (
     <div className="bg-gradient-to-b from-sky-50 to-sky-200 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 p-4 flex flex-col items-center text-center relative group max-w-80">
-      {/* Фото */}
+      {/* Photo */}
       <div className="relative max-w-40 max-h-40 mb-5">
         <img
           src={`${API_BASE_URL}${product.image}`}
           alt={product.pr_name}
           className="w-full h-full object-cover rotate-25 hover:rotate-0 rounded-xl shadow-lg/50 group-hover:scale-105 transition-transform duration-300"
         />
-        {/* Лейбл скидки / новинки (пример) */}
+        {/* Label NEW */}
         {calculateDaysSince(product.input_time) < 10 && (
           <span className="absolute top-2 left-2 bg-green-600 text-white text-xs font-semibold px-2 py-1 rounded-lg shadow">
             NEW
@@ -55,7 +55,7 @@ function ProductCard({ product }) {
         )}
       </div>
 
-      {/* Название и цена */}
+      {/* Product name and price */}
       <h3 className="font-semibold text-lg text-gray-800 truncate max-w-[160px]">
         {product.pr_name}
       </h3>
@@ -63,7 +63,7 @@ function ProductCard({ product }) {
         {product.price.toLocaleString()} ֏
       </p>
 
-      {/* Количество */}
+      {/* quantity */}
       <div className="flex items-center justify-center gap-3 mt-3">
         <button
           onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -80,7 +80,7 @@ function ProductCard({ product }) {
         </button>
       </div>
 
-      {/* Кнопка */}
+      {/* Button */}
       <button
         onClick={addToBasket}
         className="mt-4 bg-blue-600 text-white py-2 px-3 rounded-full font-semibold hover:bg-blue-700 text-[10px] md:text-sm lg:text-base active:scale-95 transition-transform duration-150"
@@ -100,7 +100,7 @@ export default function StorePage() {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("")
 
-  // Загружаем данные магазина и категории
+  // Fetching Store and Category data
   useEffect(() => {
     api
       .get(`/Store/${id}`)
@@ -112,11 +112,11 @@ export default function StorePage() {
       .then((res) => setCategories(res.data))
       .catch((err) => console.error("Ошибка при загрузке категорий:", err));
 
-    // Загружаем все продукты этого магазина (по умолчанию)
+    // Fetching Current Store products
     loadProducts("all");
   }, [id]);
 
-  // Загрузка товаров (в зависимости от категории)
+  // Fetching current Category products
   const loadProducts = async (category) => {
     setLoading(true);
     try {
@@ -126,11 +126,11 @@ export default function StorePage() {
       } else {
         response = await api.get(`/Products/by_category/${category}`);
       }
-      // Можно отфильтровать по store_id если backend отдаёт все товары
+      // Bellow if backend gives all products , filter by store
       //const filtered = response.data.filter((p) => p.store_id == id);
       setProducts(response.data);
     } catch (err) {
-      console.error("Ошибка при загрузке продуктов:", err);
+      console.error("Error fatching products:", err);
     } finally {
       setLoading(false);
     }

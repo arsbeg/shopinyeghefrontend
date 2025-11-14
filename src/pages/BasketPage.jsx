@@ -8,7 +8,7 @@ export default function BasketPage() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // === Загружаем корзину ===
+  // === fetching basket ===
   useEffect(() => {
     const fetchBasket = async () => {
       try {
@@ -33,7 +33,7 @@ export default function BasketPage() {
     fetchBasket();
   }, [navigate]);
 
-  // === Изменение количества (через API) ===
+  // === Change quantity (via API) ===
   const updateQuantity = async (orderId, optionId) => {
     try {
       const token = localStorage.getItem("token");
@@ -45,7 +45,7 @@ export default function BasketPage() {
         }
       );
 
-      // Обновляем корзину после изменения
+      // Update basket
       const res = await api.get("/Orders/get_basket", {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -55,7 +55,7 @@ export default function BasketPage() {
     }
   };
 
-  // === Удаление товара ===
+  // === Delete products ===
   const removeItem = async (orderId) => {
     if (!window.confirm("Are you sure you want to remove this item?")) return;
     try {
@@ -64,20 +64,20 @@ export default function BasketPage() {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      // Удаляем локально
+      // Localy Delete
       setBasketItems((prev) => prev.filter((item) => item.id !== orderId));
     } catch (err) {
       console.error("Error deleting from basket:", err);
     }
   };
 
-  // === Подсчёт общей суммы ===
+  // === Total SUM ===
   const totalPrice = basketItems.reduce(
     (acc, item) => acc + item.quantity * item.price,
     0
   );
 
-  // === Оформить заказ ===
+  // === Checkout ===
   const handleCheckout = () => {
     alert("🛒 Order placed successfully!");
     navigate("/");
