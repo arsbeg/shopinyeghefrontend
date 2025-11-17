@@ -108,38 +108,38 @@ export default function BasketPage() {
     <div className="max-w-4xl mx-auto mt-10 p-4">
       <h1 className="text-2xl font-bold mb-6 text-center">🛒 Your Basket</h1>
 
-      <div className="space-y-4">
+      <div className="space-y-2 md:space-y-4">
         {basketItems.map((item) => (
           <div
             key={item.id}
-            className="flex items-center justify-between bg-white shadow-md p-4 rounded-xl"
+            className="flex items-center justify-between bg-white shadow-md p-2 md:p-4 rounded-xl"
           >
             <div className="flex items-center space-x-4">
               {item.image && (
                 <img
                   src={`${API_BASE_URL}${item.image}`}
                   alt={item.pr_name}
-                  className="w-20 h-20 object-cover rounded-lg"
+                  className="w-10 md:w-15 lg:w-20  h-10 md:h-15 lg:h-20 object-cover rounded-lg"
                 />
               )}
               <div>
-                <h2 className="text-lg font-semibold">{item.pr_name}</h2>
-                <p className="text-gray-600">{item.price} ֏</p>
-                <p className="text-gray-400">From {item.st_name}</p>
+                <h2 className="text-sm md:text-lg font-semibold">{item.pr_name}</h2>
+                <p className="text-xs md:text-base text-green-600 font-bold">{item.price} ֏</p>
+                <p className="text-xs md:text-base text-gray-400">{item.st_name}</p>
               </div>
             </div>
 
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-0 md:space-x-2">
               <button
                 onClick={() => updateQuantity(item.id, 0)}
-                className="px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-400 cursor-pointer"
+                className="w-6 md:w-7 lg:w-8 h-6 md:h-7 lg:h-8 text-white flex items-center justify-center bg-red-500 hover:bg-red-300 rounded-full text-lg font-bold transition"
               >
                 −
               </button>
               <span className="min-w-[24px] text-center">{item.quantity}</span>
               <button
                 onClick={() => updateQuantity(item.id, 1)}
-                className="px-3 py-1 bg-green-500 text-white rounded-full hover:bg-green-400 cursor-pointer"
+                className="w-6 md:w-7 lg:w-8 h-6 md:h-7 lg:h-8 text-white flex items-center justify-center bg-green-500 hover:bg-green-300 rounded-full text-lg font-bold transition"
               >
                 +
               </button>
@@ -162,7 +162,7 @@ export default function BasketPage() {
         </p>
         <button
           onClick={handleCheckout}
-          className="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-500 transition"
+          className="bg-green-600 text-white px-4 py-1 md:px-6 md:py-2 text-sm md:text-base lg:text-lg rounded-full hover:bg-green-500 transition"
         >
           Checkout
         </button>

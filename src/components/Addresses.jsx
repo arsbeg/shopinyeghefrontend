@@ -95,7 +95,7 @@ export default function Addresses({ onSelect }) {
 
   return (
     <div className="bg-white p-4 rounded-xl shadow-md mt-8">
-      <h2 className="text-xl font-semibold mb-4">📍 Shipping Address</h2>
+      <h2 className="text-base md:text-xl lg:text-2xl font-semibold mb-4">📍 My shipping addresses</h2>
 
       {/* List of addresses */}
       <div className="space-y-3 mb-4">
@@ -106,7 +106,7 @@ export default function Addresses({ onSelect }) {
         {addresses.map((addr) => (
           <div
             key={addr.id}
-            className="flex items-center justify-between gap-3"
+            className="flex items-center text-xs md:text-base lg:text-xl justify-between gap-1 md:gap-2 lg:gap-3"
           >
             {/* Radio */}
             <input
@@ -165,11 +165,11 @@ export default function Addresses({ onSelect }) {
           placeholder="Add new address..."
           value={newAddress}
           onChange={(e) => setNewAddress(e.target.value)}
-          className="flex-1 border rounded-full px-3 py-2"
+          className="flex-1 text-sm md:text-xl border rounded-full px-3 py-1"
         />
         <button
           onClick={addAddress}
-          className="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-400"
+          className="bg-green-600 text-white px-2 py-1 md:px-4 md:py-2 text-sm md:text-xl rounded-full hover:bg-green-400"
         >
           Add
         </button>
