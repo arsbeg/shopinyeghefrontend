@@ -121,7 +121,7 @@ export default function Addresses({ onSelect }) {
               <input
                 value={editValue}
                 onChange={(e) => setEditValue(e.target.value)}
-                className="flex-1 border rounded-lg px-3 py-1"
+                className="flex-1 border rounded-full px-3 py-1"
               />
             ) : (
               <span className="flex-1 text-gray-800">{addr.address}</span>
@@ -131,9 +131,9 @@ export default function Addresses({ onSelect }) {
             {editId === addr.id ? (
               <button
                 onClick={() => saveEdit(addr.id)}
-                className="px-3 py-1 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                className="px-3 py-1 bg-white text-white rounded-lg hover:scale-150 transition"
               >
-                Save
+                💾
               </button>
             ) : (
               <button
@@ -141,18 +141,18 @@ export default function Addresses({ onSelect }) {
                   setEditId(addr.id);
                   setEditValue(addr.address);
                 }}
-                className="px-3 py-1 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
+                className="px-3 py-1 bg-white text-white rounded-lg hover:scale-150 transition"
               >
-                Edit
+                ✏️
               </button>
             )}
 
             {/* Delete */}
             <button
               onClick={() => deleteAddress(addr.id)}
-              className="px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700"
+              className="px-3 py-1 bg-white text-white rounded-lg hover:rotate-30 transition"
             >
-              Delete
+              🗑️
             </button>
           </div>
         ))}
@@ -165,7 +165,7 @@ export default function Addresses({ onSelect }) {
           placeholder="Add new address..."
           value={newAddress}
           onChange={(e) => setNewAddress(e.target.value)}
-          className="flex-1 border rounded-lg px-3 py-2"
+          className="flex-1 border rounded-full px-3 py-2"
         />
         <button
           onClick={addAddress}
