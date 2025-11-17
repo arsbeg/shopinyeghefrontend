@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import { API_BASE_URL } from "../config";
+import Addresses from "../components/Addresses";
 
 export default function BasketPage() {
   const [basketItems, setBasketItems] = useState([]);
@@ -166,6 +167,7 @@ export default function BasketPage() {
           Checkout
         </button>
       </div>
+      <Addresses onSelect={(addressId) => setSelectedAddress(addressId)} />
     </div>
   );
 }
