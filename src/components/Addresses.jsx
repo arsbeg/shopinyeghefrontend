@@ -90,7 +90,7 @@ export default function Addresses({ onSelect }) {
   // Select address with radio
   const selectAddress = (id) => {
     setSelectedAddress(id);
-    onSelect && onSelect(id);
+    onSelect?.(id);
   };
 
   return (

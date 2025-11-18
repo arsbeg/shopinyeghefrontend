@@ -8,6 +8,7 @@ export default function BasketPage() {
   const [basketItems, setBasketItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const [selectedAddress, setSelectedAddress] = useState(null);
 
   // === fetching basket ===
   useEffect(() => {
