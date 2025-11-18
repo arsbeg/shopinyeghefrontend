@@ -27,7 +27,7 @@ function App() {
             <Route path="/courier" element={<ProtectedRoute role="courier"><Courier /></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute role="user"><Profile /></ProtectedRoute>} />
             <Route path="/store/:id" element={<StorePage />} />
-            <Route path="/basket" element={<BasketPage />} />
+            <Route path="/basket" element={<ProtectedRoute><BasketPage /></ProtectedRoute>} />
           </Routes>
         </main>
       </div>
