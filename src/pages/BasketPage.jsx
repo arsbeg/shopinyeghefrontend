@@ -80,9 +80,26 @@ export default function BasketPage() {
   );
 
   // === Checkout ===
-  const handleCheckout = () => {
-    alert("🛒 Order placed successfully!");
-    navigate("/");
+  const handleCheckout = async () => {
+    if (!selectedAddress) return alert("Please select an address");
+    if (!window.confirm("Is Your selected address correct?")) return;
+
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await api.post(
+        "/Orders/checkout",
+        { address_id: selectedAddress },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      alert(`Order N- ${response.data.order_id} created with total amount of ${response.data.total_amount}!`);
+      navigate("/basket");
+
+    } catch (err) {
+      console.error("Checkout error:", err);
+      alert("Checkout failed");
+    }
   };
 
   if (loading)
