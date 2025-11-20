@@ -94,7 +94,7 @@ export default function Addresses({ onSelect }) {
   };
 
   return (
-    <div className="bg-white p-4 rounded-xl shadow-md mt-8">
+    <div className="bg-gradient-to-b from-sky-50 to-sky-200 p-4 rounded-xl shadow-md mt-8">
       <h2 className="text-base md:text-xl lg:text-2xl font-semibold mb-4">📍 My shipping addresses</h2>
 
       {/* List of addresses */}
@@ -106,7 +106,7 @@ export default function Addresses({ onSelect }) {
         {addresses.map((addr) => (
           <div
             key={addr.id}
-            className="flex items-center text-xs md:text-base lg:text-xl justify-between gap-1 md:gap-2 lg:gap-3"
+            className="flex bg-white rounded-lg px-1 shadow-lg/30 items-center text-xs md:text-base lg:text-xl justify-between gap-1 md:gap-2 lg:gap-3"
           >
             {/* Radio */}
             <input

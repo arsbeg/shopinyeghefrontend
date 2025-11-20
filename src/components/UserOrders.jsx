@@ -69,7 +69,7 @@ export default function UserOrders({ refreshTrigger = 0 }) {
 
 
   return (
-    <div className="bg-white p-4 rounded-xl shadow-md mt-8">
+    <div className="bg-gradient-to-b from-sky-50 to-sky-200 p-4 rounded-xl shadow-md mt-8">
       <h2 className="text-base md:text-xl lg:text-2xl font-semibold mb-4">🛒 My Orders</h2>
 
       {/* List of orders */}
@@ -81,7 +81,7 @@ export default function UserOrders({ refreshTrigger = 0 }) {
         {orders.map((order) => (
           <div
             key={order.id}
-            className="flex items-center text-xs md:text-base lg:text-xl justify-between gap-1 md:gap-2 lg:gap-3"
+            className="flex bg-white items-center text-xs md:text-base lg:text-xl justify-between gap-1 md:gap-2 lg:gap-3 shadow-lg/20 rounded-lg px-1 py-1"
           >
             
             <span className="flex-1 text-gray-800">Order N-{order.id} | {order.total_amount}֏ | {order.status} | {order.created_at}</span>
