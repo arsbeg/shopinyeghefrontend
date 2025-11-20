@@ -3,7 +3,7 @@ import api from "../api/axios";
 
 export default function UserOrders({ refreshTrigger = 0 }) {
   const [orders, setOrders] = useState([]);
-  const [orderedItems, setOrderedItems] = useState(null);
+  const [orderedItems, setOrderedItems] = useState([]);
 
   const [editId, setEditId] = useState(null);
   const [editValue, setEditValue] = useState("");
