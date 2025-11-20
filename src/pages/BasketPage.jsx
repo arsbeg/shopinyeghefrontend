@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import { API_BASE_URL } from "../config";
 import Addresses from "../components/Addresses";
+import UserOrders from "../components/UserOrders";
 
 export default function BasketPage() {
   const [basketItems, setBasketItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [selectedAddress, setSelectedAddress] = useState(null);
+  const [refreshOrders, setRefreshOrders] = useState(0);
 
   // === fetching basket ===
   useEffect(() => {
@@ -86,7 +88,7 @@ export default function BasketPage() {
 
     try {
       const token = localStorage.getItem("token");
-
+      
       const response = await api.post(
         "/Orders/checkout",
         { address_id: selectedAddress },
@@ -100,6 +102,7 @@ export default function BasketPage() {
       });
       setBasketItems(res.data || []);
       navigate("/basket");
+      setRefreshOrders(prev => prev + 1);
 
     } catch (err) {
       console.error("Checkout error:", err);
@@ -116,7 +119,7 @@ export default function BasketPage() {
 
   if (basketItems.length === 0)
     return (
-      <div className="text-center mt-10">
+      <div className="max-w-4xl mx-auto mt-10 p-4 text-center mt-10">
         <h2 className="text-xl font-semibold">Your basket is empty</h2>
         <button
           onClick={() => navigate("/")}
@@ -124,6 +127,8 @@ export default function BasketPage() {
         >
           Go to shop
         </button>
+        <Addresses onSelect={(addressId) => setSelectedAddress(addressId)} />
+        <UserOrders refreshTrigger={refreshOrders} />
       </div>
     );
 
@@ -191,6 +196,7 @@ export default function BasketPage() {
         </button>
       </div>
       <Addresses onSelect={(addressId) => setSelectedAddress(addressId)} />
+      <UserOrders refreshTrigger={refreshOrders} />
     </div>
   );
 }
