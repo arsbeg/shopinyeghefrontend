@@ -94,6 +94,11 @@ export default function BasketPage() {
       );
 
       alert(`Order N- ${response.data.order_id} created with total amount of ${response.data.total_amount}!`);
+      // Update basket
+      const res = await api.get("/Orders/get_basket", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setBasketItems(res.data || []);
       navigate("/basket");
 
     } catch (err) {
