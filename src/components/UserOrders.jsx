@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/axios";
+import OrderedPrCard from "./OrderedPrCard";
 
 export default function UserOrders({ refreshTrigger = 0 }) {
   const [orders, setOrders] = useState([]);
@@ -81,33 +82,33 @@ export default function UserOrders({ refreshTrigger = 0 }) {
         {orders.map((order) => (
           <div
             key={order.id}
-            className="flex bg-white items-center text-xs md:text-base lg:text-xl justify-between gap-1 md:gap-2 lg:gap-3 shadow-lg/20 rounded-lg px-1 py-1"
+            className="grid flex bg-white items-center text-xs md:text-base lg:text-xl justify-between gap-1 md:gap-2 lg:gap-3 shadow-lg/20 rounded-lg px-1 py-1"
           >
-            
-            <span className="flex-1 text-gray-800">Order N-{order.id} | {order.total_amount}֏ | {order.status} | {order.created_at}</span>
             <div>
+              <span className="flex-1 text-gray-800 text-[9px] md:text-base">
+                Order N-{order.id}   Total amout- {order.total_amount}֏
+              </span>
+              {/* Cancel order */}
+              <button
+                onClick={() => cancelOrder(order.id)}
+                className="px-3 py-1 bg-white text-white rounded-lg hover:rotate-30 transition"
+              >
+                🗑️
+              </button>
+            </div>           
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-10">
                 {orderedItems
                   .filter(item => item.order_id === order.id)
                   .map(item => (
-                    <div 
-                      key={item.id}
-                      className="flex items-center text-xs md:text-base lg:text-xl justify-between gap-1 md:gap-2 lg:gap-3"
-                    >
-                      <span className="flex-1 text-gray-800">
-                        {item.product_id} | {item.cur_price}֏ | {item.quantity}
-                      </span>
-                    </div>
+                    <OrderedPrCard key={item.id} product={item} />
                   ))
                 }
             </div>
-
-            {/* Delete */}
-            <button
-              onClick={() => cancelOrder(order.id)}
-              className="px-3 py-1 bg-white text-white rounded-lg hover:rotate-30 transition"
-            >
-              🗑️
-            </button>
+            <div>
+              <span className="flex-1 text-gray-800 text-[9px] md:text-base">
+                Status {order.status}    Ordered at: {order.created_at}
+              </span>
+            </div>
           </div>
         ))}
       </div>
