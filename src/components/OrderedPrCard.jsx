@@ -29,9 +29,9 @@ export default function OrderedPrCard({ product }) {
   };
 
   return (
-    <div className="snap-center bg-gradient-to-b from-sky-50 to-sky-200 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 p-2 flex flex-col items-center text-center relative group max-w-80">
+    <div className="mb-1 snap-center min-w-25 bg-gradient-to-b from-sky-50 to-sky-200 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 p-2 flex flex-col items-center text-center relative group max-w-80">
       {/* Photo */}
-      <div className="relative max-w-40 max-h-40 mb-3">
+      <div className="relative max-w-40 max-h-40 mb-2">
         <img
           src={`${API_BASE_URL}${product.image}`}
           alt={product.pr_name}
@@ -43,6 +43,9 @@ export default function OrderedPrCard({ product }) {
       <h3 className="font-semibold text-sm md:text-base text-gray-800 truncate max-w-[160px]">
         {product.pr_name}
       </h3>
+      <h1 className="text-[9px] md:text-[12px] text-gray-800 truncate max-w-[160px]">
+        {product.st_name}
+      </h1>
       <p className="text-green-700 font-bold mt-1 text-sm md:text-base lg:text-lg">
         {product.cur_price.toLocaleString()} ֏
       </p>

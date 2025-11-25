@@ -84,17 +84,22 @@ export default function UserOrders({ refreshTrigger = 0 }) {
             key={order.id}
             className="grid flex bg-white items-center text-xs md:text-base lg:text-xl justify-between gap-1 md:gap-2 lg:gap-3 shadow-lg/20 rounded-lg px-1 py-1"
           >
-            <div>
-              <span className="flex-1 text-gray-800 text-[9px] md:text-base">
-                Order N-{order.id}   Total amout- {order.total_amount}֏
-              </span>
+            <div className="flex justify-between items-center">
+              <div className="flex text-gray-800 text-[9px] md:text-base">
+                Order N-{order.id}
+              </div>
+              <div className="flex text-gray-800 text-[9px] md:text-base">
+                Total amout:--- <span className="text-green-700 font-bold">{order.total_amount}֏</span>
+              </div>
               {/* Cancel order */}
-              <button
-                onClick={() => cancelOrder(order.id)}
-                className="px-3 py-1 bg-white text-white rounded-lg hover:rotate-30 transition"
-              >
-                🗑️
-              </button>
+              <div>
+                <button
+                  onClick={() => cancelOrder(order.id)}
+                  className="px-3 py-1 bg-white text-white rounded-lg hover:rotate-30 transition"
+                >
+                  🗑️
+                </button>
+              </div>
             </div>           
             <div className="flex overflow-x-auto snap-x snap-mandatory gap-5">
                 {orderedItems
@@ -104,10 +109,13 @@ export default function UserOrders({ refreshTrigger = 0 }) {
                   ))
                 }
             </div>
-            <div>
-              <span className="flex-1 text-gray-800 text-[9px] md:text-base">
-                Status {order.status}    Ordered at: {order.created_at}
-              </span>
+            <div className="flex justify-between text-gray-800 text-[9px] md:text-base">
+              <div className="flex text-gray-800 text-[9px] md:text-base">
+                <span>Status:----</span> <span className="text-green-900 font-bold">{order.status}</span>
+              </div>
+              <div className="flex text-gray-800 text-[9px] md:text-base">
+                Ordered at: {order.created_at}
+              </div>
             </div>
           </div>
         ))}

@@ -101,7 +101,7 @@ export default function EditStoreModal({ isOpen, onClose, store, onUpdated }) {
     <Modal
       isOpen={isOpen}
       onRequestClose={onClose}
-      className="bg-white rounded-2xl shadow-xl p-6 max-w-2xl mx-auto mt-20 relative"
+      className="bg-white rounded-2xl shadow-xl p-6 max-w-2xl max-h-[80vh] overflow-y-auto mx-auto mt-20 relative"
       overlayClassName="fixed inset-0 bg-black/50 flex justify-center items-start"
     >
       <h2 className="text-2xl font-bold mb-4">Edit Store</h2>
