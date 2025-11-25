@@ -72,24 +72,24 @@ export default function UsersTab() {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">Users</h2>
+      <h2 className="text-sm md:text-xl lg:text-xl font-semibold mb-4">Users</h2>
       <input
         type="text"
         placeholder="Search user..."
-        className="border p-2 rounded-full w-1/4 mb-4"
+        className="text-[9px] md:text-[10px] lg:text-[12px] border p-2 rounded-full w-full md:w-1/2 lg:w-1/4 mb-4"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <table className="w-full text-sm text-center rtl:text-right text-gray-500">
-        <thead className="text-xs text-gray-900 uppercase bg-gray-50">
+      <table className="w-full text-[8px] md:text-[10px] lg:text-[12px] text-center rtl:text-right text-gray-500">
+        <thead className="text-gray-900 uppercase bg-gray-50">
           <tr className="bg-blue-300">
-            <th className="px-6 py-3">ID</th>
-            <th className="px-6 py-3">Avatar</th>
-            <th className="px-6 py-3">Username</th>
-            <th className="px-6 py-3">Email</th>
-            <th className="px-6 py-3">Current Role</th>
-            <th className="px-6 py-3">Role Change</th>
-            <th className="px-6 py-3">Action</th>
+            <th className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">ID</th>
+            <th className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">Avatar</th>
+            <th className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">Username</th>
+            <th className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">Email</th>
+            <th className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">Current Role</th>
+            <th className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">Role Change</th>
+            <th className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -98,8 +98,8 @@ export default function UsersTab() {
               key={u.id}
               className="text-center odd:bg-white even:bg-blue-50 border-b border-gray-200"
             >
-              <td className="px-6 py-3">{u.id}</td>
-              <td className="px-6 py-3">
+              <td className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">{u.id}</td>
+              <td className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">
                 <img
                   src={
                     u.user_image
@@ -107,13 +107,13 @@ export default function UsersTab() {
                       : `${API_BASE_URL}/static/images/avatar/default_avatar.png`
                   }
                   alt="User avatar"
-                  className="w-20 h-20 rounded-full object-cover border-4 border-green-500"
+                  className="w-5 md:w-10 lg:w-20 h-5 md:h-10 lg:h-20 rounded-full object-cover border-1 border-green-500"
                 />
               </td>
-              <td className="px-6 py-3">{u.username}</td>
-              <td className="px-6 py-3">{u.email_address}</td>
-              <td className="px-6 py-3">{u.us_role}</td>
-              <td className="px-6 py-3">
+              <td className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">{u.username}</td>
+              <td className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">{u.email_address}</td>
+              <td className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">{u.us_role}</td>
+              <td className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">
                 <select
                   className="border p-1 rounded-full"
                   value={roles[u.id] || u.role}
@@ -125,7 +125,7 @@ export default function UsersTab() {
                   <option value="4">User</option>
                 </select>
               </td>
-              <td className="px-6 py-3">
+              <td className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">
                 <button
                   onClick={() => saveRole(u.id)}
                   className="bg-blue-600 text-white px-3 py-1 rounded-full cursor-pointer hover:bg-blue-400"

@@ -7,7 +7,7 @@ export default function Header() {
   const { user, logout } = useUserStore();
 
   return (
-    <header className="bg-white shadow p-4cflex justify-between items-center">
+    <header className="bg-white shadow justify-between items-center">
       <Navbar /> 
     </header>
   );

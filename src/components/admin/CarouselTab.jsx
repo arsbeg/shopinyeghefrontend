@@ -61,34 +61,34 @@ export default function CarouselTab() {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">Carousel Images</h2>
+      <h2 className="text-sm md:text-base lg:text-xl font-semibold mb-4">Carousel Images</h2>
       <button
         onClick={() => setIsModalOpen(true)}
-        className="px-3 py-1 rounded-full text-white bg-green-800  hover:bg-green-600 mb-4 cursor-pointer"
+        className="px-3 py-1 text-[9px] md:text-[10px] lg:text-[12px] rounded-full text-white bg-green-800  hover:bg-green-600 mb-4 cursor-pointer"
       >
         + Add new Image
       </button>
-      <table className="w-full text-sm text-center rtl:text-right text-gray-500">
-        <thead className="text-xs text-gray-900 uppercase bg-gray-50">
+      <table className="w-full text-[8px] md:text-[10px] lg:text-[12px] text-center rtl:text-right text-gray-500">
+        <thead className="text-gray-900 uppercase bg-gray-50">
           <tr className="bg-blue-300">
-            <th className="px-6 py-3">ID</th>
-            <th className="px-6 py-3">Name</th>
-            <th className="px-6 py-3">Added at</th>
-            <th className="px-6 py-3 text-left">Photo</th>
-            <th className="px-6 py-3">Action</th>
+            <th className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">ID</th>
+            <th className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">Name</th>
+            <th className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">Added at</th>
+            <th className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3 text-left">Photo</th>
+            <th className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">Action</th>
           </tr>
         </thead>
         <tbody>
           {items.map((it) => (
             <tr key={it.id} className="text-center odd:bg-white even:bg-blue-50 border-b border-gray-200">
-              <td className="px-6 py-3">{it.id}</td>
-              <td className="px-6 py-3">{it.img_name}</td>
-              <td className="px-6 py-3">{it.created_at || "-"}</td>
-              <td className="px-6 py-3">
+              <td className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">{it.id}</td>
+              <td className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">{it.img_name}</td>
+              <td className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">{it.created_at || "-"}</td>
+              <td className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">
                 <img
                   src={`${API_BASE_URL}${it.carousel_image}`}
                   alt={it.img_name}
-                  className="w-full h-15 object-cover rounded-lg"
+                  className="w-full h-5 md:h-10 lg:h-15 object-cover rounded-lg"
                 />
               </td>
               <td className="px-6 py-3">

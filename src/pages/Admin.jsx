@@ -11,9 +11,10 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-gray-100">
+      <div><h1 className="font-bold">Admin Dashboard</h1></div>
       <AdminNavbar activeTab={activeTab} onTabChange={setActiveTab} />
 
-      <main className="p-6">
+      <main className="p-2 ">
         {activeTab === "users" && <UsersTab />}
         {activeTab === "stores" && <StoresTab />}
         {activeTab === "carousel" && <CarouselTab />}

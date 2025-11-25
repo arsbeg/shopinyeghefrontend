@@ -109,10 +109,10 @@ export default function ProductsTab() {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">My Products</h2>
+      <h2 className="text-sm md:text-base lg:text-xl font-semibold mb-4">My Products</h2>
 
       {stores.map((store) => (
-        <div key={store.id} className="mb-6 border rounded-lg p-4 shadow-sm bg-white">
+        <div key={store.id} className="mb-6 text-[9px] md:text-[12px] lg:text-[14px] border rounded-lg p-4 shadow-sm bg-white">
           <div
             className="flex items-center justify-between cursor-pointer"
             onClick={() => {
@@ -122,7 +122,7 @@ export default function ProductsTab() {
               if (expandedStore !== store.id) fetchCategories(store.id);
             }}
           >
-            <h3 className="text-lg font-bold">{store.st_name}</h3>
+            <h3 className="font-bold">{store.st_name}</h3>
             <span className="text-gray-500">
               {expandedStore === store.id ? "▲" : "▼"}
             </span>
@@ -159,7 +159,7 @@ export default function ProductsTab() {
                   </div>
 
                   {/* Продукты */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-200">
+                  <div className="grid grid-cols-3 md:grid-cols-4 lg:col-6 gap-3 max-w-200">
                     {products[cat.id] ? (
                       products[cat.id].map((p) => (
                         <div
@@ -169,9 +169,9 @@ export default function ProductsTab() {
                           <img
                             src={`${API_BASE_URL}${p.image}`}
                             alt={p.pr_name}
-                            className="w-32 h-32 object-cover rounded"
+                            className="w-15 h-15 md:w-20 md:h-20 lg:w-32 lg:h-32 object-cover rounded"
                           />
-                          <div className="mt-2 text-sm">
+                          <div className="w-full mt-2">
                             <div className="font-semibold">{p.pr_name}</div>
                             <div>Stock: {p.quantity}</div>
                             <div>Price: {p.price} ֏</div>
@@ -195,7 +195,7 @@ export default function ProductsTab() {
                     ) : (
                       <button
                         onClick={() => fetchProducts(cat.id)}
-                        className="text-blue-600 text-sm underline"
+                        className="text-blue-600 underline"
                       >
                         Load products
                       </button>

@@ -5,21 +5,28 @@ export default function ManagerNavbar({ activeTab, onTabChange }) {
   const { user, logout } = useAuth();
 
   return (
-    <header className="bg-blue-800 text-white px-6 py-3 flex justify-between items-center shadow">
+    <header className="bg-blue-800 text-[9px] md:text-[11] lg:text-[12] text-white px-6 py-3 flex justify-between rounded-xl items-center shadow">
       <div className="flex items-center gap-6">
-        <h1 className="text-lg font-bold">Manager Dashboard</h1>
         <nav className="flex gap-4">
           <button
             onClick={() => onTabChange("products")}
-            className={`px-3 py-1 rounded-full cursor-pointer ${
+            className={`px-3 py-1 rounded-full border border-blue-500 cursor-pointer ${
               activeTab === "products" ? "bg-blue-300" : "hover:bg-blue-600"
             }`}
           >
             Products
           </button>
           <button
+            onClick={() => onTabChange("orders")}
+            className={`px-3 py-1 rounded-full border border-blue-500 cursor-pointer ${
+              activeTab === "orders" ? "bg-blue-300" : "hover:bg-blue-600"
+            }`}
+          >
+            Orders
+          </button>
+          <button
             onClick={() => onTabChange("statistics")}
-            className={`px-3 py-1 rounded-full cursor-pointer ${
+            className={`px-3 py-1 rounded-full border border-blue-500 cursor-pointer ${
               activeTab === "statistics" ? "bg-blue-300" : "hover:bg-blue-600"
             }`}
           >
@@ -27,27 +34,13 @@ export default function ManagerNavbar({ activeTab, onTabChange }) {
           </button>
           <button
             onClick={() => onTabChange("profile")}
-            className={`px-3 py-1 rounded-full cursor-pointer ${
+            className={`px-3 py-1 rounded-full border border-blue-500 cursor-pointer ${
               activeTab === "profile" ? "bg-blue-300" : "hover:bg-blue-600"
             }`}
           >
             Profile
           </button>
         </nav>
-      </div>
-
-      <div className="flex items-center gap-4">
-        {user && (
-          <span className="text-sm text-gray-300 cursor-pointer">
-            👤 {user.username} ({user.role || "admin"})
-          </span>
-        )}
-        {/*<button
-          onClick={logout}
-          className="bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-sm"
-        >
-          Logout
-        </button>*/}
       </div>
     </header>
   );

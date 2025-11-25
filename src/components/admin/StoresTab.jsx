@@ -65,44 +65,44 @@ export default function StoresTab() {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">Stores</h2>
+      <h2 className="text-sm md:text-base lg:text-xl font-semibold mb-4">Stores</h2>
       <button
         onClick={() => setIsModalOpen(true)}
-        className="px-3 py-1 rounded-full text-white bg-green-800  hover:bg-green-600 mb-4 cursor-pointer"
+        className="px-3 py-1 text-[9px] md:text-[10px] lg:text-[12px] rounded-full text-white bg-green-800  hover:bg-green-600 mb-4 cursor-pointer"
       >
         + Add new store
       </button>
       <input
         type="text"
         placeholder="Search store..."
-        className="border p-2 rounded w-full mb-4"
+        className="text-[9px] md:text-[10px] lg:text-[12px] border p-2 rounded-full w-full md:w-1/2 lg:w-1/4 mb-4"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <table className="w-full text-sm text-center rtl:text-right text-gray-500">
-        <thead className="text-xs text-gray-900 uppercase bg-gray-50">
+      <table className="w-full text-[8px] md:text-[10px] lg:text-[12px] text-center rtl:text-right text-gray-500">
+        <thead className="text-gray-900 uppercase bg-gray-50">
           <tr className="bg-blue-300">
-            <th className="px-6 py-3">ID</th>
-            <th className="px-6 py-3">Name</th>
-            <th className="px-6 py-3">Manager</th>
-            <th className="px-6 py-3 text-left">Photo</th>
-            <th className="px-6 py-3">Action</th>
+            <th className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">ID</th>
+            <th className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">Name</th>
+            <th className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">Manager</th>
+            <th className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3 text-left">Photo</th>
+            <th className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">Action</th>
           </tr>
         </thead>
         <tbody>
           {filtered.map((s) => (
             <tr key={s.id} className="text-center odd:bg-white even:bg-blue-50 border-b border-gray-200">
-              <td className="px-6 py-3">{s.id}</td>
-              <td className="px-6 py-3">{s.st_name}</td>
-              <td className="px-6 py-3">{s.username || "-"}</td>
-              <td className="px-6 py-3">
+              <td className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">{s.id}</td>
+              <td className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">{s.st_name}</td>
+              <td className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">{s.username || "-"}</td>
+              <td className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">
                 <img
                   src={`${API_BASE_URL}${s.st_image}`}
                   alt={s.st_name}
-                  className="w-15 h-15 object-cover rounded-lg"
+                  className="w-5 md:w-10 lg:w-15 h-5 md:h-10 lg-h-15  object-cover rounded-lg"
                 />
               </td>
-              <td className="px-6 py-3">
+              <td className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">
                 <button 
                     onClick={() => handleEdit(s)}
                     className="px-3 py-1 rounded-full text-white bg-yellow-600  hover:bg-yellow-400 cursor-pointer">
