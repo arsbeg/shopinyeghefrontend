@@ -5,7 +5,7 @@ export default function ManagerNavbar({ activeTab, onTabChange }) {
   const { user, logout } = useAuth();
 
   return (
-    <header className="bg-blue-800 text-[9px] md:text-[11] lg:text-[12] text-white px-6 py-3 flex justify-between rounded-xl items-center shadow">
+    <header className="bg-blue-800 text-[9px] md:text-[12px] lg:text-[14px] text-white px-6 py-3 flex justify-between rounded-xl items-center shadow">
       <div className="flex items-center gap-6">
         <nav className="flex gap-4">
           <button

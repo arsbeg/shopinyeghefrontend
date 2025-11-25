@@ -96,7 +96,7 @@ export default function UserOrders({ refreshTrigger = 0 }) {
                 🗑️
               </button>
             </div>           
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-10">
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-5">
                 {orderedItems
                   .filter(item => item.order_id === order.id)
                   .map(item => (

@@ -29,13 +29,13 @@ export default function OrderedPrCard({ product }) {
   };
 
   return (
-    <div className="bg-gradient-to-b from-sky-50 to-sky-200 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 p-2 flex flex-col items-center text-center relative group max-w-80">
+    <div className="snap-center bg-gradient-to-b from-sky-50 to-sky-200 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 p-2 flex flex-col items-center text-center relative group max-w-80">
       {/* Photo */}
       <div className="relative max-w-40 max-h-40 mb-3">
         <img
           src={`${API_BASE_URL}${product.image}`}
           alt={product.pr_name}
-          className="w-full h-full object-cover rounded-xl shadow-lg/50 group-hover:scale-105 transition-transform duration-300"
+          className="w-20 h-20 md:w-25 md:h-25 lg:w-35 lg:h-35 object-cover rounded-xl shadow-lg/50 group-hover:scale-105 transition-transform duration-300"
         />
       </div>
 
