@@ -58,11 +58,11 @@ export default function OrdersTab() {
                 }, {})
               ).map((items, index) => (
                 <div key={index} className="ml-4 mt-2 border-l pl-3">
-                  <p className="font-bold">Order #{items[0].order_id}</p>
+                  <p className="font-bold text-green-600">Order #{items[0].order_id}</p>
 
                   {items.map((oi) => (
                     <p key={oi.id}>
-                      {oi.pr_name} — {oi.cur_price}֏
+                      {oi.pr_name} — {oi.cur_price}֏--{oi.quantity}pcs
                     </p>
                   ))}
                 </div>
