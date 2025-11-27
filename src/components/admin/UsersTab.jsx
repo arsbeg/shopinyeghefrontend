@@ -10,7 +10,7 @@ export default function UsersTab() {
   const { user } = useAuth();
   const token = localStorage.getItem("token");
 
-  console.log({ token });
+  //console.log({ token });
 
   const fetchUsers = async () => {
     if (!token) return;
