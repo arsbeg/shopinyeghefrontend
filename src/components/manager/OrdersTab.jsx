@@ -42,39 +42,6 @@ export default function OrdersTab() {
     return items.reduce((sum, item) => sum + item.cur_price * item.quantity, 0);
   };
 
-  function OrderItemCheckbox({ item }) {
-    const { token } = useAuth();
-    const [ready, setReady] = useState(item.ready);
-
-    const updateReady = async () => {
-      try {
-        await api.put(
-          `/Orders/update_ready/${item.id}`,
-          { ready: ready ? 0 : 1 },
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        setReady(!ready);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-
-    return (
-      <label className="flex items-center gap-2 cursor-pointer">
-        <input
-          type="checkbox"
-          checked={ready === 1}
-          onChange={updateReady}
-          className="w-5 h-5 accent-purple-600"
-        />
-        <span className="text-sm font-medium">
-          {ready ? "Ready" : "Pending"}
-        </span>
-      </label>
-    );
-  }
 
   return (
     <div>
@@ -148,5 +115,38 @@ export default function OrdersTab() {
         </div>
       ))}
     </div>
+  );
+}
+
+
+function OrderItemCheckbox({ item }) {
+  const { token } = useAuth();
+  const [ready, setReady] = useState(item.ready);
+  const updateReady = async () => {
+    try {
+      await api.put(
+        `/Orders/update_ready/${item.id}`,
+        { ready: ready ? 0 : 1 },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setReady(!ready);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  return (
+    <label className="flex items-center gap-2 cursor-pointer">
+      <input
+        type="checkbox"
+        checked={ready === 1}
+        onChange={updateReady}
+        className="w-5 h-5 accent-purple-600"
+      />
+      <span className="text-sm font-medium">
+        {ready ? "Ready" : "Pending"}
+      </span>
+    </label>
   );
 }
