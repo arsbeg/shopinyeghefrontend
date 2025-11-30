@@ -137,15 +137,9 @@ function OrderItemCheckbox({ item }) {
     }
   };
   return (
-    <label className="flex items-center gap-2 cursor-pointer">
-      <input
-        type="checkbox"
-        checked={ready === 1}
-        onChange={updateReady}
-        className="w-5 h-5 accent-purple-600"
-      />
-      <span className="text-sm font-medium">
-        {ready ? "Ready" : "Pending"}
+    <label onClick={updateReady} className="flex items-center gap-2 cursor-pointer">
+      <span className={ready ? "text-sm text-green-500 font-medium" : "text-sm font-medium"}>
+        {ready ? "✅Ready" : "☐Pending"}
       </span>
     </label>
   );
