@@ -6,7 +6,7 @@ export default function OrdersTab() {
   const { token, user } = useAuth();
   const [orders, setOrders] = useState([]);
   const [orderStores, setOrderStores] = useState({});
-  const allowedStatuses = ["created", "packaging", "ready"]
+  const allowedStatuses = ["created", "packaging", "ready"];
 
   const fetchOrders = async () => {
     try {
@@ -14,7 +14,11 @@ export default function OrdersTab() {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      setOrders(res.data.filter((o) => allowedStatuses.includes(o.status) & !o.courier_id));
+      setOrders(
+        res.data.filter(
+          (o) => allowedStatuses.includes(o.status) & !o.courier_id
+        )
+      );
     } catch (err) {
       console.error("Error fetching courier orders:", err);
     }
@@ -41,6 +45,10 @@ export default function OrdersTab() {
     orders.forEach((o) => fetchOrderStores(o.id));
   }, [orders]);
 
+  const handleAccept = async () => {
+    alert("are you shure")
+  }
+
   return (
     <div>
       <h1>Orders: Under construction</h1>
@@ -48,19 +56,33 @@ export default function OrdersTab() {
       {orders.map((order) => (
         <div
           key={order.id}
-          className="rounded-2xl p-[2px] bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 mb-3 grid grid-col-4"
+          className="rounded-2xl shadow-md/50 mb-3 grid grid-col-4"
         >
-          <div className={order.status ==="ready" ? "bg-green-200 rounded-2xl p-1" : "bg-white rounded-2xl p-1"}>
-            Stores in —
+          <div
+            className={
+              order.status === "ready"
+                ? "bg-green-200 rounded-2xl px-3"
+                : "bg-white rounded-2xl px-3"
+            }
+          >
+            Stores in---
             <span className="text-blue-700 font-bold">
               {" "}
-              🧾 Order #{order.id}{"   "}
+              🧾Order #{order.id}
+              {"  "}
             </span>
-            Status#
-            <span className={order.status === "ready" ? "text-green-900 font-bold" : "text-gray-900"}>
+            Status---
+            <span
+              className={
+                order.status === "ready"
+                  ? "text-green-900 font-bold"
+                  : "text-gray-900"
+              }
+            >
               {"   "}
               {order.status}
             </span>
+            <p className="text-sm">Sheeping address:-- {order.address}</p>
             {orderStores[order.id]?.length > 0 ? (
               orderStores[order.id].map((store) => (
                 <div
@@ -73,7 +95,17 @@ export default function OrdersTab() {
                 </div>
               ))
             ) : (
-              <p className="text-gray-500">No Stores</p>
+              <p className="text-gray-500">No Orders for now</p>
+            )}
+            {order.status==="ready" && (
+              <div className="flex grid grid-col-3 place-items-end">
+              <button
+                onClick={handleAccept} 
+                className="bg-gradient-to-b from-green-500 to-white-500 shadow-md/50 text-black text-sm px-2 mb-1 rounded-full cursor-pointer"
+              >
+                Accept
+              </button>
+            </div>  
             )}
           </div>
         </div>
