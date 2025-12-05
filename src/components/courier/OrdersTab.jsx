@@ -16,7 +16,7 @@ export default function OrdersTab() {
 
       setOrders(
         res.data.filter(
-          (o) => allowedStatuses.includes(o.status) & !o.courier_id
+          (o) => allowedStatuses.includes(o.status) || !o.courier_id || o.courier_id===user.id 
         )
       );
     } catch (err) {
