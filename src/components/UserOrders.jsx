@@ -83,9 +83,9 @@ export default function UserOrders({ refreshTrigger = 0 }) {
         {orders.map((order) => (
           <div
             key={order.id}
-            className="grid flex bg-white items-center text-xs md:text-base lg:text-xl justify-between gap-1 md:gap-2 lg:gap-3 shadow-lg/20 rounded-lg px-1 py-1"
+            className="w-full flex flex-col bg-white text-xs md:text-base lg:text-xl justify-between gap-1 md:gap-2 lg:gap-3 shadow-lg/20 rounded-lg px-1 py-1"
           >
-            <div className="flex justify-between items-center">
+            <div className="border-b border-purple-600 flex justify-between items-center">
               <div className="flex text-gray-800 text-[9px] md:text-base">
                 🧾Order #{order.id}
               </div>
@@ -102,7 +102,7 @@ export default function UserOrders({ refreshTrigger = 0 }) {
                 </button>
               </div>
             </div>           
-            <div className="flex overflow-x-auto snap-x snap-mandatory gap-5">
+            <div className="flex w-full overflow-x-auto snap-x snap-mandatory gap-5">
                 {orderedItems
                   .filter(item => item.order_id === order.id)
                   .map(item => (
