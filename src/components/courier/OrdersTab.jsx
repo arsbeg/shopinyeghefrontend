@@ -114,14 +114,16 @@ export default function OrdersTab() {
           <div
             className={
               order.status === "ready"
-                ? "bg-green-300 rounded-2xl px-3"
+                ? "bg-gradient-to-t from-green-400 to-white rounded-2xl px-3"
+                : order.status === "packaging"
+                ? "bg-gradient-to-t from-yellow-300 rounded-2xl px-3"
                 : order.status === "assigned"
-                ? "bg-sky-300 rounded-2xl px-3"
+                ? "bg-gradient-to-t from-sky-300 rounded-2xl px-3"
                 : order.status === "on the way"
-                ? "bg-purple-300 rounded-2xl px-3"
+                ? "bg-gradient-to-t from-purple-300 rounded-2xl px-3"
                 : order.status === "complete"
-                ? "bg-red-600 rounded-2xl px-3 text-white"
-                : "bg-pink-300 rounded-2xl px-3"
+                ? "bg-gradient-to-t from-red-500 rounded-2xl px-3"
+                : "bg-gradient-to-t from-pink-300 rounded-2xl px-3"
             }
           >
             Stores in---
@@ -135,6 +137,16 @@ export default function OrdersTab() {
               className={
                 order.status === "ready"
                   ? "text-green-900 font-bold"
+                  : order.status === "assigned"
+                  ? "text-blue-900 font-bold"
+                  : order.status === "on the way"
+                  ? "text-purple-900 font-bold"
+                  : order.status === "created"
+                  ? "text-pink-900 font-bold"
+                  : order.status === "packaging"
+                  ? "text-yellow-900 font-bold"
+                  : order.status === "complete"
+                  ? "text-red-900 font-bold"
                   : "text-gray-900"
               }
             >
@@ -148,7 +160,7 @@ export default function OrdersTab() {
                   key={store.store_id}
                   className="mt-1 rounded-xl p-[2px] grid grid-col-4"
                 >
-                  <p className="text-sm font-semibold text-blue-700">
+                  <p className="text-sm font-semibold text-gray-700">
                     {store.st_name}--{store.address}
                   </p>
                 </div>
@@ -160,7 +172,7 @@ export default function OrdersTab() {
               <div className="flex grid grid-col-3 place-items-end">
                 <button
                   onClick={() => handleAccept(order.id)}
-                  className="bg-gradient-to-b from-green-500 to-white-500 shadow-md/50 text-black text-sm px-2 mb-1 rounded-full cursor-pointer"
+                  className="bg-gradient-to-b from-green-500 to-gray-100 shadow-md/50 text-black text-sm px-2 mb-1 rounded-full cursor-pointer"
                 >
                   Accept
                 </button>
@@ -170,7 +182,7 @@ export default function OrdersTab() {
               <div className="flex grid grid-col-3 place-items-end">
                 <button
                   onClick={() => handleOnWay(order.id)}
-                  className="bg-gradient-to-b from-blue-500 to-white-500 shadow-md/50 text-black text-sm px-2 mb-1 rounded-full cursor-pointer"
+                  className="bg-gradient-to-b from-blue-500 to-gray-100 shadow-md/50 text-black text-sm px-2 mb-1 rounded-full cursor-pointer"
                 >
                   On the Way
                 </button>
@@ -180,7 +192,7 @@ export default function OrdersTab() {
               <div className="flex grid grid-col-3 place-items-end">
                 <button
                   onClick={() => handleComplete(order.id)}
-                  className="bg-gradient-to-b from-purple-500 to-white-500 shadow-md/50 text-black text-sm px-2 mb-1 rounded-full cursor-pointer"
+                  className="bg-gradient-to-b from-purple-500 to-gray-100 shadow-md/50 text-black text-sm px-2 mb-1 rounded-full cursor-pointer"
                 >
                   Complete
                 </button>
