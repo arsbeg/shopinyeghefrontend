@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/axios";
 import OrderedPrCard from "./OrderedPrCard";
+import OrderStatus from "./OrderStatus";
 
 export default function UserOrders({ refreshTrigger = 0 }) {
   const [orders, setOrders] = useState([]);
@@ -86,7 +87,7 @@ export default function UserOrders({ refreshTrigger = 0 }) {
           >
             <div className="flex justify-between items-center">
               <div className="flex text-gray-800 text-[9px] md:text-base">
-                Order N-{order.id}
+                🧾Order #{order.id}
               </div>
               <div className="flex text-gray-800 text-[9px] md:text-base">
                 Total amout:--- <span className="text-green-700 font-bold">{order.total_amount}֏</span>
@@ -109,9 +110,12 @@ export default function UserOrders({ refreshTrigger = 0 }) {
                   ))
                 }
             </div>
+            <div>
+              <OrderStatus status={order.status} />
+            </div>
             <div className="flex justify-between text-gray-800 text-[9px] md:text-base">
               <div className="flex text-gray-800 text-[9px] md:text-base">
-                <span>Status:----</span> <span className="text-green-900 font-bold">{order.status}</span>
+                Updated at: {order.updated_at}
               </div>
               <div className="flex text-gray-800 text-[9px] md:text-base">
                 Ordered at: {order.created_at}
