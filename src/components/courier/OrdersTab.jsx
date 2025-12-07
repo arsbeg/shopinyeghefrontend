@@ -7,6 +7,7 @@ export default function OrdersTab() {
   const [orders, setOrders] = useState([]);
   const [orderStores, setOrderStores] = useState({});
   const allowedStatuses = ["created", "packaging", "ready"];
+  //console.log(user.id);
 
   const fetchOrders = async () => {
     try {
@@ -16,7 +17,10 @@ export default function OrdersTab() {
 
       setOrders(
         res.data.filter(
-          (o) => allowedStatuses.includes(o.status) || !o.courier_id || o.courier_id===user.id 
+          (o) =>
+            allowedStatuses.includes(o.status) ||
+            !o.courier_id ||
+            Number(o.courier_id) === Number(user.id)
         )
       );
     } catch (err) {
@@ -25,8 +29,10 @@ export default function OrdersTab() {
   };
 
   useEffect(() => {
+    if (!user) return;
+
     fetchOrders(); // run only once
-  }, []);
+  }, [user]);
 
   const fetchOrderStores = async (o_id) => {
     try {
@@ -42,12 +48,59 @@ export default function OrdersTab() {
 
   // fetch stores after orders arrive
   useEffect(() => {
-    orders.forEach((o) => fetchOrderStores(o.id));
+    if (orders.length > 0) {
+      orders.forEach((o) => fetchOrderStores(o.id));
+    }
   }, [orders]);
 
-  const handleAccept = async () => {
-    alert("are you shure")
-  }
+  const handleAccept = async (orderId) => {
+    if (!window.confirm("Are you sure?")) return;
+    try {
+      await api.put(
+        `/Orders/update_order_assigned/${orderId}`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      fetchOrders();
+    } catch (err) {
+      console.error("Error changing status assigned");
+    }
+  };
+
+  const handleOnWay = async (orderId) => {
+    if (!window.confirm("Are you sure?")) return;
+    try {
+      await api.put(
+        `/Orders/update_order_on_way/${orderId}`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      fetchOrders();
+    } catch (err) {
+      console.error("Error changing status on the way");
+    }
+  };
+
+  const handleComplete = async (orderId) => {
+    if (!window.confirm("Are you sure?")) return;
+    try {
+      await api.put(
+        `/Orders/update_order_complete/${orderId}`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      fetchOrders();
+    } catch (err) {
+      console.error("Error changing status complete");
+    }
+  };
+
 
   return (
     <div>
@@ -61,8 +114,14 @@ export default function OrdersTab() {
           <div
             className={
               order.status === "ready"
-                ? "bg-green-200 rounded-2xl px-3"
-                : "bg-white rounded-2xl px-3"
+                ? "bg-green-300 rounded-2xl px-3"
+                : order.status === "assigned"
+                ? "bg-sky-300 rounded-2xl px-3"
+                : order.status === "on the way"
+                ? "bg-purple-300 rounded-2xl px-3"
+                : order.status === "complete"
+                ? "bg-red-600 rounded-2xl px-3 text-white"
+                : "bg-pink-300 rounded-2xl px-3"
             }
           >
             Stores in---
@@ -97,15 +156,35 @@ export default function OrdersTab() {
             ) : (
               <p className="text-gray-500">No Orders for now</p>
             )}
-            {order.status==="ready" && (
+            {order.status === "ready" && (
               <div className="flex grid grid-col-3 place-items-end">
-              <button
-                onClick={handleAccept} 
-                className="bg-gradient-to-b from-green-500 to-white-500 shadow-md/50 text-black text-sm px-2 mb-1 rounded-full cursor-pointer"
-              >
-                Accept
-              </button>
-            </div>  
+                <button
+                  onClick={() => handleAccept(order.id)}
+                  className="bg-gradient-to-b from-green-500 to-white-500 shadow-md/50 text-black text-sm px-2 mb-1 rounded-full cursor-pointer"
+                >
+                  Accept
+                </button>
+              </div>
+            )}
+            {order.status === "assigned" && (
+              <div className="flex grid grid-col-3 place-items-end">
+                <button
+                  onClick={() => handleOnWay(order.id)}
+                  className="bg-gradient-to-b from-blue-500 to-white-500 shadow-md/50 text-black text-sm px-2 mb-1 rounded-full cursor-pointer"
+                >
+                  On the Way
+                </button>
+              </div>
+            )}
+            {order.status === "on the way" && (
+              <div className="flex grid grid-col-3 place-items-end">
+                <button
+                  onClick={() => handleComplete(order.id)}
+                  className="bg-gradient-to-b from-purple-500 to-white-500 shadow-md/50 text-black text-sm px-2 mb-1 rounded-full cursor-pointer"
+                >
+                  Complete
+                </button>
+              </div>
             )}
           </div>
         </div>
