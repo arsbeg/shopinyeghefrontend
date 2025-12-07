@@ -71,7 +71,7 @@ export default function UserOrders({ refreshTrigger = 0 }) {
 
 
   return (
-    <div className="bg-gradient-to-b from-sky-50 to-sky-200 p-4 rounded-xl shadow-md mt-8">
+    <div className="bg-gradient-to-b from-sky-50 to-sky-200 px-1 py-3 rounded-xl shadow-md mt-8">
       <h2 className="text-base md:text-xl lg:text-2xl font-semibold mb-4">🛒 My Orders</h2>
 
       {/* List of orders */}

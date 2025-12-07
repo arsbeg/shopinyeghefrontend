@@ -11,8 +11,8 @@ import {
 
 const steps = [
   { key: "created", label: "Created", icon: FilePlus },
-  { key: "ready", label: "Ready", icon: CircleCheckBig },
   { key: "packaging", label: "Packaging", icon: Package },
+  { key: "ready", label: "Ready", icon: CircleCheckBig },
   { key: "assigned", label: "Assigned", icon: UserCheck },
   { key: "on_the_way", label: "On Way", icon: Truck },
   { key: "complete", label: "Completed", icon: CheckCircle },

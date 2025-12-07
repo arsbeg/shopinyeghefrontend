@@ -17,7 +17,7 @@ function App() {
     <AppLayout>
       <div className="min-h-screen bg-gray-50">
         <Header />
-        <main className="p-4">
+        <main className="p-1">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />

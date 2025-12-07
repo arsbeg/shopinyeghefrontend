@@ -133,7 +133,7 @@ export default function BasketPage() {
     );
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 p-4">
+    <div className="max-w-4xl mx-auto mt-10 px-0">
       <h1 className="text-2xl font-bold mb-6 text-center">🛒 Your Basket</h1>
 
       <div className="space-y-2 md:space-y-4">
