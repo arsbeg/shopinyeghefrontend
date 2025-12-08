@@ -109,95 +109,85 @@ export default function OrdersTab() {
       {orders.map((order) => (
         <div
           key={order.id}
-          className="rounded-2xl shadow-md/50 mb-3 grid grid-col-4"
+          className={
+              order.status === "ready"
+                ? "bg-green-500 to-white rounded-2xl px-0 mb-3 shadow-md/50"
+                : order.status === "packaging"
+                ? "bg-yellow-500 rounded-2xl px-0 mb-3 shadow-md/50"
+                : order.status === "assigned"
+                ? "bg-sky-500 rounded-2xl px-0 mb-3 shadow-md/50"
+                : order.status === "on the way"
+                ? "bg-purple-500 rounded-2xl px-0 mb-3 shadow-md/50"
+                : order.status === "complete"
+                ? "bg-red-500 rounded-2xl px-0 mb-3 shadow-md/50"
+                : "bg-gray-400 rounded-2xl px-0 mb-3 shadow-md/50"
+            }
         >
           <div
-            className={
-              order.status === "ready"
-                ? "bg-gradient-to-t from-green-400 to-white rounded-2xl px-3"
-                : order.status === "packaging"
-                ? "bg-gradient-to-t from-yellow-300 rounded-2xl px-3"
-                : order.status === "assigned"
-                ? "bg-gradient-to-t from-sky-300 rounded-2xl px-3"
-                : order.status === "on the way"
-                ? "bg-gradient-to-t from-purple-300 rounded-2xl px-3"
-                : order.status === "complete"
-                ? "bg-gradient-to-t from-red-500 rounded-2xl px-3"
-                : "bg-gradient-to-t from-pink-300 rounded-2xl px-3"
-            }
+            className="rouded 2xl"
           >
-            Stores in---
-            <span className="text-blue-700 font-bold">
-              {" "}
-              🧾Order #{order.id}
-              {"  "}
-            </span>
-            Status---
-            <span
-              className={
-                order.status === "ready"
-                  ? "text-green-900 font-bold"
-                  : order.status === "assigned"
-                  ? "text-blue-900 font-bold"
-                  : order.status === "on the way"
-                  ? "text-purple-900 font-bold"
-                  : order.status === "created"
-                  ? "text-pink-900 font-bold"
-                  : order.status === "packaging"
-                  ? "text-yellow-900 font-bold"
-                  : order.status === "complete"
-                  ? "text-red-900 font-bold"
-                  : "text-gray-900"
-              }
-            >
-              {"   "}
-              {order.status}
-            </span>
-            <p className="text-sm">Sheeping address:-- {order.address}</p>
-            {orderStores[order.id]?.length > 0 ? (
-              orderStores[order.id].map((store) => (
-                <div
-                  key={store.store_id}
-                  className="mt-1 rounded-xl p-[2px] grid grid-col-4"
+            <div className="rounded-t-2xl px-3 flex flex-col-2 justify-between">
+              <div>
+                <span className="text-white font-bold">
+                  🧾Order #{order.id}
+                </span>
+              </div>
+              <div>
+                Status⋙
+                <span
+                  className="text-white font-bold"
                 >
-                  <p className="text-sm font-semibold text-gray-700">
-                    {store.st_name}--{store.address}
-                  </p>
+                  {order.status}
+                </span>
+              </div>
+            </div>
+            <div className="bg-white rounded-b-2xl px-3">
+              <p className="text-sm">Sheeping address:-- {order.address}</p>
+              {orderStores[order.id]?.length > 0 ? (
+                orderStores[order.id].map((store) => (
+                  <div
+                    key={store.store_id}
+                    className="mt-1 rounded-xl p-[2px] grid grid-col-4"
+                  >
+                    <p className="text-sm font-semibold text-gray-700">
+                      {store.st_name}--{store.address}
+                    </p>
+                  </div>
+                ))
+              ) : (
+                <p className="text-gray-500">No Orders for now</p>
+              )}
+              {order.status === "ready" && (
+                <div className="flex grid grid-col-3 place-items-end">
+                  <button
+                    onClick={() => handleAccept(order.id)}
+                    className="bg-gradient-to-b from-green-500 to-gray-100 shadow-md/50 text-black text-sm px-2 mb-1 rounded-2xl cursor-pointer px-3"
+                  >
+                    Accept
+                  </button>
                 </div>
-              ))
-            ) : (
-              <p className="text-gray-500">No Orders for now</p>
-            )}
-            {order.status === "ready" && (
-              <div className="flex grid grid-col-3 place-items-end">
-                <button
-                  onClick={() => handleAccept(order.id)}
-                  className="bg-gradient-to-b from-green-500 to-gray-100 shadow-md/50 text-black text-sm px-2 mb-1 rounded-full cursor-pointer"
-                >
-                  Accept
-                </button>
-              </div>
-            )}
-            {order.status === "assigned" && (
-              <div className="flex grid grid-col-3 place-items-end">
-                <button
-                  onClick={() => handleOnWay(order.id)}
-                  className="bg-gradient-to-b from-blue-500 to-gray-100 shadow-md/50 text-black text-sm px-2 mb-1 rounded-full cursor-pointer"
-                >
-                  On the Way
-                </button>
-              </div>
-            )}
-            {order.status === "on the way" && (
-              <div className="flex grid grid-col-3 place-items-end">
-                <button
-                  onClick={() => handleComplete(order.id)}
-                  className="bg-gradient-to-b from-purple-500 to-gray-100 shadow-md/50 text-black text-sm px-2 mb-1 rounded-full cursor-pointer"
-                >
-                  Complete
-                </button>
-              </div>
-            )}
+              )}
+              {order.status === "assigned" && (
+                <div className="flex grid grid-col-3 place-items-end">
+                  <button
+                    onClick={() => handleOnWay(order.id)}
+                    className="bg-gradient-to-b from-blue-500 to-gray-100 shadow-md/50 text-black text-sm px-2 mb-1 rounded-full cursor-pointer"
+                  >
+                    On the Way
+                  </button>
+                </div>
+              )}
+              {order.status === "on the way" && (
+                <div className="flex grid grid-col-3 place-items-end">
+                  <button
+                    onClick={() => handleComplete(order.id)}
+                    className="bg-gradient-to-b from-purple-500 to-gray-100 shadow-md/50 text-black text-sm px-2 mb-1 rounded-full cursor-pointer"
+                  >
+                    Complete
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       ))}
