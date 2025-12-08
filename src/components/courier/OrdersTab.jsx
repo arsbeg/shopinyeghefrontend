@@ -142,7 +142,9 @@ export default function OrdersTab() {
               </div>
             </div>
             <div className="bg-white rounded-b-2xl px-3">
-              <p className="text-sm">Sheeping address:-- {order.address}</p>
+              <p className="text-sm">👤{order.first_name}</p>
+              <p className="text-sm">🏡{order.address}</p>
+              <p className="text-sm">☎{order.phone_number}</p>
               {orderStores[order.id]?.length > 0 ? (
                 orderStores[order.id].map((store) => (
                   <div
@@ -161,7 +163,7 @@ export default function OrdersTab() {
                 <div className="flex grid grid-col-3 place-items-end">
                   <button
                     onClick={() => handleAccept(order.id)}
-                    className="bg-gradient-to-b from-green-500 to-gray-100 shadow-md/50 text-black text-sm px-2 mb-1 rounded-2xl cursor-pointer px-3"
+                    className="bg-gradient-to-b from-green-500 to-gray-100 shadow-md/50 hover:shadow-sm/50 text-black text-sm px-2 py-1 mb-2 w-full rounded-b-2xl cursor-pointer px-3"
                   >
                     Accept
                   </button>
@@ -171,7 +173,7 @@ export default function OrdersTab() {
                 <div className="flex grid grid-col-3 place-items-end">
                   <button
                     onClick={() => handleOnWay(order.id)}
-                    className="bg-gradient-to-b from-blue-500 to-gray-100 shadow-md/50 text-black text-sm px-2 mb-1 rounded-full cursor-pointer"
+                    className="bg-gradient-to-b from-blue-500 to-gray-100 shadow-md/50 hover:shadow-sm/50 text-black text-sm px-2 py-1 mb-2 w-full rounded-b-2xl cursor-pointer"
                   >
                     On the Way
                   </button>
@@ -181,7 +183,7 @@ export default function OrdersTab() {
                 <div className="flex grid grid-col-3 place-items-end">
                   <button
                     onClick={() => handleComplete(order.id)}
-                    className="bg-gradient-to-b from-purple-500 to-gray-100 shadow-md/50 text-black text-sm px-2 mb-1 rounded-full cursor-pointer"
+                    className="bg-gradient-to-b from-purple-500 to-gray-100 shadow-md/50 hover:shadow-sm/50 text-black text-sm px-2 py-1 mb-2 w-full rounded-b-2xl cursor-pointer"
                   >
                     Complete
                   </button>

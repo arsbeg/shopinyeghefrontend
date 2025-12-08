@@ -15,6 +15,8 @@ export default function UserProfile() {
     last_name: "",
     email: "",
     birthday: "",
+    gender: "",
+    phone_number: "",
   });
   const [passwordData, setPasswordData] = useState({
     old_password: "",
@@ -40,6 +42,8 @@ export default function UserProfile() {
           last_name: res.data.last_name || "",
           email: res.data.email_address || "",
           birthday: res.data.birthday || "",
+          gender: res.data.gender || "",
+          phone_number: res.data.phone_number || "",
         });
       } catch (err) {
         console.error("Error fetching user info:", err);
@@ -68,6 +72,8 @@ export default function UserProfile() {
           last_name: formData.last_name,
           email: formData.email,
           birthday: formData.birthday,
+          gender: formData.gender,
+          phone_number: formData.phone_number,
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -182,6 +188,29 @@ export default function UserProfile() {
             type="date"
             name="birthday"
             value={formData.birthday}
+            onChange={handleChange}
+            className="w-full border rounded-lg px-3 py-2"
+          />
+        </div>
+        <div>
+          <label className="block text-gray-600 mb-1">Gender</label>
+          <select
+            type="text"
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
+            className="w-full border rounded-lg px-3 py-2"
+          >
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-gray-600 mb-1">Phone number</label>
+          <input
+            type="text"
+            name="phone_number"
+            value={formData.phone_number}
             onChange={handleChange}
             className="w-full border rounded-lg px-3 py-2"
           />

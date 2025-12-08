@@ -10,6 +10,8 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
+  const [gender, setGender] = useState("");
+  const [phone_number, setPhone_number] = useState(""); 
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false)
@@ -17,7 +19,7 @@ export default function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await api.post("/Users/register", { first_name, last_name, username, password, email, birthday });
+      await api.post("/Users/register", { first_name, last_name, username, password, email, birthday, gender, phone_number });
       navigate("/login");
     } catch (err) {
       setError("Ошибка при регистрации");
@@ -67,6 +69,23 @@ export default function Register() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className="w-full border rounded-lg p-2 mb-4"
+        />
+        <select
+          type="text"
+          placeholder="Gender"
+          value={gender}
+          onChange={(e) => setGender(e.target.value)}
+          className="w-full border rounded-lg p-2 mb-4"
+        >
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+        <input
+          type="text"
+          placeholder="+37400000000"
+          value={phone_number}
+          onChange={(e) => setPhone_number(e.target.value)}
           className="w-full border rounded-lg p-2 mb-4"
         />
         <div className="relative">
