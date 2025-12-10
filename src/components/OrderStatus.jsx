@@ -57,11 +57,8 @@ export default function OrderStatus({ status }) {
                   }
                 `}
               >
-                {isCompleted ? (
-                  <Check size={20} />
-                ) : (
-                  <Icon size={20} />
-                )}
+                <Icon size={20} />
+ 
               </div>
 
               <span
