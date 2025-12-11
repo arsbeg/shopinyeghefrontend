@@ -5,6 +5,9 @@ export default function Addresses({ onSelect }) {
   const [addresses, setAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [newAddress, setNewAddress] = useState("");
+  const [add, setAdd] = useState(null);
+  const [cityList, setCityList] = useState([])
+  const [city, setCity] = useState("")
 
   const [editId, setEditId] = useState(null);
   const [editValue, setEditValue] = useState("");
@@ -28,9 +31,29 @@ export default function Addresses({ onSelect }) {
     }
   };
 
+  const fetchCities = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await api.get("/Addresses/cities/all", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setCityList(response.data || []);
+
+    } catch (err) {
+      console.error("Error loading cities:", err);
+    }
+  };
+
   useEffect(() => {
     fetchAddresses();
   }, []);
+
+  useEffect(() => {
+    fetchCities();
+  }, []);
+
+
 
   // Create new address
   const addAddress = async () => {
@@ -40,12 +63,13 @@ export default function Addresses({ onSelect }) {
       const token = localStorage.getItem("token");
       await api.post(
         "/Users/addresses",
-        { address: newAddress },
+        { address: city + "," +  newAddress.replace(",", " ").trim() },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       setNewAddress("");
       await fetchAddresses();
+      setAdd(null);
     } catch (err) {
       console.error("Add address error:", err);
     }
@@ -95,7 +119,9 @@ export default function Addresses({ onSelect }) {
 
   return (
     <div className="bg-gradient-to-b from-sky-50 to-sky-200 p-4 rounded-xl shadow-md mt-8">
-      <h2 className="text-base md:text-xl lg:text-2xl font-semibold mb-4">📍 My shipping addresses</h2>
+      <h2 className="text-base md:text-xl lg:text-2xl font-semibold mb-4">
+        📍 My shipping addresses
+      </h2>
 
       {/* List of addresses */}
       <div className="space-y-3 mb-4">
@@ -160,19 +186,62 @@ export default function Addresses({ onSelect }) {
 
       {/* Add new address */}
       <div className="flex gap-2">
-        <input
-          type="text"
-          placeholder="Add new address..."
-          value={newAddress}
-          onChange={(e) => setNewAddress(e.target.value)}
-          className="flex-1 text-sm md:text-xl border rounded-full px-3 py-1"
-        />
         <button
-          onClick={addAddress}
+          onClick={(e) => {
+            e.stopPropagation(e);
+            setAdd("on");
+          }}
           className="bg-green-600 text-white px-2 py-1 md:px-4 md:py-2 text-sm md:text-xl rounded-full hover:bg-green-400"
         >
-          Add
+          + Add
         </button>
+        {add && (
+          <div
+            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+            onClick={() => setAdd(null)}
+          > 
+            <div
+              className="bg-white rounded-2xl shadow-xl p-6 max-w-md w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h2 className="text-2xl font-bold mb-2 text-center mb-7">Add new address</h2>
+              <p className="text-gray-500 px-2 text-sm md:text-xl">Select city</p>
+              
+              <select
+                type="text"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                className="w-full border rounded-full p-1 md:p-2 mb-4 text-sm md:text-xl"
+              >
+                <option value=""></option>
+                {cityList.map((c) => (
+                <option value={c.citi}>{c.citi}</option>
+                ))} ;
+              </select>
+              
+              <input
+                type="text"
+                placeholder="Add new address..."
+                value={newAddress}
+                onChange={(e) => setNewAddress(e.target.value)}
+                className="w-full text-sm md:text-xl border rounded-full p-1 md:p-2"
+              />
+              <button
+                onClick={addAddress}
+                className="bg-green-600 text-white text-sm md:text-xl px-4 py-1 rounded-full hover:bg-green-400"
+              >
+                Add
+              </button>
+              <button
+                className="mt-2 px-4 py-1 bg-gray-200 text-sm md:text-xl rounded-full hover:bg-gray-300 hover:bg-red-500"
+                onClick={() => setAdd(null)}
+              >
+                Close
+              </button>
+            </div>
+          
+          </div>
+        )}
       </div>
     </div>
   );
