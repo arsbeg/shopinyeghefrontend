@@ -63,7 +63,7 @@ export default function Addresses({ onSelect }) {
       const token = localStorage.getItem("token");
       await api.post(
         "/Users/addresses",
-        { address: city + "," +  newAddress.replace(",", " ").trim() },
+        { address: newAddress, city_id: city },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -150,7 +150,7 @@ export default function Addresses({ onSelect }) {
                 className="flex-1 border rounded-full px-3 py-1"
               />
             ) : (
-              <span className="flex-1 text-gray-800">{addr.address}</span>
+              <span className="flex-1 text-gray-800">{addr.city}, {addr.address}</span>
             )}
 
             {/* Edit / Save */}
@@ -215,7 +215,7 @@ export default function Addresses({ onSelect }) {
               >
                 <option value=""></option>
                 {cityList.map((c) => (
-                <option value={c.citi}>{c.citi}</option>
+                <option key={c.id} value={c.id}>{c.city}</option>
                 ))} ;
               </select>
               

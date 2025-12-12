@@ -188,6 +188,7 @@ export default function BasketPage() {
           Total:{" "}
           <span className="text-green-600 font-bold">{totalPrice} ֏</span>
         </p>
+        <p>{selectedAddress}</p>
         <button
           onClick={handleCheckout}
           className="bg-green-600 text-white px-4 py-1 md:px-6 md:py-2 text-sm md:text-base lg:text-lg rounded-full hover:bg-green-500 transition"
