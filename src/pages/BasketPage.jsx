@@ -37,6 +37,7 @@ export default function BasketPage() {
     fetchBasket();
   }, [navigate]);
 
+
   // === Change quantity (via API) ===
   const updateQuantity = async (orderId, optionId) => {
     try {
@@ -81,6 +82,8 @@ export default function BasketPage() {
     0
   );
 
+  const totalWithSheeping = totalPrice + selectedAddress.price
+
   // === Checkout ===
   const handleCheckout = async () => {
     if (!selectedAddress) return alert("Please select an address");
@@ -91,7 +94,7 @@ export default function BasketPage() {
       
       const response = await api.post(
         "/Orders/checkout",
-        { address_id: selectedAddress },
+        { address_id: selectedAddress.id },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -127,7 +130,7 @@ export default function BasketPage() {
         >
           Go to shop
         </button>
-        <Addresses onSelect={(addressId) => setSelectedAddress(addressId)} />
+        <Addresses onSelect={(addressData) => setSelectedAddress(addressData)} />
         <UserOrders refreshTrigger={refreshOrders} />
       </div>
     );
@@ -183,12 +186,20 @@ export default function BasketPage() {
         ))}
       </div>
 
-      <div className="mt-8 text-right border-t pt-4">
-        <p className="text-lg font-semibold mb-3">
+      <div className="mt-8 text-right border-t border-purple-500 pt-4">
+        <p className="text-sm font-semibold mb-0">
           Total:{" "}
           <span className="text-green-600 font-bold">{totalPrice} ֏</span>
         </p>
-        <p>{selectedAddress}</p>
+        <p className="text-sm font-semibold mb-3">
+          Sheeping:{" "}
+          <span className="text-green-600 font-bold">{selectedAddress?.price} ֏</span>
+        </p>
+        <div className="border-b border-purple-500"></div>
+        <p className="text-lg font-semibold mb-3">
+          To Pay:{" "}
+          <span className="text-green-600 font-bold">{totalWithSheeping} ֏</span>
+        </p>
         <button
           onClick={handleCheckout}
           className="bg-green-600 text-white px-4 py-1 md:px-6 md:py-2 text-sm md:text-base lg:text-lg rounded-full hover:bg-green-500 transition"
@@ -196,7 +207,7 @@ export default function BasketPage() {
           Checkout
         </button>
       </div>
-      <Addresses onSelect={(addressId) => setSelectedAddress(addressId)} />
+      <Addresses onSelect={(addressData) => setSelectedAddress(addressData)} />
       <UserOrders refreshTrigger={refreshOrders} />
     </div>
   );

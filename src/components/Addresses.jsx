@@ -6,8 +6,8 @@ export default function Addresses({ onSelect }) {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [newAddress, setNewAddress] = useState("");
   const [add, setAdd] = useState(null);
-  const [cityList, setCityList] = useState([])
-  const [city, setCity] = useState("")
+  const [cityList, setCityList] = useState([]);
+  const [city, setCity] = useState("");
 
   const [editId, setEditId] = useState(null);
   const [editValue, setEditValue] = useState("");
@@ -23,8 +23,15 @@ export default function Addresses({ onSelect }) {
       setAddresses(response.data || []);
 
       if (response.data.length > 0) {
-        setSelectedAddress(response.data[0].id);
-        onSelect && onSelect(response.data[0].id);
+        const first = response.data[0];
+
+        setSelectedAddress(first.id);
+
+        onSelect &&
+          onSelect({
+            id: first.id,
+            price: first.price,
+          });
       }
     } catch (err) {
       console.error("Error loading addresses:", err);
@@ -39,7 +46,6 @@ export default function Addresses({ onSelect }) {
       });
 
       setCityList(response.data || []);
-
     } catch (err) {
       console.error("Error loading cities:", err);
     }
@@ -52,8 +58,6 @@ export default function Addresses({ onSelect }) {
   useEffect(() => {
     fetchCities();
   }, []);
-
-
 
   // Create new address
   const addAddress = async () => {
@@ -112,9 +116,12 @@ export default function Addresses({ onSelect }) {
   };
 
   // Select address with radio
-  const selectAddress = (id) => {
-    setSelectedAddress(id);
-    onSelect?.(id);
+  const selectAddress = (addr) => {
+    setSelectedAddress(addr.id);
+    onSelect?.({
+      id: addr.id,
+      price: addr.price,
+    });
   };
 
   return (
@@ -139,7 +146,7 @@ export default function Addresses({ onSelect }) {
               type="radio"
               name="address"
               checked={selectedAddress === addr.id}
-              onChange={() => selectAddress(addr.id)}
+              onChange={() => selectAddress(addr)}
             />
 
             {/* Text or Input depending on edit mode */}
@@ -150,7 +157,9 @@ export default function Addresses({ onSelect }) {
                 className="flex-1 border rounded-full px-3 py-1"
               />
             ) : (
-              <span className="flex-1 text-gray-800">{addr.city}, {addr.address}</span>
+              <span className="flex-1 text-gray-800">
+                {addr.city}, {addr.address}
+              </span>
             )}
 
             {/* Edit / Save */}
@@ -199,14 +208,18 @@ export default function Addresses({ onSelect }) {
           <div
             className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
             onClick={() => setAdd(null)}
-          > 
+          >
             <div
               className="bg-white rounded-2xl shadow-xl p-6 max-w-md w-full"
               onClick={(e) => e.stopPropagation()}
             >
-              <h2 className="text-2xl font-bold mb-2 text-center mb-7">Add new address</h2>
-              <p className="text-gray-500 px-2 text-sm md:text-xl">Select city</p>
-              
+              <h2 className="text-2xl font-bold mb-2 text-center mb-7">
+                Add new address
+              </h2>
+              <p className="text-gray-500 px-2 text-sm md:text-xl">
+                Select city
+              </p>
+
               <select
                 type="text"
                 value={city}
@@ -215,10 +228,13 @@ export default function Addresses({ onSelect }) {
               >
                 <option value=""></option>
                 {cityList.map((c) => (
-                <option key={c.id} value={c.id}>{c.city}</option>
-                ))} ;
+                  <option key={c.id} value={c.id}>
+                    {c.city}
+                  </option>
+                ))}{" "}
+                ;
               </select>
-              
+
               <input
                 type="text"
                 placeholder="Add new address..."
@@ -239,7 +255,6 @@ export default function Addresses({ onSelect }) {
                 Close
               </button>
             </div>
-          
           </div>
         )}
       </div>
