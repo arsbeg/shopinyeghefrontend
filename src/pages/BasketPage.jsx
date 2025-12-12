@@ -82,7 +82,7 @@ export default function BasketPage() {
     0
   );
 
-  const totalWithSheeping = totalPrice + selectedAddress.price
+  const totalWithSheeping = totalPrice + selectedAddress?.price
 
   // === Checkout ===
   const handleCheckout = async () => {
