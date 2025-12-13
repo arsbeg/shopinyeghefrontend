@@ -83,7 +83,7 @@ export default function WeatherWidget() {
             {data.name}, {data.country}
           </div>
           <div className="text-base md:text-2xl lg:text-3xl font-bold my-2">{Math.round(data.temp)}°C</div>
-          <div className="text-sm md:text-base lg:text-xl capitalize text-gray-600">{desc}</div>
+          <div className="text-[8px] md:text-base lg:text-xl capitalize text-gray-600">{desc}</div>
         </div>
       ) : null}
     </div>
