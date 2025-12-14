@@ -9,7 +9,6 @@ function ProductCard({ product }) {
   const [quantity, setQuantity] = useState(1);
   const token = localStorage.getItem("token");
   const navigate = useNavigate()
-  console.log({ token });
 
   const addToBasket = async () => {
     if (!token) {
