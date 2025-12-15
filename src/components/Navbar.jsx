@@ -36,7 +36,7 @@ export default function Navbar() {
             onClick={() => navigate("/login")}
             className="px-1 py-1 md:py-2 lg:py-2 rounded-full cursor-pointer"
           >
-            ⎆Login
+            🔓Login
           </button>
         )}
 
@@ -53,7 +53,7 @@ export default function Navbar() {
               onClick={logout}
               className="px-1 py-1 md:py-2 lg:py-2 rounded-full cursor-pointer text-red-500"
             >
-              ⏻Logout
+              🔒Logout
             </button>
           </>
         )}
