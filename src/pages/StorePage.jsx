@@ -23,8 +23,8 @@ function ProductCard({ product }) {
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      alert("Adding to card");
       fetchCartCount();
+      alert("Adding to card");     
     } catch (err) {
       alert("Error adding to cart or session time out");
       console.error(err);
