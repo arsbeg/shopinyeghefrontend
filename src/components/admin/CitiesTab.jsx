@@ -92,7 +92,7 @@ export default function Cities() {
   return (
     <div className="bg-gradient-to-b from-sky-50 to-sky-200 p-4 rounded-xl shadow-md mt-8">
       <h2 className="text-base md:text-xl lg:text-2xl font-semibold mb-4">
-        📍 Cities for delivery in eghegnadzor
+        📍 Places for delivery in Yeghegnadzor
       </h2>
 
       {/* List of addresses */}
@@ -145,7 +145,7 @@ export default function Cities() {
                 onClick={() => {
                   setEditId(c.id);
                   setEditCity(c.city);
-                  setEditPrice(c.rice);
+                  setEditPrice(c.price);
                 }}
                 className="px-3 py-1 bg-white text-white rounded-lg hover:scale-150 transition"
               >

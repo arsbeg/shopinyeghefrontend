@@ -36,7 +36,7 @@ export default function Home() {
             </div>
             <div className="p-4 flex flex-col justify-between">
                 <h3 className="text-xl font-semibold text-gray-800 mb-2">{store.st_name}</h3>
-                <button className="mt-3 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600"
+                <button className="mt-3 px-4 py-1 bg-gradient-to-b from-sky-300 via-white to-sky-300 text-blue-900 rounded-full hover:bg-blue-600"
                     onClick={(e) => {e.stopPropagation();
                     setSelectedStore(store);
                     }}>
