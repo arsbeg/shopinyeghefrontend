@@ -4,11 +4,13 @@ import api from "../api/axios";
 import { API_BASE_URL } from "../config";
 import HeroCarousel from "../components/HeroCarousel";
 import WeatherWidget from "../components/WhetherWidget";
+import { useCart } from "../context/CartContext";
 
 function ProductCard({ product }) {
   const [quantity, setQuantity] = useState(1);
   const token = localStorage.getItem("token");
   const navigate = useNavigate()
+  const { fetchCartCount } = useCart();
 
   const addToBasket = async () => {
     if (!token) {
@@ -22,6 +24,7 @@ function ProductCard({ product }) {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert("Adding to card");
+      fetchCartCount();
     } catch (err) {
       alert("Error adding to cart or session time out");
       console.error(err);

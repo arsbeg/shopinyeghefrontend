@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import { API_BASE_URL } from "../config";
+import { useCart } from "../context/CartContext";
 
 
 export default function OrderedPrCard({ product }) {
   const token = localStorage.getItem("token");
   const navigate = useNavigate()
   const quantity = 1
+  const { fetchCartCount } = useCart();
 
   const addToBasket = async () => {
     if (!token) {
@@ -21,6 +23,7 @@ export default function OrderedPrCard({ product }) {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert("Adding to card");
+      fetchCartCount();
     } catch (err) {
       alert("Error adding to cart or session time out");
       console.error(err);
