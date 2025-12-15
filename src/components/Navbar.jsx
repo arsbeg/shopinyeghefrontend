@@ -7,13 +7,14 @@ import { useCart } from "../context/CartContext";
 export default function Navbar() {
   const navigate = useNavigate();
   const {user, logout} = useAuth();
-  const { count } = useCart();
+  const { count, fetchCartCount } = useCart();
+  fetchCartCount();
 
   const handleProfileClick = () => {
     if (user.role === "admin") navigate("/admin");
     else if (user.role === "manager") navigate("/manager");
     else if (user.role === "courier") navigate("/courier");
-    else navigate("/profile")
+    else navigate("/profile")   
   };
 
   return (
@@ -25,14 +26,14 @@ export default function Navbar() {
       <div className="flex gap-0 md:gap-2 lg:gap-3 items-center text-[9px] md:text-sm lg:text-lg">
         {/* Кнопка корзины */}
         {user && (
-          <div className="relative">
-            <ShoppingCart onClick={() => navigate("/basket")} className="w-6 h-6 cursor-pointer" />
+          <div onClick={() => navigate("/basket")} className="relative px-3">
+            <ShoppingCart className="w-4 h-4 md:w-6 md:h-6 lg:w-8 lg:h-8 cursor-pointer" />
 
             {count > 0 && (
               <span className="
-                absolute -top-2 -right-2
-                bg-red-600 text-white text-xs
-                w-5 h-5 flex items-center justify-center
+                absolute -top-2 right-1
+                bg-red-600 text-white text-[9px] md:text-sm
+                w-3.5 h-3.5 md:h-6 md:w-6 flex items-center justify-center
                 rounded-full
               ">
                 {count}
