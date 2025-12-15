@@ -1,10 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { ShoppingCart } from "lucide-react";
+import { useCart } from "../context/CartContext";
 
 
 export default function Navbar() {
   const navigate = useNavigate();
   const {user, logout} = useAuth();
+  const { count } = useCart();
 
   const handleProfileClick = () => {
     if (user.role === "admin") navigate("/admin");
@@ -22,12 +25,26 @@ export default function Navbar() {
       <div className="flex gap-0 md:gap-2 lg:gap-3 items-center text-[9px] md:text-sm lg:text-lg">
         {/* Кнопка корзины */}
         {user && (
-          <button
+          <div className="relative">
+            <ShoppingCart onClick={() => navigate("/basket")} className="w-6 h-6 cursor-pointer" />
+
+            {count > 0 && (
+              <span className="
+                absolute -top-2 -right-2
+                bg-red-600 text-white text-xs
+                w-5 h-5 flex items-center justify-center
+                rounded-full
+              ">
+                {count}
+              </span>
+            )}
+          </div>
+          /*<button
             onClick={() => navigate("/basket")}
             className="px-1 py-1 md:py-2 lg:py-2 rounded-full cursor-pointer"
           >
             🛒 Cart
-          </button>
+          </button>*/
         )}
 
         {/* Если нет авторизации */}

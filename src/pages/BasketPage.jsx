@@ -4,6 +4,7 @@ import api from "../api/axios";
 import { API_BASE_URL } from "../config";
 import Addresses from "../components/Addresses";
 import UserOrders from "../components/UserOrders";
+import { useCart } from "../context/CartContext";
 
 export default function BasketPage() {
   const [basketItems, setBasketItems] = useState([]);
@@ -11,6 +12,7 @@ export default function BasketPage() {
   const navigate = useNavigate();
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [refreshOrders, setRefreshOrders] = useState(0);
+  const { fetchCartCount } = useCart();
 
   // === fetching basket ===
   useEffect(() => {
@@ -55,6 +57,7 @@ export default function BasketPage() {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBasketItems(res.data || []);
+      fetchCartCount();
     } catch (err) {
       console.error("Error updating quantity:", err);
     }
@@ -71,6 +74,7 @@ export default function BasketPage() {
 
       // Localy Delete
       setBasketItems((prev) => prev.filter((item) => item.id !== orderId));
+      fetchCartCount();
     } catch (err) {
       console.error("Error deleting from basket:", err);
     }
@@ -106,6 +110,7 @@ export default function BasketPage() {
       setBasketItems(res.data || []);
       navigate("/basket");
       setRefreshOrders(prev => prev + 1);
+      fetchCartCount();
 
     } catch (err) {
       console.error("Checkout error:", err);
