@@ -18,7 +18,7 @@ export default function Login() {
     try {
       const responce = await api.post("/Users/login", { username, password });
       if (responce.data.access_token) {
-        console.log("Login success:", responce.data);
+        //console.log("Login success:", responce.data);
         /*localStorage.setItem("token", responce.data.access_token);
         localStorage.setItem("user", JSON.stringify(responce.data.user));*/
         login(responce.data.user, responce.data.access_token);

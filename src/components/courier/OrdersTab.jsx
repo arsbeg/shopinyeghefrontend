@@ -132,8 +132,8 @@ export default function OrdersTab() {
                   🧾Order #{order.id}
                 </span>
               </div>
-              <div>
-                Status⋙
+              <div className="flex flex-col-3 gap-2">
+                Status<div className="animate-spin rounded-full size-4 border-b-2 border-white mt-1"></div>
                 <span
                   className="text-white font-bold"
                 >
