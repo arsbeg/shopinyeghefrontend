@@ -12,9 +12,11 @@ export default function EditProductModal({ isOpen, onClose, product, onUpdated }
   const [managers, setManagers] = useState([]);
   const [form, setForm] = useState({
     pr_name: "",
+    pr_name_arm: "",
     price: "",
     quantity: "",
     description: "",
+    description_arm: "",
     image: "",
   });
 
@@ -30,9 +32,11 @@ export default function EditProductModal({ isOpen, onClose, product, onUpdated }
     if (product) {
       setForm({
         pr_name: product.pr_name || "",
+        pr_name_arm: product.pr_name_arm || "",
         price: product.price || "",
         quantity: product.quantity || "",
         description: product.description || "",
+        description_arm: product.description_arm || "",
         image: "", // пусто, чтобы не отправлять старый URL
       });
     }
@@ -97,6 +101,14 @@ export default function EditProductModal({ isOpen, onClose, product, onUpdated }
           required
         />
         <input
+          type="text"
+          placeholder="Ապրանքի անվանումը"
+          className="border p-2 rounded w-full"
+          value={form.pr_name_arm}
+          onChange={(e) => setForm({ ...form, pr_name_arm: e.target.value })}
+          required
+        />
+        <input
           type="number"
           placeholder="IPrice"
           className="border p-2 rounded w-full"
@@ -118,6 +130,14 @@ export default function EditProductModal({ isOpen, onClose, product, onUpdated }
           className="border p-2 rounded w-full"
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Նկարագրություն"
+          className="border p-2 rounded w-full"
+          value={form.description_arm}
+          onChange={(e) => setForm({ ...form, description_arm: e.target.value })}
           required
         />
 

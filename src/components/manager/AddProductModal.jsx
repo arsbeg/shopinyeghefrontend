@@ -13,9 +13,11 @@ export default function AddProductModal({ isOpen, onClose, onAdded, category, st
   const [categories, setCategories] = useState([])
   const [form, setForm] = useState({
     pr_name: "",
+    pr_name_arm: "",
     price: "",
     quantity: "",
     description: "",
+    description_arm: "",
     category_id: category.id,
     store_id: store.id,
     image: "",
@@ -85,6 +87,14 @@ export default function AddProductModal({ isOpen, onClose, onAdded, category, st
           required
         />
         <input
+          type="text"
+          placeholder="Ապրանքի Անվանումը"
+          className="border p-2 rounded w-full"
+          value={form.pr_name_arm}
+          onChange={(e) => setForm({ ...form, pr_name_arm: e.target.value })}
+          required
+        />
+        <input
           type="number"
           placeholder="Price"
           className="border p-2 rounded w-full"
@@ -106,6 +116,14 @@ export default function AddProductModal({ isOpen, onClose, onAdded, category, st
           className="border p-2 rounded w-full"
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Նկարագրություն"
+          className="border p-2 rounded w-full"
+          value={form.description_arm}
+          onChange={(e) => setForm({ ...form, description_arm: e.target.value })}
           required
         />
 

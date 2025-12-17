@@ -13,8 +13,11 @@ export default function EditStoreModal({ isOpen, onClose, store, onUpdated }) {
   const [form, setForm] = useState({
     owner_id: "",
     st_name: "",
+    st_name_arm: "",
     itn: "",
+    ban: "",
     address: "",
+    address_arm: "",
     phone: "",
     st_image: "",
   });
@@ -49,8 +52,11 @@ export default function EditStoreModal({ isOpen, onClose, store, onUpdated }) {
       setForm({
         owner_id: store.owner_id || "",
         st_name: store.st_name || "",
+        st_name_arm: store.st_name_arm || "",
         itn: store.itn || "",
+        ban: store.ban || "",
         address: store.address || "",
+        address_arm: store.address_arm || "",
         phone: store.phone || "",
         st_image: "", // пусто, чтобы не отправлять старый URL
       });
@@ -117,6 +123,14 @@ export default function EditStoreModal({ isOpen, onClose, store, onUpdated }) {
         />
         <input
           type="text"
+          placeholder="Խանութի անվանումը"
+          className="border p-2 rounded w-full"
+          value={form.st_name_arm}
+          onChange={(e) => setForm({ ...form, st_name_arm: e.target.value })}
+          required
+        />
+        <input
+          type="text"
           placeholder="ITN"
           className="border p-2 rounded w-full"
           value={form.itn}
@@ -125,10 +139,26 @@ export default function EditStoreModal({ isOpen, onClose, store, onUpdated }) {
         />
         <input
           type="text"
+          placeholder="BAN"
+          className="border p-2 rounded w-full"
+          value={form.ban}
+          onChange={(e) => setForm({ ...form, ban: e.target.value })}
+          required
+        />
+        <input
+          type="text"
           placeholder="Address"
           className="border p-2 rounded w-full"
           value={form.address}
           onChange={(e) => setForm({ ...form, address: e.target.value })}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Հասցե"
+          className="border p-2 rounded w-full"
+          value={form.address_arm}
+          onChange={(e) => setForm({ ...form, address_arm: e.target.value })}
           required
         />
         <input

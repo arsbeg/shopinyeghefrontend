@@ -11,6 +11,7 @@ export default function AddCategoryModal({ isOpen, onClose, onAdded, store }) {
   const [categories, setCategories] = useState([])
   const [form, setForm] = useState({
     cat_name: "",
+    cat_name_arm: "",
     store_id: store.id,
   });
 
@@ -68,6 +69,14 @@ export default function AddCategoryModal({ isOpen, onClose, onAdded, store }) {
           className="border p-2 rounded w-full"
           value={form.cat_name}
           onChange={(e) => setForm({ ...form, cat_name: e.target.value })}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Բաժնի անվանումը"
+          className="border p-2 rounded w-full"
+          value={form.cat_name_arm}
+          onChange={(e) => setForm({ ...form, cat_name_arm: e.target.value })}
           required
         />
 
