@@ -2,12 +2,17 @@ import { useEffect, useState } from "react";
 import api from "../api/axios";
 import {API_BASE_URL} from "../config"
 import { useNavigate } from "react-router-dom";
-import HeroCarousel from "../components/HeroCarousel"; 
+import HeroCarousel from "../components/HeroCarousel";
+import { useLang } from "../context/LanguageContext";
+import { tField } from "../utils/tField";
+import { useTranslate } from "../utils/useTranslate";
 
 export default function Home() {
   const [stores, setStores] = useState([]);
   const [selectedStore, setSelectedStore] = useState(null);
   const navigate = useNavigate();
+  const { lang } = useLang();
+  const t = useTranslate();
 
   useEffect(() => {
     api
@@ -35,12 +40,12 @@ export default function Home() {
                 />
             </div>
             <div className="p-4 flex flex-col justify-between">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">{store.st_name}</h3>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">{tField(store, "st_name", lang)}</h3>
                 <button className="mt-3 px-4 py-1 bg-gradient-to-b from-sky-300 via-white to-sky-300 text-blue-900 rounded-full hover:bg-blue-600"
                     onClick={(e) => {e.stopPropagation();
                     setSelectedStore(store);
                     }}>
-                    Details
+                    {t("details")}
                 </button>
             </div>
           </div>
@@ -54,9 +59,9 @@ export default function Home() {
                 className="bg-white rounded-2xl shadow-xl p-6 max-w-md w-full"
                 onClick={(e) => e.stopPropagation()}
             >
-                <h2 className="text-2xl font-bold mb-2">{selectedStore.st_name}</h2>
-                <p className="text-gray-600 mb-2"><strong>Address: </strong>{selectedStore.address || "No address"}</p>
-                <p className="text-gray-600 mb-2"><strong>Telefon: </strong>{selectedStore.phone || "-----"}</p>
+                <h2 className="text-2xl font-bold mb-2">{tField(selectedStore, "st_name", lang)}</h2>
+                <p className="text-gray-600 mb-2"><strong>🚩: </strong>{tField(selectedStore, "address", lang) || "No address"}</p>
+                <p className="text-gray-600 mb-2"><strong>☎: </strong>{selectedStore.phone || "-----"}</p>
                 <button
                     className="mt-2 px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
                     onClick={() => setSelectedStore(null)}

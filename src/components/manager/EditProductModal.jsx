@@ -110,7 +110,7 @@ export default function EditProductModal({ isOpen, onClose, product, onUpdated }
         />
         <input
           type="number"
-          placeholder="IPrice"
+          placeholder="Price"
           className="border p-2 rounded w-full"
           value={form.price}
           onChange={(e) => setForm({ ...form, price: e.target.value })}

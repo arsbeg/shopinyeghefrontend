@@ -1,0 +1,32 @@
+export const translations = {
+  en: {
+    addToCart: "Add to cart",
+    cancelOrder: "Cancel order",
+    login: "Login",
+    logout: "Logout",
+    orders: "Orders",
+    Created: "Created",
+    Packaging: "Packaging",
+    Ready: "Ready",
+    Assigned: "Assigned",
+    Ontheway: "On way",
+    Completed: "Completed",
+    pending: "Pending",
+    details: "Details",
+  },
+  hy: {
+    addToCart: "Ավելացնել զամբյուղ",
+    cancelOrder: "Չեղարկել պատվերը",
+    login: "Մուտք",
+    logout: "Ելք",
+    orders: "Պատվերներ",
+    Created: "Ստեղծված",
+    Packaging: "Փաթեթավորում",
+    Ready: "Պատրաստ",
+    Assigned: "Նշանակված",
+    Ontheway: "Ճանապարհին",
+    Completed: "Ավարտված",
+    pending: "Սպասման մեջ",
+    details: "Մանրամասն"
+  },
+};

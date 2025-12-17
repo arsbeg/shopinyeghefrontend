@@ -18,8 +18,8 @@ export default function AddProductModal({ isOpen, onClose, onAdded, category, st
     quantity: "",
     description: "",
     description_arm: "",
-    category_id: category.id,
-    store_id: store.id,
+    category_id: category?.id,
+    store_id: store?.id,
     image: "",
   });
 
@@ -129,12 +129,12 @@ export default function AddProductModal({ isOpen, onClose, onAdded, category, st
 
         <p>
             <span className="font-bold">Category:  </span>
-            <span>{category.cat_name}</span>
+            <span>{category?.cat_name}</span>
         </p>
 
         <p>
             <span className="font-bold">Store:  </span>
-            <span>{store.st_name}</span>
+            <span>{store?.st_name}</span>
         </p>
 
         <div>

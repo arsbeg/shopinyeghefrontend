@@ -5,12 +5,15 @@ import { API_BASE_URL } from "../config";
 import HeroCarousel from "../components/HeroCarousel";
 import WeatherWidget from "../components/WhetherWidget";
 import { useCart } from "../context/CartContext";
+import { useLang } from "../context/LanguageContext";
+import { tField } from "../utils/tField";
 
 function ProductCard({ product }) {
   const [quantity, setQuantity] = useState(1);
   const token = localStorage.getItem("token");
   const navigate = useNavigate()
   const { fetchCartCount } = useCart();
+  const { lang } = useLang();
 
   const addToBasket = async () => {
     if (!token) {
@@ -59,7 +62,7 @@ function ProductCard({ product }) {
 
       {/* Product name and price */}
       <h3 className="font-semibold text-lg text-gray-800 truncate max-w-[160px]">
-        {product.pr_name}
+        {tField(product, "pr_name", lang)}
       </h3>
       <p className="text-green-700 font-bold mt-1 text-lg">
         {product.price.toLocaleString()} ֏
@@ -101,6 +104,7 @@ export default function StorePage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("")
+  const { lang } = useLang();
 
   // Fetching Store and Category data
   useEffect(() => {
@@ -156,7 +160,7 @@ export default function StorePage() {
       <div className="grid grid-flow-col grid-rows-1 pb-5">
         <div className="col-span-1 row-span-1">
           <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-800 mb-2">
-            {store.st_name}
+            {tField(store, "st_name", lang)}
           </h1>
           {store.st_image && (
             <img
@@ -195,7 +199,7 @@ export default function StorePage() {
             }`}
             onClick={() => handleCategoryClick(cat.id)}
           >
-            {cat.cat_name}
+            {tField(cat,"cat_name", lang)}
           </button>
         ))}
         <input

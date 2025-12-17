@@ -19,6 +19,7 @@ export default function EditCategoryModal({ isOpen, onClose, onUpdated, category
     if (category) {
       setForm({
         cat_name: category.cat_name || "",
+        cat_name_arm: category.cat_name_arm || "",
       });
     }
   }, [category]);
