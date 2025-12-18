@@ -6,6 +6,9 @@ import AddProductModal from "./AddProductModal";
 import EditProductModal from "./EditProductModal";
 import AddCategoryModal from "./AddCategoryModal";
 import EditCategoryModal from "./EditCategoryModal";
+import { useTranslate } from "../../utils/useTranslate";
+import { useLang } from "../../context/LanguageContext";
+import { tField } from "../../utils/tField";
 
 export default function ProductsTab() {
   const { token, user } = useAuth();
@@ -20,8 +23,10 @@ export default function ProductsTab() {
   const [isEditProductOpen, setIsEditProductOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const { lang } = useLang();
+  const t = useTranslate();
 
-  // 🏪 Загрузка магазинов менеджера
+  // 🏪 Loading Manager stores 
   const fetchStores = async () => {
     try {
       const res = await api.get(`/Store/all`);
@@ -35,7 +40,7 @@ export default function ProductsTab() {
     if (user?.id) fetchStores();
   }, [user]);
 
-  // 📂 Загрузка категорий магазина
+  // 📂 Loading categories
   const fetchCategories = async (storeId) => {
     try {
       const res = await api.get(`/Category/cat-by-storeid/${storeId}`);
@@ -45,7 +50,7 @@ export default function ProductsTab() {
     }
   };
 
-  // 🧃 Загрузка продуктов категории
+  // 🧃 loading products in each category
   const fetchProducts = async (categoryId) => {
     try {
       const res = await api.get(`/Products/by_category/${categoryId}`);
@@ -55,7 +60,7 @@ export default function ProductsTab() {
     }
   };
 
-  // 🗑 Удаление категории
+  // 🗑 Delete category
   const handleDeleteCategory = async (catId) => {
     if (!window.confirm("Delete this category?")) return;
     try {
@@ -63,7 +68,7 @@ export default function ProductsTab() {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert("Category deleted");
-      // обновить категории текущего магазина
+      // Update categories in each store
       if (expandedStore) fetchCategories(expandedStore);
     } catch (err) {
       console.error("Error deleting category:", err);
@@ -71,7 +76,7 @@ export default function ProductsTab() {
     }
   };
 
-  // 🗑 Удаление продукта
+  // 🗑 Delete Product
   const handleDeleteProduct = async (prodId, categoryId) => {
     if (!window.confirm("Delete this product?")) return;
     try {
@@ -109,7 +114,7 @@ export default function ProductsTab() {
 
   return (
     <div>
-      <h2 className="text-sm md:text-base lg:text-xl font-semibold mb-4">My Products</h2>
+      <h2 className="text-sm md:text-base lg:text-xl font-semibold mb-4">{t("products")}</h2>
 
       {stores.map((store) => (
         <div key={store.id} className="mb-6 text-[9px] md:text-[12px] lg:text-[14px] border rounded-lg p-4 shadow-sm bg-white">
@@ -122,7 +127,7 @@ export default function ProductsTab() {
               if (expandedStore !== store.id) fetchCategories(store.id);
             }}
           >
-            <h3 className="font-bold">{store.st_name}</h3>
+            <h3 className="font-bold">{tField(store, "st_name", lang)}</h3>
             <span className="text-gray-500">
               {expandedStore === store.id ? "▲" : "▼"}
             </span>
@@ -134,31 +139,31 @@ export default function ProductsTab() {
                 <div key={cat.id} className="mb-4">
                   <div className="flex justify-between items-center mb-2">
                     <h4 className="font-semibold text-gray-800">
-                      {cat.cat_name}
+                      {tField(cat, "cat_name", lang)}
                     </h4>
                     <div className="flex gap-2">
                       <button
                         onClick={() => handleAddProduct(cat, store)}
-                        className="bg-green-600 text-white px-2 py-1 rounded-full cursor-pointer"
+                        className="border border-green-600 border-[3px] px-2 py-0 rounded-full cursor-pointer"
                       >
-                        + Add Product
+                       ➕ {t("product")}
                       </button>
                       <button
                         onClick={() => handleEditCategory(cat)}
-                        className="bg-yellow-600 text-white px-2 py-1 rounded-full cursor-pointer"
+                        className="border border-yellow-500 border-[3px] px-2 py-0 rounded-full cursor-pointer"
                       >
-                        Edit Category
+                        ✍ {t("category")}
                       </button>
                       <button
                         onClick={() => handleDeleteCategory(cat.id)}
-                        className="bg-red-600 text-white px-2 py-1 rounded-full cursor-pointer"
+                        className="border border-red-600 border-[3px] px-2 py-0 rounded-full cursor-pointer"
                       >
-                        Delete Category
+                        🗑️ {t("category")}
                       </button>
                     </div>
                   </div>
 
-                  {/* Продукты */}
+                  {/* Product card */}
                   <div className="grid grid-cols-3 md:grid-cols-4 lg:col-6 gap-3 max-w-200">
                     {products[cat.id] ? (
                       products[cat.id].map((p) => (
@@ -172,22 +177,22 @@ export default function ProductsTab() {
                             className="w-15 h-15 md:w-20 md:h-20 lg:w-32 lg:h-32 object-cover rounded"
                           />
                           <div className="w-full mt-2">
-                            <div className="font-semibold">{p.pr_name}</div>
-                            <div>Stock: {p.quantity}</div>
-                            <div>Price: {p.price} ֏</div>
+                            <div className="font-semibold">{tField(p, "pr_name", lang)}</div>
+                            <div>{t("stock")}: {p.quantity}</div>
+                            <div>{t("price")}: {p.price} ֏</div>
                           </div>
                           <div className="flex justify-between mt-2">
                             <button
                               onClick={() => handleEditProduct(p)}
-                              className="bg-yellow-500 text-white px-2 py-1 rounded-full cursor-pointer"
+                              className="border border-yellow-500 px-2 py-0 rounded-full cursor-pointer"
                             >
-                              Edit
+                              ✏️
                             </button>
                             <button
                               onClick={() => handleDeleteProduct(p.id, cat.id)}
-                              className="bg-red-500 text-white px-2 py-1 rounded-full cursor-pointer"
+                              className="border border-red-500 px-2 py-0 rounded-full cursor-pointer"
                             >
-                              Delete
+                              🗑️
                             </button>
                           </div>
                         </div>
@@ -197,26 +202,26 @@ export default function ProductsTab() {
                         onClick={() => fetchProducts(cat.id)}
                         className="text-blue-600 underline"
                       >
-                        Load products
+                        {t("load")}
                       </button>
                     )}
                   </div>
                 </div>
               ))}
 
-              {/* Добавление категории */}
+              {/* Add Category */}
               <button
                 className="mt-3 bg-blue-600 text-white px-3 py-1 rounded-full cursor-pointer"
                 onClick={() => handleAddCategory(store)}
               >
-                + Add Category
+                + {t("category")}
               </button>
             </div>
           )}
         </div>
       ))}
 
-      {/* Модалки */}
+      {/* Modal windows */}
       {selectedCategory && (
         <AddProductModal
           isOpen={isAddProductOpen}
