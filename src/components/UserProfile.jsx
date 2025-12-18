@@ -6,6 +6,7 @@ import { API_BASE_URL } from "../config";
 import { motion } from "framer-motion";
 import ChangeAvatar from "./ChangeAvatar";
 import { Eye,EyeOff } from "lucide-react";
+import { useTranslate } from "../utils/useTranslate";
 
 export default function UserProfile() {
   const { token } = useAuth();
@@ -29,6 +30,7 @@ export default function UserProfile() {
   const [isPasswordSaving, setIsPasswordSaving] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showPassword,setShowPassword] = useState(false);
+  const t = useTranslate();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -114,7 +116,7 @@ export default function UserProfile() {
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg/50 rounded-2xl">
-      <h2 className="text-2xl font-semibold mb-6 text-center">Profile</h2>
+      <h2 className="text-2xl font-semibold mb-6 text-center">{t("profile")}</h2>
 
       {/* === Avatar Section === */}
       <motion.div
@@ -135,7 +137,7 @@ export default function UserProfile() {
             onClick={() => setIsModalOpen(true)}
             className="absolute bottom-0 right-0 bg-green-600 text-white text-sm px-3 py-1 rounded-full opacity-80"
           >
-            ✏️Change
+            +✍
           </button>
 
           <ChangeAvatar
@@ -150,7 +152,7 @@ export default function UserProfile() {
       {/* === Info Form === */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-gray-600 mb-1">First Name</label>
+          <label className="block text-gray-600 mb-1">{t("firstName")}</label>
           <input
             type="text"
             name="first_name"
@@ -161,7 +163,7 @@ export default function UserProfile() {
         </div>
 
         <div>
-          <label className="block text-gray-600 mb-1">Last Name</label>
+          <label className="block text-gray-600 mb-1">{t("lastName")}</label>
           <input
             type="text"
             name="last_name"
@@ -172,7 +174,7 @@ export default function UserProfile() {
         </div>
 
         <div>
-          <label className="block text-gray-600 mb-1">Email</label>
+          <label className="block text-gray-600 mb-1">{t("email")}</label>
           <input
             type="email"
             name="email"
@@ -183,7 +185,7 @@ export default function UserProfile() {
         </div>
 
         <div>
-          <label className="block text-gray-600 mb-1">Birthday</label>
+          <label className="block text-gray-600 mb-1">{t("birthday")}</label>
           <input
             type="date"
             name="birthday"
@@ -193,7 +195,7 @@ export default function UserProfile() {
           />
         </div>
         <div>
-          <label className="block text-gray-600 mb-1">Gender</label>
+          <label className="block text-gray-600 mb-1">{t("gender")}</label>
           <select
             type="text"
             name="gender"
@@ -201,12 +203,12 @@ export default function UserProfile() {
             onChange={handleChange}
             className="w-full border rounded-lg px-3 py-2"
           >
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
+            <option value="Male">{t("male")}</option>
+            <option value="Female">{t("female")}</option>
           </select>
         </div>
         <div>
-          <label className="block text-gray-600 mb-1">Phone number</label>
+          <label className="block text-gray-600 mb-1">{t("phone")}</label>
           <input
             type="text"
             name="phone_number"
@@ -227,7 +229,7 @@ export default function UserProfile() {
               : "bg-gray-400 cursor-not-allowed"
           }`}
         >
-          {isSaving ? "💾Saving..." : "💾Save"}
+          {isSaving ? "💾"+t("saving")+"..." : "💾"+t("save")}
         </button>
       </div>
 
@@ -237,12 +239,12 @@ export default function UserProfile() {
         animate={{ opacity: 1, y: 0 }}
         className="mt-10 border-t pt-6"
       >
-        <h3 className="text-lg font-semibold mb-3">Change Password</h3>
+        <h3 className="text-lg font-semibold mb-3">{t("chPass")}</h3>
 
         <div className="relative grid grid-cols-1 md:grid-cols-3 gap-3">
           <input
             type={showPassword ? "text" : "password"}
-            placeholder="Current password"
+            placeholder={t("curPass")}
             name="old_password"
             value={passwordData.old_password}
             onChange={handleChangePassword}
@@ -250,7 +252,7 @@ export default function UserProfile() {
           />
           <input
             type={showPassword ? "text" : "password"}
-            placeholder="New password"
+            placeholder={t("newPass")}
             name="new_password"
             value={passwordData.new_password}
             onChange={handleChangePassword}
@@ -258,7 +260,7 @@ export default function UserProfile() {
           />
           <input
             type={showPassword ? "text" : "password"}
-            placeholder="Confirm new password"
+            placeholder={t("confPass")}
             name="repeat_password"
             value={passwordData.repeat_password}
             onChange={handleChangePassword}
@@ -282,7 +284,7 @@ export default function UserProfile() {
               : "bg-gray-400 cursor-not-allowed"
           }`}
         >
-          {isPasswordSaving ? "✏️Changing Password..." : "✏️Change Password"}
+          {isPasswordSaving ? "💾"+t("saving")+"..." : "✏️" + t("chPass")}
         </button>
       </motion.div>
     </div>

@@ -3,6 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import { API_BASE_URL } from "../config";
 import { useCart } from "../context/CartContext";
+import { useLang } from "../context/LanguageContext";
+import { useTranslate } from "../utils/useTranslate";
+import { tField } from "../utils/tField";
 
 
 export default function OrderedPrCard({ product }) {
@@ -10,6 +13,8 @@ export default function OrderedPrCard({ product }) {
   const navigate = useNavigate()
   const quantity = 1
   const { fetchCartCount } = useCart();
+  const t = useTranslate();
+  const { lang } = useLang();
 
   const addToBasket = async () => {
     if (!token) {
@@ -44,10 +49,10 @@ export default function OrderedPrCard({ product }) {
 
       {/* Product name and price */}
       <h3 className="font-semibold text-sm md:text-base text-gray-800 truncate max-w-[160px]">
-        {product.pr_name}
+        {tField(product, "pr_name", lang)}
       </h3>
       <h1 className="text-[9px] md:text-[12px] text-gray-800 truncate max-w-[160px]">
-        {product.st_name}
+        {tField(product, "st_name", lang)}
       </h1>
       <p className="text-green-700 font-bold mt-1 text-sm md:text-base lg:text-lg">
         {product.cur_price.toLocaleString()} ֏
@@ -58,7 +63,7 @@ export default function OrderedPrCard({ product }) {
         onClick={addToBasket}
         className="mt-1 bg-blue-600 text-white py-1 px-2 rounded-xl font-semibold hover:bg-blue-700 text-[10px] md:text-sm lg:text-base active:scale-95 transition-transform duration-150"
       >
-        🛒 +Cart
+        🛒 {t("addToCart")}
       </button>
     </div>
   );

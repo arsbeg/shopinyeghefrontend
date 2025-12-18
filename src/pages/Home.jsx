@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <div>
       <HeroCarousel />
-      <h2 className="text-3xl text-center text-shadow-lg/40 font-bold mb-4 text-gray-800 uppercase">Your City, Your Store — Yeghegnadzor Online!</h2>
+      <h2 className="text-3xl text-center text-shadow-lg/40 font-bold mb-4 text-gray-800 uppercase">{t("slogan")}</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {stores.map((store) => (
           <div

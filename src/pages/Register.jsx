@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useTranslate } from "../utils/useTranslate";
 
 export default function Register() {
   const [first_name, setFirst_name] = useState("");
@@ -12,11 +13,12 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
-  const [gender, setGender] = useState("");
+  const [gender, setGender] = useState("Male");
   const [phone_number, setPhone_number] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const t = useTranslate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -44,19 +46,19 @@ export default function Register() {
         className="bg-white shadow-lg rounded-xl p-8 w-full max-w-md"
       >
         <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">
-          Register
+          {t("register")}
         </h1>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         <input
           type="text"
-          placeholder="First Name"
+          placeholder={t("firstName")}
           value={first_name}
           onChange={(e) => setFirst_name(e.target.value)}
           className="w-full border rounded-lg p-2 mb-4"
         />
         <input
           type="text"
-          placeholder="Last Name"
+          placeholder={t("lastName")}
           value={last_name}
           onChange={(e) => setLast_name(e.target.value)}
           className="w-full border rounded-lg p-2 mb-4"
@@ -69,7 +71,7 @@ export default function Register() {
           className="w-full border rounded-lg p-2 mb-4"
         />*/}
         <div className="p-0 flex flex-col-2 justify-between mb-4">
-          <p className="text-gray-500 p-2">Birthday</p>
+          <p className="text-gray-500 p-2">{t("birthday")}</p>
           <DatePicker
             selected={birthday}
             onChange={(date) => setBirthday(date)}
@@ -82,14 +84,14 @@ export default function Register() {
         </div>
         <input
           type="text"
-          placeholder="Username"
+          placeholder={t("username")}
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           className="w-full border rounded-lg p-2 mb-4"
         />
         <input
           type="email"
-          placeholder="Email"
+          placeholder={t("email")}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="w-full border rounded-lg p-2 mb-4"
@@ -100,13 +102,13 @@ export default function Register() {
           value={gender}
           onChange={(e) => setGender(e.target.value)}
           className="w-full border rounded-lg p-2 mb-4"
-        >
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
+        >         
+          <option value="Male">{t("male")}</option>
+          <option value="Female">{t("female")}</option>
         </select>
         <input
           type="text"
-          placeholder="+37400000000"
+          placeholder="☏+37400000000"
           value={phone_number}
           onChange={(e) => setPhone_number(e.target.value)}
           className="w-full border rounded-lg p-2 mb-4"
@@ -114,7 +116,7 @@ export default function Register() {
         <div className="relative">
           <input
             type={showPassword ? "text" : "password"}
-            placeholder="Password"
+            placeholder={t("password")}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full border rounded-lg p-2 mb-4"
@@ -131,7 +133,7 @@ export default function Register() {
           type="submit"
           className="w-full bg-green-600 text-white py-2 rounded-full hover:bg-green-700 cursor-pointer"
         >
-          Register
+          {t("register")}
         </button>
       </form>
     </div>

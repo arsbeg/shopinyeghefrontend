@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import api from "../../api/axios";
 import { useAuth } from "../../context/AuthContext";
+import { useTranslate } from "../../utils/useTranslate";
+import { useLang } from "../../context/LanguageContext";
+import { tField } from "../../utils/tField";
 
 export default function OrdersTab() {
   const { token, user } = useAuth();
   const [orders, setOrders] = useState([]);
   const [orderStores, setOrderStores] = useState({});
   const allowedStatuses = ["created", "packaging", "ready"];
-  //console.log(user.id);
+  const t = useTranslate();
+  const { lang } = useLang();
 
   const fetchOrders = async () => {
     try {
@@ -104,8 +108,6 @@ export default function OrdersTab() {
 
   return (
     <div>
-      <h1>Orders: Under construction</h1>
-
       {orders.map((order) => (
         <div
           key={order.id}
@@ -129,15 +131,15 @@ export default function OrdersTab() {
             <div className="rounded-t-2xl px-3 flex flex-col-2 justify-between">
               <div>
                 <span className="text-white font-bold">
-                  🧾Order #{order.id}
+                  🧾{t("order")} #{order.id}
                 </span>
               </div>
-              <div className="flex flex-col-3 gap-2">
-                Status<div className="animate-spin rounded-full size-4 border-b-2 border-white mt-1"></div>
+              <div className="flex flex-col-3 gap-2 text-sm md:text-xl">
+                {t("status")} <div className="animate-spin rounded-full size-4 border-b-2 border-white mt-1"></div>
                 <span
                   className="text-white font-bold"
                 >
-                  {order.status}
+                  {t(order.status)}
                 </span>
               </div>
             </div>
@@ -153,12 +155,12 @@ export default function OrdersTab() {
                     className="mt-1 rounded-xl p-[2px] grid grid-col-4"
                   >
                     <p className="text-sm font-semibold text-gray-700">
-                      {store.st_name}--{store.address}
+                      {tField(store, "st_name", lang)}--{tField(store, "address", lang)}
                     </p>
                   </div>
                 ))
               ) : (
-                <p className="text-gray-500">No Orders for now</p>
+                <p className="text-gray-500">{t("noOrders")}</p>
               )}
               {order.status === "ready" && (
                 <div className="flex grid grid-col-3 place-items-end">
@@ -166,7 +168,7 @@ export default function OrdersTab() {
                     onClick={() => handleAccept(order.id)}
                     className="bg-gradient-to-b from-green-500 to-gray-100 shadow-md/50 hover:shadow-sm/50 text-black text-sm px-2 py-1 mb-2 w-full rounded-b-2xl cursor-pointer px-3"
                   >
-                    Accept
+                    {t("accept")}
                   </button>
                 </div>
               )}
@@ -176,7 +178,7 @@ export default function OrdersTab() {
                     onClick={() => handleOnWay(order.id)}
                     className="bg-gradient-to-b from-blue-500 to-gray-100 shadow-md/50 hover:shadow-sm/50 text-black text-sm px-2 py-1 mb-2 w-full rounded-b-2xl cursor-pointer"
                   >
-                    On the Way
+                    {t("onway")}
                   </button>
                 </div>
               )}
@@ -186,7 +188,7 @@ export default function OrdersTab() {
                     onClick={() => handleComplete(order.id)}
                     className="bg-gradient-to-b from-purple-500 to-gray-100 shadow-md/50 hover:shadow-sm/50 text-black text-sm px-2 py-1 mb-2 w-full rounded-b-2xl cursor-pointer"
                   >
-                    Complete
+                    {t("completed")}
                   </button>
                 </div>
               )}

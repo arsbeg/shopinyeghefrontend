@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../api/axios";
 import OrderedPrCard from "./OrderedPrCard";
 import OrderStatus from "./OrderStatus";
+import { useTranslate } from "../utils/useTranslate";
 
 export default function UserOrders({ refreshTrigger = 0 }) {
   const [orders, setOrders] = useState([]);
@@ -9,6 +10,8 @@ export default function UserOrders({ refreshTrigger = 0 }) {
 
   const [editId, setEditId] = useState(null);
   const [editValue, setEditValue] = useState("");
+
+  const t = useTranslate();
 
   // Load current user orders
   const fetchOrders = async () => {
@@ -72,7 +75,7 @@ export default function UserOrders({ refreshTrigger = 0 }) {
 
   return (
     <div className="bg-gradient-to-b from-sky-50 to-sky-200 px-1 py-3 rounded-xl shadow-md mt-8">
-      <h2 className="text-base md:text-xl lg:text-2xl font-semibold mb-4">🛒 My Orders</h2>
+      <h2 className="text-base md:text-xl lg:text-2xl font-semibold mb-4">🛒 {t("myorders")}</h2>
 
       {/* List of orders */}
       <div className="space-y-3 mb-4">
@@ -87,10 +90,10 @@ export default function UserOrders({ refreshTrigger = 0 }) {
           >
             <div className="border-b border-purple-600 flex justify-between items-center">
               <div className="flex text-gray-800 text-[9px] md:text-base">
-                🧾Order #{order.id}
+                🧾{t("order")} #{order.id}
               </div>
               <div className="flex text-gray-800 text-[9px] md:text-base">
-                Total amout:--- <span className="text-green-700 font-bold">{order.total_amount}֏</span>
+                {t("total")}:--- <span className="text-green-700 font-bold">{order.total_amount}֏</span>
               </div>
               {/* Cancel order */}
               <div>
@@ -115,10 +118,10 @@ export default function UserOrders({ refreshTrigger = 0 }) {
             </div>
             <div className="flex justify-between text-gray-800 text-[9px] md:text-base">
               <div className="flex text-gray-800 text-[9px] md:text-base">
-                Updated at: {order.updated_at}
+                {t("updatedat")}: {order.updated_at}
               </div>
               <div className="flex text-gray-800 text-[9px] md:text-base">
-                Ordered at: {order.created_at}
+                {t("createdat")}: {order.created_at}
               </div>
             </div>
           </div>

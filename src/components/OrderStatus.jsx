@@ -9,17 +9,21 @@ import {
   Check,
 } from "lucide-react";
 
+import { useLang } from "../context/LanguageContext";
+import { tField } from "../utils/tField";
+
 const steps = [
-  { key: "created", label: "Created", icon: FilePlus },
-  { key: "packaging", label: "Packaging", icon: Package },
-  { key: "ready", label: "Ready", icon: CircleCheckBig },
-  { key: "assigned", label: "Assigned", icon: UserCheck },
-  { key: "on_the_way", label: "On Way", icon: Truck },
-  { key: "complete", label: "Completed", icon: CheckCircle },
+  { key: "created", label: "Created", label_arm: "Ստեղծված", icon: FilePlus },
+  { key: "packaging", label: "Packaging", label_arm: "Հավաքում", icon: Package },
+  { key: "ready", label: "Ready", label_arm: "Պատրաստ", icon: CircleCheckBig },
+  { key: "assigned", label: "Assigned", label_arm: "Նշանակված", icon: UserCheck },
+  { key: "on_the_way", label: "OnWay", label_arm: "Ճանապարհին", icon: Truck },
+  { key: "complete", label: "Completed", label_arm: "Ավարտված", icon: CheckCircle },
 ];
 
 export default function OrderStatus({ status }) {
   const currentIndex = steps.findIndex((s) => s.key === status);
+  const { lang } = useLang()
 
   return (
     <div className="w-full py-4">
@@ -73,7 +77,7 @@ export default function OrderStatus({ status }) {
                   }
                 `}
               >
-                {step.label}
+                {tField(step, "label", lang)}
               </span>
             </div>
           );

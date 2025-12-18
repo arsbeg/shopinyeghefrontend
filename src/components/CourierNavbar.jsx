@@ -1,8 +1,10 @@
 import React from "react";
 import { useAuth } from "../context/AuthContext";
+import { useTranslate } from "../utils/useTranslate";
 
 export default function CourierNavbar({ activeTab, onTabChange }) {
   const { user, logout } = useAuth();
+  const t =useTranslate();
 
   return (
     <header className="bg-gradient-to-b from-sky-300 via-sky-100 to-sky-300 text-[9px] md:text-[12px] lg:text-[14px] text-black px-0 py-0 flex justify-between rounded-t-md items-center">
@@ -14,7 +16,7 @@ export default function CourierNavbar({ activeTab, onTabChange }) {
               activeTab === "orders" ? "bg-gradient-to-b from-gray-400 via-white to-gray-200" : "hover:bg-blue-600"
             }`}
           >
-            Orders
+            {t("orders")}
           </button>
           <button
             onClick={() => onTabChange("profile")}
@@ -22,7 +24,7 @@ export default function CourierNavbar({ activeTab, onTabChange }) {
               activeTab === "profile" ? "bg-gradient-to-b from-gray-400 via-white to-gray-200" : "hover:bg-blue-600"
             }`}
           >
-            Profile
+            {t("profile")}
           </button>
         </nav>
       </div>

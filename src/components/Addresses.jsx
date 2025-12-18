@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/axios";
+import { useTranslate } from "../utils/useTranslate";
 
 export default function Addresses({ onSelect }) {
   const [addresses, setAddresses] = useState([]);
@@ -11,6 +12,7 @@ export default function Addresses({ onSelect }) {
 
   const [editId, setEditId] = useState(null);
   const [editValue, setEditValue] = useState("");
+  const t = useTranslate()
 
   // Load all addresses
   const fetchAddresses = async () => {
@@ -127,7 +129,7 @@ export default function Addresses({ onSelect }) {
   return (
     <div className="bg-gradient-to-b from-sky-50 to-sky-200 p-4 rounded-xl shadow-md mt-8">
       <h2 className="text-base md:text-xl lg:text-2xl font-semibold mb-4">
-        📍 My shipping addresses
+        📍 {t("myaddresses")}
       </h2>
 
       {/* List of addresses */}
@@ -202,7 +204,7 @@ export default function Addresses({ onSelect }) {
           }}
           className="bg-green-600 text-white px-2 py-1 md:px-4 md:py-2 text-sm md:text-xl rounded-full hover:bg-green-400"
         >
-          + Add
+          + {t("add")}
         </button>
         {add && (
           <div

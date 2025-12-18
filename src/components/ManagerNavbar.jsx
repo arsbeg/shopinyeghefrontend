@@ -1,8 +1,10 @@
 import React from "react";
 import { useAuth } from "../context/AuthContext";
+import { useTranslate } from "../utils/useTranslate";
 
 export default function ManagerNavbar({ activeTab, onTabChange }) {
   const { user, logout } = useAuth();
+  const t = useTranslate()
 
   return (
     <header className="bg-gradient-to-b from-sky-300 via-sky-100 to-sky-300 text-[9px] md:text-[12px] lg:text-[14px] text-black px-0 py-0 flex justify-between rounded-t-lg items-center">
@@ -14,7 +16,7 @@ export default function ManagerNavbar({ activeTab, onTabChange }) {
               activeTab === "products" ? "bg-gradient-to-b from-gray-300 via-white to-gray-300" : "hover:bg-gray-100"
             }`}
           >
-            Products
+            {t("products")}
           </button>
           <button
             onClick={() => onTabChange("orders")}
@@ -22,7 +24,7 @@ export default function ManagerNavbar({ activeTab, onTabChange }) {
               activeTab === "orders" ? "bg-gradient-to-b from-gray-300 via-white to-gray-300" : "hover:bg-gray-100"
             }`}
           >
-            Orders
+            {t("orders")}
           </button>
           <button
             onClick={() => onTabChange("statistics")}
@@ -30,7 +32,7 @@ export default function ManagerNavbar({ activeTab, onTabChange }) {
               activeTab === "statistics" ? "bg-gradient-to-b from-gray-300 via-white to-gray-300" : "hover:bg-gray-100"
             }`}
           >
-            Statistics
+            {t("statistics")}
           </button>
           <button
             onClick={() => onTabChange("profile")}
@@ -38,7 +40,7 @@ export default function ManagerNavbar({ activeTab, onTabChange }) {
               activeTab === "profile" ? "bg-gradient-to-b from-gray-300 via-white to-gray-300" : "hover:bg-gray-100"
             }`}
           >
-            Profile
+            {t("profile")}
           </button>
         </nav>
       </div>

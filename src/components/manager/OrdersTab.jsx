@@ -2,11 +2,16 @@ import React, { useEffect, useState } from "react";
 import api from "../../api/axios";
 import { API_BASE_URL } from "../../config";
 import { useAuth } from "../../context/AuthContext";
+import { useTranslate } from "../../utils/useTranslate";
+import { useLang } from "../../context/LanguageContext";
+import { tField } from "../../utils/tField";
 
 export default function OrdersTab() {
   const { token, user } = useAuth();
   const [stores, setStores] = useState([]);
   const [orderedItems, setOrderedItems] = useState([]);
+  const { lang } = useLang();
+  const t = useTranslate();
 
   const fetchStores = async () => {
     try {
@@ -45,15 +50,13 @@ export default function OrdersTab() {
 
   return (
     <div>
-      <h1>Orders: Under construction</h1>
       {stores.map((store) => (
         <div
           key={store.id}
           className="rounded-2xl p-[2px] bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 mb-3"
         >
           <div className="bg-white rounded-2xl p-1">
-            Orders in —{" "}
-            <span className="text-blue-700 font-bold">{store.st_name}</span>
+            <span className="text-blue-700 font-bold">🏪{tField(store, "st_name", lang)}</span>
             {orderedItems[store.id]?.length > 0 ? (
               Object.values(
                 orderedItems[store.id].reduce((acc, item) => {
@@ -74,11 +77,11 @@ export default function OrdersTab() {
                       {/* HEADER */}
                       <div className="flex justify-between items-center">
                         <div className="text-lg font-semibold text-blue-700">
-                          🧾 Order #{orderId}
+                          🧾 {t("order")} #{orderId}
                         </div>
 
                         <div className="text-sm md:text-base font-bold text-green-700">
-                          Total: {storeTotal} AMD
+                          {t("total")}: {storeTotal} ֏
                         </div>
                       </div>
 
@@ -93,7 +96,7 @@ export default function OrdersTab() {
                           >
                             <div>
                               <p className="text-sm font-medium">
-                                {oi.pr_name}
+                                {tField(oi, "pr_name", lang)}
                               </p>
                               <p className="text-xs text-gray-600">
                                 {oi.quantity} × {oi.cur_price}
@@ -109,7 +112,7 @@ export default function OrdersTab() {
                 );
               })
             ) : (
-              <p className="text-gray-500">No orders yet</p>
+              <p className="text-gray-500">{t("noOrders")}</p>
             )}
           </div>
         </div>
@@ -122,6 +125,7 @@ export default function OrdersTab() {
 function OrderItemCheckbox({ item }) {
   const { token } = useAuth();
   const [ready, setReady] = useState(item.ready);
+  const t = useTranslate()
   const updateReady = async () => {
     try {
       await api.put(
@@ -138,8 +142,8 @@ function OrderItemCheckbox({ item }) {
   };
   return (
     <label onClick={updateReady} className="flex items-center gap-2 cursor-pointer">
-      <span className={ready ? "text-sm text-green-500 font-medium" : "text-sm font-medium"}>
-        {ready ? "✅Ready" : "☐Pending"}
+      <span className={ready ? "text-sm text-purple-500 font-medium" : "text-sm font-medium"}>
+        {ready ? "☑️"+t("ready") : "❌"+t("pending")}
       </span>
     </label>
   );

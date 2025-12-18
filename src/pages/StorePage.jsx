@@ -7,6 +7,7 @@ import WeatherWidget from "../components/WhetherWidget";
 import { useCart } from "../context/CartContext";
 import { useLang } from "../context/LanguageContext";
 import { tField } from "../utils/tField";
+import { useTranslate } from "../utils/useTranslate";
 
 function ProductCard({ product }) {
   const [quantity, setQuantity] = useState(1);
@@ -14,6 +15,7 @@ function ProductCard({ product }) {
   const navigate = useNavigate()
   const { fetchCartCount } = useCart();
   const { lang } = useLang();
+  const t = useTranslate();
 
   const addToBasket = async () => {
     if (!token) {
@@ -90,7 +92,7 @@ function ProductCard({ product }) {
         onClick={addToBasket}
         className="mt-4 bg-blue-600 text-white py-2 px-3 rounded-full font-semibold hover:bg-blue-700 text-[10px] md:text-sm lg:text-base active:scale-95 transition-transform duration-150"
       >
-        🛒 Add to Cart
+        🛒 {t("addToCart")}
       </button>
     </div>
   );
@@ -105,6 +107,7 @@ export default function StorePage() {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("")
   const { lang } = useLang();
+  const t = useTranslate();
 
   // Fetching Store and Category data
   useEffect(() => {
@@ -186,7 +189,7 @@ export default function StorePage() {
           }`}
           onClick={() => handleCategoryClick("all")}
         >
-          All
+          {t("all")}
         </button>
 
         {categories.map((cat) => (

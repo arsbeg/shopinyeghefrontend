@@ -5,6 +5,9 @@ import { API_BASE_URL } from "../config";
 import Addresses from "../components/Addresses";
 import UserOrders from "../components/UserOrders";
 import { useCart } from "../context/CartContext";
+import { useLang } from "../context/LanguageContext";
+import { tField } from "../utils/tField";
+import { useTranslate } from "../utils/useTranslate";
 
 export default function BasketPage() {
   const [basketItems, setBasketItems] = useState([]);
@@ -13,6 +16,8 @@ export default function BasketPage() {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [refreshOrders, setRefreshOrders] = useState(0);
   const { fetchCartCount } = useCart();
+  const { lang } = useLang();
+  const t = useTranslate();
 
   // === fetching basket ===
   useEffect(() => {
@@ -128,7 +133,7 @@ export default function BasketPage() {
   if (basketItems.length === 0)
     return (
       <div className="max-w-4xl mx-auto mt-10 p-4 text-center mt-10">
-        <h2 className="text-xl font-semibold">Your basket is empty</h2>
+        <h2 className="text-xl font-semibold">{t("basketEmpty")}</h2>
         <button
           onClick={() => navigate("/")}
           className="mt-4 bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-500"
@@ -142,7 +147,7 @@ export default function BasketPage() {
 
   return (
     <div className="max-w-4xl mx-auto mt-10 px-0">
-      <h1 className="text-2xl font-bold mb-6 text-center">🛒 Your Basket</h1>
+      <h1 className="text-2xl font-bold mb-6 text-center">🛒 {t("basket")}</h1>
 
       <div className="space-y-2 md:space-y-4">
         {basketItems.map((item) => (
@@ -159,9 +164,9 @@ export default function BasketPage() {
                 />
               )}
               <div>
-                <h2 className="text-sm md:text-lg font-semibold">{item.pr_name}</h2>
+                <h2 className="text-sm md:text-lg font-semibold">{tField(item, "pr_name", lang)}</h2>
                 <p className="text-xs md:text-base text-green-600 font-bold">{item.price} ֏</p>
-                <p className="text-xs md:text-base text-gray-400">{item.st_name}</p>
+                <p className="text-xs md:text-base text-gray-400">{tField(item, "st_name", lang)}</p>
               </div>
             </div>
 
@@ -193,23 +198,23 @@ export default function BasketPage() {
 
       <div className="mt-8 text-right border-t border-purple-500 pt-4">
         <p className="text-sm font-semibold mb-0">
-          Total:{" "}
+          {t("total")}:{" "}
           <span className="text-green-600 font-bold">{totalPrice} ֏</span>
         </p>
         <p className="text-sm font-semibold mb-3">
-          Sheeping:{" "}
+          {t("sheeping")}:{" "}
           <span className="text-green-600 font-bold">{selectedAddress?.price} ֏</span>
         </p>
         <div className="border-b border-purple-500"></div>
         <p className="text-lg font-semibold mb-3">
-          To Pay:{" "}
+          {t("topay")}:{" "}
           <span className="text-green-600 font-bold">{totalWithSheeping} ֏</span>
         </p>
         <button
           onClick={handleCheckout}
           className="bg-green-600 text-white px-4 py-1 md:px-6 md:py-2 text-sm md:text-base lg:text-lg rounded-full hover:bg-green-500 transition"
         >
-          Checkout
+          {t("checkout")}
         </button>
       </div>
       <Addresses onSelect={(addressData) => setSelectedAddress(addressData)} />

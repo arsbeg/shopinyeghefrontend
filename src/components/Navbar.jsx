@@ -3,12 +3,14 @@ import { useAuth } from "../context/AuthContext";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useLang } from "../context/LanguageContext";
+import { useTranslate } from "../utils/useTranslate";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const { count, fetchCartCount } = useCart();
   const { lang, changeLang } = useLang();
+  const t = useTranslate();
   fetchCartCount();
 
   const handleProfileClick = () => {
@@ -44,7 +46,7 @@ export default function Navbar() {
             className={`rounded-full
               ${lang === "hy" ? "text-red-600" : "text-gray-400"}`}
           >
-            ARM
+            ՀԱՅ
           </button>
         </div>
         {/* Кнопка корзины */}
@@ -79,7 +81,7 @@ export default function Navbar() {
             onClick={() => navigate("/login")}
             className="px-1 py-1 md:py-2 lg:py-2 rounded-full cursor-pointer"
           >
-            🔓Login
+            🔓{t("login")}
           </button>
         )}
 
@@ -96,7 +98,7 @@ export default function Navbar() {
               onClick={logout}
               className="px-1 py-1 md:py-2 lg:py-2 rounded-full cursor-pointer text-red-500"
             >
-              🔒Logout
+              🔒{t("logout")}
             </button>
           </>
         )}
