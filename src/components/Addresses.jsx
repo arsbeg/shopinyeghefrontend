@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/axios";
 import { useTranslate } from "../utils/useTranslate";
+import { useLang } from "../context/LanguageContext";
+import { tField } from "../utils/tField";
 
 export default function Addresses({ onSelect }) {
   const [addresses, setAddresses] = useState([]);
@@ -12,7 +14,8 @@ export default function Addresses({ onSelect }) {
 
   const [editId, setEditId] = useState(null);
   const [editValue, setEditValue] = useState("");
-  const t = useTranslate()
+  const t = useTranslate();
+  const { lang } = useLang();
 
   // Load all addresses
   const fetchAddresses = async () => {
@@ -160,7 +163,7 @@ export default function Addresses({ onSelect }) {
               />
             ) : (
               <span className="flex-1 text-gray-800">
-                {addr.city}, {addr.address}
+                {tField(addr, "city", lang)}, {addr.address}
               </span>
             )}
 

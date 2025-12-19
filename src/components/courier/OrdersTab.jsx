@@ -145,7 +145,7 @@ export default function OrdersTab() {
             </div>
             <div className="bg-white rounded-b-2xl px-3">
               <p className="text-sm">👤 {order.first_name}</p>
-              <p className="text-sm">🏡 {order.city}, {order.address}</p>
+              <p className="text-sm">🏡 {tField(order, "city", lang)}, {order.address}</p>
               <p className="text-sm">☎ {order.phone_number}</p>
               <p className="text-sm">🚕💵 {order.price} ֏</p>
               {orderStores[order.id]?.length > 0 ? (

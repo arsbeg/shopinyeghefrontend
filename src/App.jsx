@@ -11,6 +11,7 @@ import StorePage from "./pages/StorePage";
 import Register from "./pages/Register";
 import BasketPage from "./pages/BasketPage";
 import AppLayout from "./layouts/AppLayout";
+import Snowfall from "react-snowfall";
 
 function App() {
   return (
@@ -18,6 +19,13 @@ function App() {
       <div className="min-h-screen bg-gray-50">
         <Header />
         <main className="p-1">
+          <Snowfall 
+            // Changes the snowflake color
+            color="blue"
+            // Controls the number of snowflakes that are created (default 150)
+            snowflakeCount={200}
+            style={{position: 'fixed'}}
+          />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />

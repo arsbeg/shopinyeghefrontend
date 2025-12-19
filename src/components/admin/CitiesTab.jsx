@@ -5,6 +5,7 @@ export default function Cities() {
   const [cities, setCities] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [newCity, setNewCity] = useState("");
+  const [newCityArm, setNewCityArm] = useState("");
   const [newPrice, setNewPrice] = useState("")
   const [add, setAdd] = useState(null);
   const [cityList, setCityList] = useState([]);
@@ -12,6 +13,7 @@ export default function Cities() {
 
   const [editId, setEditId] = useState(null);
   const [editCity, setEditCity] = useState("");
+  const [editCityArm, setEditCityArm] = useState("");
   const [editPrice, setEditPrice] = useState("");
 
   const fetchCities = async () => {
@@ -39,11 +41,12 @@ export default function Cities() {
       const token = localStorage.getItem("token");
       await api.post(
         "/Addresses/add_city",
-        { city: newCity, price: newPrice },
+        { city: newCity, city_arm: newCityArm, price: newPrice },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       setNewCity("");
+      setNewCityArm("");
       setNewPrice("");
       await fetchCities();
       setAdd(null);
@@ -76,12 +79,13 @@ export default function Cities() {
       const token = localStorage.getItem("token");
       await api.put(
         `/Addresses/city/${id}`,
-        { city: editCity, price: editPrice },
+        { city: editCity, city_arm: editCityArm, price: editPrice },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       setEditId(null);
       setEditCity("");
+      setEditCityArm("");
       setEditPrice("");
       await fetchCities();
     } catch (err) {
@@ -112,11 +116,22 @@ export default function Cities() {
               <input
                 value={editCity}
                 onChange={(e) => setEditCity(e.target.value)}
-                className="flex-1 border rounded-full px-3 py-1"
+                className="flex-2 border rounded-full px-3 py-1"
               />
             ) : (
-              <span className="flex-1 text-gray-800">
+              <span className="flex-2 text-gray-800">
                 {c.city}
+              </span>
+            )}
+            {editId === c.id ? (
+              <input
+                value={editCityArm}
+                onChange={(e) => setEditCityArm(e.target.value)}
+                className="flex-2 border rounded-full px-3 py-1"
+              />
+            ) : (
+              <span className="flex-2 text-gray-800">
+                {c.city_arm}
               </span>
             )}
 
@@ -124,10 +139,10 @@ export default function Cities() {
               <input
                 value={editPrice}
                 onChange={(e) => setEditPrice(e.target.value)}
-                className="flex-1 border rounded-full px-3 py-1"
+                className="flex border rounded-full px-3 py-1"
               />
             ) : (
-              <span className="flex-1 text-gray-800">
+              <span className="flex text-gray-800">
                 {c.price}
               </span>
             )}
@@ -145,6 +160,7 @@ export default function Cities() {
                 onClick={() => {
                   setEditId(c.id);
                   setEditCity(c.city);
+                  setEditCityArm(c.city_arm);
                   setEditPrice(c.price);
                 }}
                 className="px-3 py-1 bg-white text-white rounded-lg hover:scale-150 transition"
@@ -181,7 +197,7 @@ export default function Cities() {
             onClick={() => setAdd(null)}
           >
             <div
-              className="bg-white rounded-2xl shadow-xl p-6 max-w-md w-full"
+              className="bg-white flex rounded-2xl shadow-xl p-6 max-w-md w-full"
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-2xl font-bold mb-2 text-center mb-7">
@@ -193,6 +209,14 @@ export default function Cities() {
                 placeholder="Add new City..."
                 value={newCity}
                 onChange={(e) => setNewCity(e.target.value)}
+                className="w-full text-sm md:text-xl border rounded-full p-1 md:p-2 mb-2"
+              />
+
+              <input
+                type="text"
+                placeholder="Քաղաքի անունը"
+                value={newCityArm}
+                onChange={(e) => setNewCityArm(e.target.value)}
                 className="w-full text-sm md:text-xl border rounded-full p-1 md:p-2 mb-2"
               />
 
