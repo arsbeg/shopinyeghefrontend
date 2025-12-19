@@ -146,7 +146,7 @@ export default function StorePage() {
   };
 
   const filteredForSearch = products.filter((u) =>
-    u.pr_name.toLowerCase().includes(search.toLowerCase())
+    tField(u, "pr_name", lang).toLowerCase().includes(search.toLowerCase())
   );
 
   // Click on category
