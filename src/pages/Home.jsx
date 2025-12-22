@@ -40,7 +40,7 @@ export default function Home() {
                     className="w-full h-full object-cover hover:scale-105 transition-transform"
                 />
                 {store.is_closed && (
-                  <span className="absolute top-5 left-5 bg-red-600 -rotate-45 text-white text-xs font-semibold px-2 py-1 rounded-lg shadow">
+                  <span className="absolute top-5 left-5 md:top-10 md:left-10 bg-red-600 -rotate-45 text-white text-xs md:text-xl font-semibold px-2 py-1 rounded-lg shadow">
                   {t("closed")}
                   </span>
                 )}

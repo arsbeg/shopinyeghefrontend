@@ -62,7 +62,9 @@ export const translations = {
     courierDashboard: "Courier Dashboard",
     managerDashboard: "Manager Dashboard",
     oostock: "Out of Stock",
-    closed: "Closed"
+    closed: "Closed",
+    close: "Close",
+    open: "Open"
   },
   hy: {
     slogan: "Բոլոր գնումները մեկ վայրում",
@@ -127,6 +129,8 @@ export const translations = {
     courierDashboard: "Առաքողի էջ",
     managerDashboard: "Մենեջերի էջ",
     oostock: "Վերջացավ",
-    closed: "Փակ է"
+    closed: "Փակ է",
+    close: "Փակել",
+    open: "Բացել"
   },
 };

@@ -112,6 +112,19 @@ export default function ProductsTab() {
     setIsEditProductOpen(true);
   };
 
+  const openClose = async (storeId) => {
+    try {
+      await api.put(`/Store/close/${storeId}`, {}, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      // Update store open-close status
+      fetchStores();
+    } catch (err) {
+      console.error("Error open or close store:", err);
+      alert("Failed to open ir close store");
+    }
+  };
+
   return (
     <div>
       <h2 className="text-sm md:text-base lg:text-xl font-semibold mb-4">{t("products")}</h2>
@@ -128,6 +141,15 @@ export default function ProductsTab() {
             }}
           >
             <h3 className="font-bold">{tField(store, "st_name", lang)}</h3>
+            <button
+              onClick={(e) => {e.stopPropagation(); openClose(store.id)}}
+              className={store.is_closed 
+                ? "bg-green-600 px-5 py-0 rounded-full cursor-pointer font-bold text-white"
+                : "bg-red-600 px-5 py-0 rounded-full cursor-pointer font-bold text-white"
+              }
+            >
+              {store.is_closed ? t("open") : t("close")}
+            </button>
             <span className="text-gray-500">
               {expandedStore === store.id ? "▲" : "▼"}
             </span>
