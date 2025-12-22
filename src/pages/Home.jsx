@@ -13,6 +13,7 @@ export default function Home() {
   const navigate = useNavigate();
   const { lang } = useLang();
   const t = useTranslate();
+  const isClosed = true
 
   useEffect(() => {
     api
@@ -30,23 +31,34 @@ export default function Home() {
           <div
             key={store.id}
             className="bg-white rounded-2xl shadow hover:shadow-lg transition overflow-hidden"
-            onClick={() => navigate(`/store/${store.id}`)}
+            onClick={() => !store.is_closed && navigate(`/store/${store.id}`)}
           >
-            <div className="aspect-[1/1] overflow-hidden">
+            <div className="relative aspect-[1/1] overflow-hidden">
                 <img 
                     src = {new URL(store.st_image,API_BASE_URL).href}
                     alt={store.st_name}
                     className="w-full h-full object-cover hover:scale-105 transition-transform"
                 />
+                {store.is_closed && (
+                  <span className="absolute top-5 left-5 bg-red-600 -rotate-45 text-white text-xs font-semibold px-2 py-1 rounded-lg shadow">
+                  {t("closed")}
+                  </span>
+                )}
             </div>
-            <div className="p-4 flex flex-col justify-between">
+            <div className="p-4 flex justify-between">
                 <h3 className="text-xl font-semibold text-gray-800 mb-2">{tField(store, "st_name", lang)}</h3>
-                <button className="mt-3 px-4 py-1 bg-gradient-to-b from-sky-300 via-white to-sky-300 text-blue-900 rounded-full hover:bg-blue-600"
+                <span
+                  className="cursor-pointer mt-1"
+                  onClick={(e) => {e.stopPropagation();
+                    setSelectedStore(store);
+                    }}
+                >☰</span>
+                {/*<button className="mt-3 px-4 py-1 bg-gradient-to-b from-sky-300 via-white to-sky-300 text-blue-900 rounded-full hover:bg-blue-600"
                     onClick={(e) => {e.stopPropagation();
                     setSelectedStore(store);
                     }}>
                     {t("details")}
-                </button>
+                </button>*/}
             </div>
           </div>
         ))}

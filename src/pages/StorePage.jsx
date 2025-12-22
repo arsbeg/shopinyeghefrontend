@@ -45,6 +45,8 @@ function ProductCard({ product }) {
     return diffDays;
   };
 
+  const outOfStock = quantity > product.quantity
+
   return (
     <div className="bg-gradient-to-b from-sky-50 to-sky-200 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 p-4 flex flex-col items-center text-center relative group max-w-80">
       {/* Photo */}
@@ -90,9 +92,16 @@ function ProductCard({ product }) {
       {/* Button */}
       <button
         onClick={addToBasket}
-        className="mt-4 bg-blue-600 text-white py-2 px-3 rounded-full font-semibold hover:bg-blue-700 text-[10px] md:text-sm lg:text-base active:scale-95 transition-transform duration-150"
+        disabled={outOfStock}
+        className={`
+          mt-4 py-2 px-3 rounded-full font-semibold text-[10px] md:text-sm lg:text-base active:scale-95 transition-transform duration-150
+          ${outOfStock
+            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+            : "bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
+          }
+          `}
       >
-        🛒 {t("addToCart")}
+        🛒 {outOfStock ? t("oostock") : t("addToCart")}
       </button>
     </div>
   );

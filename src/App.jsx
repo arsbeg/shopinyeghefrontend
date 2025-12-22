@@ -21,7 +21,7 @@ function App() {
         <main className="p-1">
           <Snowfall 
             // Changes the snowflake color
-            color="blue"
+            color="LightSkyBlue"
             // Controls the number of snowflakes that are created (default 150)
             snowflakeCount={200}
             style={{position: 'fixed'}}

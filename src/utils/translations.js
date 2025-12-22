@@ -60,7 +60,9 @@ export const translations = {
     male: "Male",
     female: "Female",
     courierDashboard: "Courier Dashboard",
-    managerDashboard: "Manager Dashboard"
+    managerDashboard: "Manager Dashboard",
+    oostock: "Out of Stock",
+    closed: "Closed"
   },
   hy: {
     slogan: "Բոլոր գնումները մեկ վայրում",
@@ -123,6 +125,8 @@ export const translations = {
     male: "Արական",
     female: "Իգական",
     courierDashboard: "Առաքողի էջ",
-    managerDashboard: "Մենեջերի էջ"
+    managerDashboard: "Մենեջերի էջ",
+    oostock: "Վերջացավ",
+    closed: "Փակ է"
   },
 };

@@ -15,6 +15,7 @@ export default function OrderedPrCard({ product }) {
   const { fetchCartCount } = useCart();
   const t = useTranslate();
   const { lang } = useLang();
+  const outOfStock = quantity > product.quantity
 
   const addToBasket = async () => {
     if (!token) {
@@ -37,7 +38,7 @@ export default function OrderedPrCard({ product }) {
   };
 
   return (
-    <div className="mb-1 snap-center min-w-25 bg-gradient-to-b from-sky-50 to-sky-200 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 p-2 flex flex-col items-center text-center relative group max-w-80">
+    <div className="mb-1 snap-center min-w-30 bg-gradient-to-b from-sky-50 to-sky-200 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 p-2 flex flex-col items-center text-center relative group max-w-80">
       {/* Photo */}
       <div className="relative max-w-40 max-h-40 mb-2">
         <img
@@ -61,9 +62,16 @@ export default function OrderedPrCard({ product }) {
       {/* Button */}
       <button
         onClick={addToBasket}
-        className="mt-1 bg-blue-600 text-white py-1 px-2 rounded-xl font-semibold hover:bg-blue-700 text-[10px] md:text-sm lg:text-base active:scale-95 transition-transform duration-150"
+        disabled={outOfStock}
+        className={`
+          mt-4 py-1 px-3 rounded-full font-semibold text-[9px] md:text-sm lg:text-base active:scale-95 transition-transform duration-150
+          ${outOfStock
+            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+            : "bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
+          }
+          `}
       >
-        🛒 {t("addToCart")}
+        🛒 {outOfStock ? t("oostock") : t("addToCart")}
       </button>
     </div>
   );
