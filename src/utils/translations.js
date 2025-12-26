@@ -64,7 +64,8 @@ export const translations = {
     oostock: "Out of Stock",
     closed: "Closed",
     close: "Close",
-    open: "Open"
+    open: "Open",
+    wrongUsername: "Wrong username or password"
   },
   hy: {
     slogan: "Բոլոր գնումները մեկ վայրում",
@@ -131,6 +132,7 @@ export const translations = {
     oostock: "Վերջացավ",
     closed: "Փակ է",
     close: "Փակել",
-    open: "Բացել"
+    open: "Բացել",
+    wrongUsername: "Սխալ մուտքանուն կամ գաղտնաբառ"
   },
 };

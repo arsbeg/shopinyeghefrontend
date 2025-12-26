@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Eye, EyeOff } from "lucide-react";
 import { useTranslate } from "../utils/useTranslate";
+import { requestNotificationPermission } from "../utils/notifications";
 
 export default function Login() {
   const {login} = useAuth();  
@@ -13,6 +14,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false)
   const t = useTranslate();
+  
   
 
   const handleLogin = async (e) => {
@@ -25,12 +27,21 @@ export default function Login() {
         localStorage.setItem("user", JSON.stringify(responce.data.user));*/
         login(responce.data.user, responce.data.access_token);
         navigate("/");
+        const fcm_token = await requestNotificationPermission();
+
+        if (fcm_token) {
+          await api.put(
+            "/Users/save_fcm_token",
+            { fcm_token: fcm_token },
+            { headers: { Authorization: `Bearer ${responce.data.access_token}` } }
+          );
+        }
       } else {
         console.log("wrong username and passwod");
-        alert("Wrong username and password")
+        alert(t("wrongUsername"))
       }
     } catch (err) {
-      setError("Wrong username or password");
+      setError(t("wrongUsername"));
     }
   };
 
