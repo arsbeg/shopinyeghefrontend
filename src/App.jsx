@@ -10,6 +10,7 @@ import ProtectedRoute from "./components/ProtectedRoute"
 import StorePage from "./pages/StorePage";
 import Register from "./pages/Register";
 import BasketPage from "./pages/BasketPage";
+import NotificationsPage from "./pages/Notifications";
 import AppLayout from "./layouts/AppLayout";
 import Snowfall from "react-snowfall";
 
@@ -36,6 +37,7 @@ function App() {
             <Route path="/profile" element={<ProtectedRoute role="user"><Profile /></ProtectedRoute>} />
             <Route path="/store/:id" element={<StorePage />} />
             <Route path="/basket" element={<ProtectedRoute><BasketPage /></ProtectedRoute>} />
+            <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
           </Routes>
         </main>
       </div>

@@ -1,7 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { ShoppingCart } from "lucide-react";
+import { Bell } from "lucide-react"; 
 import { useCart } from "../context/CartContext";
+import { useNot } from "../context/NotContext";
 import { useLang } from "../context/LanguageContext";
 import { useTranslate } from "../utils/useTranslate";
 
@@ -9,9 +11,11 @@ export default function Navbar() {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const { count, fetchCartCount } = useCart();
+  const { ncount, fetchNotCount } = useNot();
   const { lang, changeLang } = useLang();
   const t = useTranslate();
   fetchCartCount();
+  fetchNotCount();
 
   const handleProfileClick = () => {
     if (user.role === "admin") navigate("/admin");
@@ -27,7 +31,7 @@ export default function Navbar() {
           to="/"
           className="font-bold text-gray-900 text-[9px] md:text-sm lg:text-lg text-shadow-lg/20"
         >
-          🏪 SHOPINYEGHEGNADZOR
+          🏪 SHOPINYEGHE
         </Link>
       </div>
 
@@ -67,12 +71,30 @@ export default function Navbar() {
               </span>
             )}
           </div>
+          
           /*<button
             onClick={() => navigate("/basket")}
             className="px-1 py-1 md:py-2 lg:py-2 rounded-full cursor-pointer"
           >
             🛒 Cart
           </button>*/
+        )}
+        {user && (
+          <div onClick={() => navigate("/notifications")} className="relative px-3">
+            <Bell className="w-4 h-4 md:w-6 md:h-6 lg:w-8 lg:h-8 cursor-pointer" />
+            {ncount > 0 && (
+              <span
+                className="
+                absolute -top-2 right-1
+                bg-red-600 text-white text-[9px] md:text-sm
+                w-3.5 h-3.5 md:h-6 md:w-6 flex items-center justify-center
+                rounded-full
+              "
+              >
+                {ncount}
+              </span>
+            )}
+          </div>
         )}
 
         {/* Если нет авторизации */}

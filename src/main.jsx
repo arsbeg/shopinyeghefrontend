@@ -5,6 +5,7 @@ import App from "./App.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { HashRouter } from "react-router-dom";
 import { CartProvider } from "./context/CartContext.jsx";
+import { NotProvider } from "./context/NotContext.jsx";
 import { LanguageProvider } from "./context/LanguageContext.jsx";
 
 ReactDom.createRoot(document.getElementById("root")).render(
@@ -13,7 +14,9 @@ ReactDom.createRoot(document.getElementById("root")).render(
       <HashRouter>
         <CartProvider>
           <LanguageProvider>
-            <App />
+            <NotProvider>
+              <App />
+            </NotProvider>
           </LanguageProvider>
         </CartProvider>
       </HashRouter>
