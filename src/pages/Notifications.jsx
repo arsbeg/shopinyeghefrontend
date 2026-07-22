@@ -2,11 +2,16 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/axios";
 import { useNot } from "../context/NotContext";
+import { useLang } from "../context/LanguageContext";
+import { tField } from "../utils/tField";
+import { useTranslate } from "../utils/useTranslate";
 
 export default function NotificationsPage() {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const { fetchNotCount } = useNot();
+  const { lang } = useLang();
+  const t = useTranslate();
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -85,7 +90,7 @@ export default function NotificationsPage() {
                   item.is_read ? "" : "text-blue-700"
                 }`}
               >
-                {item.notification}
+                {tField(item, "notification", lang)}
               </p>
             </div>
 
