@@ -64,7 +64,9 @@ export default function OrdersTab() {
                   acc[item.order_id].push(item);
                   return acc;
                 }, {})
-              ).map((items) => {
+              )
+              .sort((a, b) => b[0].order_id - a[0].order_id)
+              .map((items) => {
                 const orderId = items[0].order_id;
                 const storeTotal = getStoreOrderTotal(items);
 
