@@ -65,7 +65,8 @@ export const translations = {
     closed: "Closed",
     close: "Close",
     open: "Open",
-    wrongUsername: "Wrong username or password"
+    wrongUsername: "Wrong username or password",
+    gotoshop: "Go To Shop"
   },
   hy: {
     slogan: "Բոլոր գնումները մեկ վայրում",
@@ -133,6 +134,7 @@ export const translations = {
     closed: "Փակ է",
     close: "Փակել",
     open: "Բացել",
-    wrongUsername: "Սխալ մուտքանուն կամ գաղտնաբառ"
+    wrongUsername: "Սխալ մուտքանուն կամ գաղտնաբառ",
+    gotoshop: "Վերադառնալ խանութ"
   },
 };

@@ -138,7 +138,7 @@ export default function BasketPage() {
           onClick={() => navigate("/")}
           className="mt-4 bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-500"
         >
-          Go to shop
+          🛒 {t("gotoshop")}
         </button>
         <Addresses onSelect={(addressData) => setSelectedAddress(addressData)} />
         <UserOrders refreshTrigger={refreshOrders} />
