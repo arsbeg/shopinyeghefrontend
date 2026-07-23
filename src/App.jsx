@@ -20,13 +20,13 @@ function App() {
       <div className="min-h-screen bg-gray-50">
         <Header />
         <main className="p-1">
-          <Snowfall 
+          {/*<Snowfall 
             // Changes the snowflake color
             color="LightSkyBlue"
             // Controls the number of snowflakes that are created (default 150)
             snowflakeCount={200}
             style={{position: 'fixed'}}
-          />
+          />*/}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
