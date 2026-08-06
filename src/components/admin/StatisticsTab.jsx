@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../../api/axios";
 import { API_BASE_URL } from "../../config";
 import { useAuth } from "../../context/AuthContext";
+import StoreRevenueChart from "./charts/StoreRevenueChart";
 
 export default function StatisticsTab() {
   const [stores, setStores] = useState([]);
@@ -42,7 +43,7 @@ export default function StatisticsTab() {
         </thead>
         <tbody>
           {stores.map((s) => (
-            <tr key={s.id} className="text-center odd:bg-white even:bg-blue-50 border-b border-gray-200">
+            <tr key={s.store_id} className="text-center odd:bg-white even:bg-blue-50 border-b border-gray-200">
               <td className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">{s.store_id}</td>
               <td className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">{s.st_name}</td>
               <td className="px-1 py-1 md:px-3 md:py-2 lg:px-6 lg:py-3">
@@ -57,6 +58,7 @@ export default function StatisticsTab() {
           ))}
         </tbody>
       </table>
+      <StoreRevenueChart data={stores} />
     </div>
   );
 }
