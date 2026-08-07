@@ -59,6 +59,7 @@ export default function StatisticsTab() {
         </tbody>
       </table>
       <StoreRevenueChart data={stores} />
+      <h2 className="text-sm md:text-base lg:text-xl font-semibold mb-4">Test for chart</h2>
     </div>
   );
 }
