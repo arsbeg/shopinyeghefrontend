@@ -47,7 +47,7 @@ export default function StoresTab() {
     s.st_name.toLowerCase().includes(search.toLowerCase())
   );
 
-  // 🔹 функция удаления
+  // Delete function
   const handleDelete = async (storeId) => {
     if (!window.confirm("Are you sure you want to delete this store?")) return;
 
