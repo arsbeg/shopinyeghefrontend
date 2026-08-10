@@ -22,7 +22,7 @@ export default function StatNavBar({ activeTab, onTabChange }) {
               activeTab === "tab1" ? "bg-sky-700" : "hover:bg-sky-500 cursor-pointer"
             }`}
           >
-            Tab1
+            Advanced Statistics
           </button>
           {/*<button
             onClick={() => onTabChange("tab2")}
