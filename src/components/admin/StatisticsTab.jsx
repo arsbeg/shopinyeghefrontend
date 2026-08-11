@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import StatNavBar from "./StatisticsTabs/StatNavBar";
 import ByTotalIncome from "./StatisticsTabs/ByTotalIncome";
-import Tab1 from "./StatisticsTabs/Tab1";
+import AdvancedStatistics from "./StatisticsTabs/AdvancedStatistics";
 //import api from "../../api/axios";
 //import { API_BASE_URL } from "../../config";
 //import { useAuth } from "../../context/AuthContext";
@@ -12,12 +12,12 @@ export default function StatisticsTab() {
   
     return (
       <div className="min-h-screen bg-gray-100">
-        <div><h1 className="font-bold">Different Statistical Data for admin</h1></div>
+        <div><h1 className="font-bold">Statistical Data for admin</h1></div>
         <StatNavBar activeTab={activeTab} onTabChange={setActiveTab} />
   
         <main className="p-2 ">
           {activeTab === "bytotalincome" && <ByTotalIncome />}
-          {activeTab === "tab1" && <Tab1 />}
+          {activeTab === "advancedstatistics" && <AdvancedStatistics />}
           {/*{activeTab === "tab2" && <Tab2 />}
           {activeTab === "tab3" && <Tab3 />}
           {activeTab === "tab4" && <Tab4 />}

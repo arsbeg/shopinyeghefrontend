@@ -17,9 +17,9 @@ export default function StatNavBar({ activeTab, onTabChange }) {
             By Total Income
           </button>
           <button
-            onClick={() => onTabChange("tab1")}
+            onClick={() => onTabChange("advancedstatistics")}
             className={`px-3 py-1 rounded-b-xl ${
-              activeTab === "tab1" ? "bg-sky-700" : "hover:bg-sky-500 cursor-pointer"
+              activeTab === "advancedstatistics" ? "bg-sky-700" : "hover:bg-sky-500 cursor-pointer"
             }`}
           >
             Advanced Statistics

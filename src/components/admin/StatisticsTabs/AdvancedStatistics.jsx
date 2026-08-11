@@ -1,9 +1,3 @@
-{/*export default function Tab1() {
-    return(
-        <h1>Tab1: Under construction</h1>
-    )
-}*/}
-
 import React, { useEffect, useState } from "react";
 import api from "../../../api/axios";
 import { useAuth } from "../../../context/AuthContext";
@@ -18,7 +12,7 @@ import {
     Tooltip,
 } from "recharts";
 
-export default function Tab1() {
+export default function AdvancedStatistics() {
     const { token } = useAuth();
 
     // FILTERS
