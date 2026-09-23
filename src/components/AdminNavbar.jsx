@@ -10,7 +10,7 @@ export default function AdminNavbar({ activeTab, onTabChange }) {
         <nav className="flex gap-0 md:gap-3 lg:gap-4">
           <button
             onClick={() => onTabChange("users")}
-            className={`px-3 py-1 rounded-b-xl ${
+            className={`px-2 py-1 rounded-b-xl ${
               activeTab === "users" ? "bg-sky-700" : "hover:bg-sky-500 cursor-pointer"
             }`}
           >
@@ -18,7 +18,7 @@ export default function AdminNavbar({ activeTab, onTabChange }) {
           </button>
           <button
             onClick={() => onTabChange("stores")}
-            className={`px-3 py-1 rounded-b-xl ${
+            className={`px-2 py-1 rounded-b-xl ${
               activeTab === "stores" ? "bg-sky-700" : "hover:bg-sky-500 cursor-pointer"
             }`}
           >
@@ -26,7 +26,7 @@ export default function AdminNavbar({ activeTab, onTabChange }) {
           </button>
           <button
             onClick={() => onTabChange("carousel")}
-            className={`px-3 py-1 rounded-b-xl ${
+            className={`px-2 py-1 rounded-b-xl ${
               activeTab === "carousel" ? "bg-sky-700" : "hover:bg-sky-500 cursor-pointer"
             }`}
           >
@@ -34,7 +34,7 @@ export default function AdminNavbar({ activeTab, onTabChange }) {
           </button>
           <button
             onClick={() => onTabChange("city")}
-            className={`px-3 py-1 rounded-b-xl ${
+            className={`px-2 py-1 rounded-b-xl ${
               activeTab === "city" ? "bg-sky-700" : "hover:bg-sky-500 cursor-pointer"
             }`}
           >
@@ -42,7 +42,7 @@ export default function AdminNavbar({ activeTab, onTabChange }) {
           </button>
           <button
             onClick={() => onTabChange("statistics")}
-            className={`px-3 py-1 rounded-b-xl ${
+            className={`px-2 py-1 rounded-b-xl ${
               activeTab === "statistics" ? "bg-sky-700" : "hover:bg-sky-500 cursor-pointer"
             }`}
           >
@@ -50,7 +50,7 @@ export default function AdminNavbar({ activeTab, onTabChange }) {
           </button>
           <button
             onClick={() => onTabChange("couriers")}
-            className={`px-3 py-1 rounded-b-xl ${
+            className={`px-2 py-1 rounded-b-xl ${
               activeTab === "couriers" ? "bg-sky-700" : "hover:bg-sky-500 cursor-pointer"
             }`}
           >
@@ -58,7 +58,7 @@ export default function AdminNavbar({ activeTab, onTabChange }) {
           </button>
           <button
             onClick={() => onTabChange("profile")}
-            className={`px-3 py-1 rounded-b-xl ${
+            className={`px-2 py-1 rounded-b-xl ${
               activeTab === "profile" ? "bg-sky-700" : "hover:bg-sky-500 cursor-pointer"
             }`}
           >
@@ -66,7 +66,7 @@ export default function AdminNavbar({ activeTab, onTabChange }) {
           </button>
           <button
             onClick={() => onTabChange("notification")}
-            className={`px-3 py-1 rounded-b-xl ${
+            className={`px-2 py-1 rounded-b-xl ${
               activeTab === "notification" ? "bg-sky-700" : "hover:bg-sky-500 cursor-pointer"
             }`}
           >
