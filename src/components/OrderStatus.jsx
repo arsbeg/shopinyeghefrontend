@@ -17,7 +17,7 @@ const steps = [
   { key: "packaging", label: "Packaging", label_arm: "Հավաքում", icon: Package },
   { key: "ready", label: "Ready", label_arm: "Պատրաստ", icon: CircleCheckBig },
   { key: "assigned", label: "Assigned", label_arm: "Նշանակված", icon: UserCheck },
-  { key: "on_the_way", label: "OnWay", label_arm: "Ճանապարհին", icon: Truck },
+  { key: "on the way", label: "OnWay", label_arm: "Ճանապարհին", icon: Truck },
   { key: "complete", label: "Completed", label_arm: "Ավարտված", icon: CheckCircle },
 ];
 
