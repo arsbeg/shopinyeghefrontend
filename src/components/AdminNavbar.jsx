@@ -64,6 +64,14 @@ export default function AdminNavbar({ activeTab, onTabChange }) {
           >
             Profile
           </button>
+          <button
+            onClick={() => onTabChange("notification")}
+            className={`px-3 py-1 rounded-b-xl ${
+              activeTab === "notification" ? "bg-sky-700" : "hover:bg-sky-500 cursor-pointer"
+            }`}
+          >
+            Message
+          </button>
         </nav>
       </div>
 
